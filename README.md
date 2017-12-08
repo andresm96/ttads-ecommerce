@@ -1,8 +1,6 @@
 # ttads-ecommerce
-TP Aprobacion directa para TTADS UTN  FRRo Express-Angular4
-
-Funcionalidades:
--
+TP Final para TTADS UTN  FRRo Express-Angular4
+Construccion de un sitio de e-commerce.
 
 Integrantes:
 - Martin Bianchi - Legajo:41941
