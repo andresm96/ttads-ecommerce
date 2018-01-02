@@ -1,17 +1,17 @@
 {
-    "name": "ecommerce",
-    "version": "1.0.0",
-    "description": "E-Commerce",
-    "main": "app.js",
-    "scripts": {},
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-      "body-parser": "^1.18.2",
-      "cors": "^2.8.4",
-      "express": "^4.16.1",
-      "method-override": "^2.3.10",
-      "mongoose": "^4.13.0"
-    }
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "E-Commerce",
+  "main": "app.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.1",
+    "method-override": "^2.3.10",
+    "mongoose": "^4.13.0",
+    "mongoose-float": "^1.0.2"
   }
-  
+}
