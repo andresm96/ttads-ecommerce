@@ -28,6 +28,6 @@ router.post('/new', (req, res, err) => {
         }
      });
     
-})
+});
 
 module.exports=router;
