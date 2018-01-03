@@ -1,4 +1,13 @@
 .header{
     background: #ffffff;
     border-bottom: 1px solid #EEEEEE;
+    padding: 2em 0 2em 0;
+}
+
+.shadow{
+    box-shadow: 0 4px 2px -2px #00000041;
+}
+
+.logo{
+    width: 70px;
 }
