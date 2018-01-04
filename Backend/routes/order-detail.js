@@ -12,7 +12,7 @@ router.post('/new', (req, res, err) => {
     let order = req.body.order;
 
     var orderDetail = new OrderDetail({   
-        name: name,
+        number: number,
         subtotal: subtotal,
         quantity: quantity,
         product: product,

@@ -9,13 +9,13 @@ router.post('/new', (req, res, err) => {
     let idCustomer = req.body.idCustomer;
     let order = req.body.order;
 
-    var order = new Order({   
+    var neworder = new Order({   
         total: total,
         idCustomer: idCustomer,
         order: order
     });
 
-    order.save(function(err, doc){
+    neworder.save(function(err, doc){
         if(err){
            res.send('Error al intentar guardar el pedido.');
         }
