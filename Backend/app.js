@@ -13,12 +13,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
 
-//mongoose.connect('mongodb://localhost/tp-backend',{useMongoClient: true });
-//require('./models/event.js');
-//require('./models/match.js');
-//require('./models/team.js');
+mongoose.connect('mongodb://localhost/tp-final',{useMongoClient: true });
+require('./models/category.js');
+require('./models/customer.js');
+require('./models/order-detail.js');
+require('./models/order.js');
+require('./models/price.js');
+require('./models/product.js');
+require('./models/provider.js');
+require('./models/subcategory.js');
 
-//app.use(require('./routes/index'));
+app.use(require('./routes/index.js'));
 
 var router=express.Router();
 app.use(router);
