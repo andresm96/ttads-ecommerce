@@ -7,6 +7,9 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProductosDestacadosComponent } from './productos-destacados/productos-destacados.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { ProductComponent } from './product/product.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductService } from './product.service';
 
 
 @NgModule({
@@ -14,13 +17,15 @@ import { AppRoutingModule } from './/app-routing.module';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductosDestacadosComponent
+    ProductosDestacadosComponent,
+    ProductComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ ProductService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
