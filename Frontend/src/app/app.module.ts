@@ -10,6 +10,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ProductComponent } from './product/product.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductService } from './product.service';
+import { ProductSearchComponent } from './product-search/product-search.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ProductService } from './product.service';
     FooterComponent,
     ProductosDestacadosComponent,
     ProductComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductSearchComponent
   ],
   imports: [
     BrowserModule,
