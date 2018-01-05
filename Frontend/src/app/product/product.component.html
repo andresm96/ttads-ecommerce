@@ -1,11 +1,21 @@
-<h2>Productos</h2>
-<ul class="">
-    <li *ngFor="let product of products">
-      <a  routerLink="/product/detail/{{product.id}}">
-        <span class="badge">{{product.id}}</span> {{product.name}}
+<div class="row">
+<div class="col-lg-3" *ngFor="let product of products">
+
+    <div class="card my-4">
+      <a routerLink="/product/detail/{{product.id}}">
+        <img class="card-img-top image-responsive" src="./assets/descarga.svg" alt="Card image cap">
       </a>
-  </li>
-</ul>
+      <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">ID: {{product.id}}</small>
+      </div>
+    </div>
+
+</div>
+</div>
 
 
 
