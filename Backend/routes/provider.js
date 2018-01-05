@@ -4,6 +4,17 @@ var Provider = mongoose.model('Provider');
 
 var ObjectId = mongoose.Types.ObjectId;
 
+
+//Get all
+router.get('/', (req, res, next) => {
+    Provider.find({}).populate('products').then(provider => {
+        if(!provider) {return res.sendStatus(401);}
+        return res.json(provider)
+    })
+    .catch(next);
+})
+
+//Create
 router.post('/new', (req, res, err) => {
     let cuit = req.body.cuit;
     let company = req.body.company;

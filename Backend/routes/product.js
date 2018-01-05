@@ -4,6 +4,20 @@ var Product = mongoose.model('Product');
 
 var ObjectId = mongoose.Types.ObjectId;
 
+
+//Get all con solo el precio vigente
+//No está funcionando
+router.get('/', (req, res, next) => {
+    Product.find({})
+    .populate({path: 'price', options: { $sort: {'fecha': -1}, limit: 1}})
+    .then(product => {
+        if(!product) {return res.sendStatus(401);}
+        return res.json(product)
+    })
+    .catch(next);
+})
+
+//Create
 router.post('/new', (req, res, err) => {
     let name = req.body.name;
     let description = req.body.description;
