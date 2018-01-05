@@ -4,6 +4,16 @@ var Customer = mongoose.model('Customer');
 
 var ObjectId = mongoose.Types.ObjectId;
 
+//Get all
+router.get('/', (req, res, next) => {
+    Customer.find({}).populate('order').then(customer => {
+        if(!customer) {return res.sendStatus(401);}
+        return res.json(customer)
+    })
+    .catch(next);
+})
+
+//Create
 router.post('/new', (req, res, err) => {
     let name = req.body.name;
     let surname = req.body.surname;

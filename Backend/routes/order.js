@@ -4,6 +4,16 @@ var Order = mongoose.model('Order');
 
 var ObjectId = mongoose.Types.ObjectId;
 
+//Get all
+router.get('/', (req, res, next) => {
+    Order.find({}).populate('idCustomer').populate('order').then(order => {
+        if(!order) {return res.sendStatus(401);}
+        return res.json(order)
+    })
+    .catch(next);
+})
+
+//Create
 router.post('/new', (req, res, err) => {
     let total = req.body.total;
     let idCustomer = req.body.idCustomer;
