@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+;
 
 @Component({
   selector: 'app-productos-destacados',
@@ -13,4 +14,5 @@ export class ProductosDestacadosComponent implements OnInit {
   ngOnInit() {
   }
 
+  
 }
