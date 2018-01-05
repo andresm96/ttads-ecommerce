@@ -1,12 +1,15 @@
 var express        = require('express');
-var mongoose    = require('mongoose');
+var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var cors           = require('cors');
 var methodOverride = require('method-override');
+var fs             = require('fs');
+var multer         = require('multer');
 
 var app = express();
 app.use(cors());
 
+app.use(multer({dest:__dirname+'/uploads/'}).any());
 const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +27,7 @@ require('./models/provider.js');
 require('./models/subcategory.js');
 
 app.use(require('./routes/index.js'));
+
 
 var router=express.Router();
 app.use(router);

@@ -8,5 +8,6 @@ router.use('/api/price', require('./price'));
 router.use('/api/product', require('./product'));
 router.use('/api/provider', require('./provider'));
 router.use('/api/subcategory', require('./subcategory'));
+router.use('/api/image', require('./images'));
 
 module.exports=router;
