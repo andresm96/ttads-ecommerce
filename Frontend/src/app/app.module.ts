@@ -14,6 +14,7 @@ import { ProductSearchComponent } from './product-search/product-search.componen
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { InMemoryDataService }  from './in-memory-data.service';
     ProductosDestacadosComponent,
     ProductComponent,
     ProductDetailComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
