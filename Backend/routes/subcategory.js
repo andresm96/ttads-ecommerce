@@ -43,4 +43,23 @@ router.post('/new', (req, res, err) => {
        }));
 });
 
+
+router.delete('/:id', (req, res, next) =>{
+    let id = req.params.id;
+
+    SubCategory.findByIdAndRemove(id, (err, subcategory)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            let response = {
+                message: "Subcategoria eliminada correctamente",
+                id: subcategory._id
+            };
+            res.status(200).send(response);
+        }
+    });
+});
+
+
 module.exports=router;

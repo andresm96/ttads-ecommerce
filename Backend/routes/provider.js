@@ -41,4 +41,21 @@ router.post('/new', (req, res, err) => {
     
 });
 
+router.delete('/:id', (req, res, next) =>{
+    let id = req.params.id;
+
+    Provider.findByIdAndRemove(id, (err, provider)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            let response = {
+                message: "Proveedor eliminado correctamente",
+                id: provider._id
+            };
+            res.status(200).send(response);
+        }
+    });
+});
+
 module.exports=router;

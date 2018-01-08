@@ -93,6 +93,24 @@ router.get('/:idProdProv/image', function(request, response){
     imageStream.pipe(response);
 });
 
+//Delete prod-prov
+router.delete('/:id', (req, res, next) =>{
+    let id = req.params.id;
+
+    ProdProv.findByIdAndRemove(id, (err, prodprov)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            let response = {
+                message: "El producto del proveedor fue eliminado correctamente",
+                id: prodprov._id
+            };
+            res.status(200).send(response);
+        }
+    });
+});
+
 
 
 module.exports=router;

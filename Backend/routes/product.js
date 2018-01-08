@@ -43,4 +43,22 @@ router.post('/new', (req, res, err) => {
     
 });
 
+
+router.delete('/:id', (req, res, next) =>{
+    let id = req.params.id;
+
+    Product.findByIdAndRemove(id, (err, product)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            let response = {
+                message: "Producto eliminado correctamente",
+                id: product._id
+            };
+            res.status(200).send(response);
+        }
+    });
+});
+
 module.exports=router;
