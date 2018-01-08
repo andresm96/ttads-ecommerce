@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var fs          = require('fs');
 var mongoose    = require('mongoose');
 var router      = require('express').Router();
@@ -58,3 +59,5 @@ router.get('/:idImage', function (req, res) {
 });
 
 module.exports = router;    
+=======
+>>>>>>> 88c43d83a46f4fbc9fe5dbbdd40f766399a51c6a

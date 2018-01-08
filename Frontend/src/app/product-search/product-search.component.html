@@ -1,0 +1,16 @@
+
+<div class="dropdown">
+   
+    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" type="text" class="form-control shadow" placeholder="Buscar productos" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    
+    <div *ngIf="hide">
+    <div class="list-group fixed">
+        <li *ngFor="let product of products$ | async" class="list-group-item list-group-item-action" >
+          <a routerLink="/product/detail/{{product.id}}" (click)="hideBar()" onclick="document.getElementById('search-box').value = ''">
+            {{product.name}}
+          </a>
+        </li>
+      </div>
+    </div>
+    
+</div>
