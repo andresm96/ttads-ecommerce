@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CategoryService } from './category.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     InMemoryDataService, { dataEncapsulation: false }
 )
   ],
-  providers: [ ProductService ],
+  providers: [ ProductService, CategoryService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
