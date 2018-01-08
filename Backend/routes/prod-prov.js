@@ -4,6 +4,9 @@ var ProdProv = mongoose.model('ProdProv');
 var ProductSchema = mongoose.model('Product');
 var ProviderSchema = mongoose.model('Provider');
 var ObjectId = mongoose.Types.ObjectId;
+var Grid = require('gridfs-stream');
+var mongodb = mongoose.connection;
+var fs = require('fs');
 
 
 //Get all
@@ -47,5 +50,49 @@ router.post('/new', (req, res, err) => {
         doc.save();
     })); 
 });
+
+
+//add image to prodprov
+router.post('/new/:idProdProv/image', (request, response) =>{
+    var gfs = Grid(mongodb.db, mongoose.mongo);
+
+    var idProdProv = request.params.idProdProv;
+    var dirname = require('path').dirname(__dirname);
+    var filename = request.files[0].filename;
+    var path = request.files[0].path;
+    var writestream = gfs.createWriteStream({
+    _id : idProdProv,
+    filename : 'image',
+    mode : 'w',
+    content_type: 'image/jpeg'
+    });
+    var read_stream = fs.createReadStream(dirname + "/uploads/" + filename).pipe(writestream);
+
+    read_stream.on('close', function(file){
+            fs.unlink(path, function(){
+                response.json(200, file);
+
+            })
+        });
+});
+    
+//Get image of prodprov
+router.get('/:idProdProv/image', function(request, response){
+    var gfs = Grid(mongodb.db, mongoose.mongo);
+    var idProdProv = request.params.idProdProv;
+    var imageStream = gfs.createReadStream({
+        _id : idProdProv,
+         filename : 'image',
+         mode : 'r'
+    });
+     imageStream.on('error', function(error) {
+     response.send('404', 'Not found');
+     return;
+    });
+    response.setHeader("Content-Type", "image/jpeg");
+    imageStream.pipe(response);
+});
+
+
 
 module.exports=router;
