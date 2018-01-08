@@ -7,7 +7,7 @@ var schema = new Schema({
     company: {type: String, required: true},
     adress: {type: String, required: true},
     phone: {type: String},
-    products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
+    prodprovs: [{type: Schema.Types.ObjectId, ref: 'ProdProv'}]
 });
 
 module.exports = mongoose.model('Provider', schema);
