@@ -1,37 +1,38 @@
 var mongoose = require('mongoose');
 var router=require('express').Router();
-var Price = mongoose.model('Price');
+var ProdProv = mongoose.model('ProdProv');
 var ProductSchema = mongoose.model('Product');
+var ProviderSchema = mongoose.model('Provider');
 var ObjectId = mongoose.Types.ObjectId;
 
 
 //Get all
 router.get('/', (req, res, next) => {
-    Price.find({}).populate('idProvider').populate('idProduct').then(price => {
-        if(!price) {return res.sendStatus(401);}
-        return res.json(price)
+    ProdProv.find({}).populate('idProvider').populate('idProduct').then(ProdProv => {
+        if(!ProdProv) {return res.sendStatus(401);}
+        return res.json(ProdProv)
     })
     .catch(next);
 })
 
-//Create and update price in product
+//Create and update ProdProv in product
 //Ver misma duda que en subcategory
 router.post('/new', (req, res, err) => {
-    let monto = req.body.monto;
-    let fecha = req.body.fecha;
+    let price = req.body.price;
+    let description = req.body.description;
     let idProvider = req.body.idProvider;
     let idProduct = req.body.idProduct;
 
-    var price = new Price({   
-        monto: monto,
-        fecha: fecha,
+    var prodprov = new ProdProv({   
+        price: price,
+        description: description,
         idProvider: idProvider,
         idProduct: idProduct
     });
 
-    price.save()
+    prodprov.save()
      .then(ProductSchema.findById(idProduct, (err, doc) => {
-         doc.price.push(price);
+         doc.prodprovs.push(prodprov._id);
          doc.save(function(err, doc){
             if(err){
                res.send('Error al intentar guardar el precio.');
@@ -40,8 +41,11 @@ router.post('/new', (req, res, err) => {
                 res.json({ message: 'Precio agregado', data: doc });
             }
          })
-     }));
-    
+     }))
+     .then(ProviderSchema.findById(idProduct, (err, doc) => {
+        doc.prodprovs.push(prodprov._id);
+        doc.save();
+    })); 
 });
 
 module.exports=router;

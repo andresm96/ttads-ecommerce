@@ -21,7 +21,7 @@ require('./models/category.js');
 require('./models/customer.js');
 require('./models/order-detail.js');
 require('./models/order.js');
-require('./models/price.js');
+require('./models/prod-prov.js');
 require('./models/product.js');
 require('./models/provider.js');
 require('./models/subcategory.js');

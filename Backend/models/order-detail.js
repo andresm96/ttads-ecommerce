@@ -6,7 +6,7 @@ var schema = new Schema({
     number: {type: Number, required: true},
     subtotal: {type: Float, required: true},
     quantity: {type: Number, required: true},
-    product: {type: Schema.Types.ObjectId, ref: 'Product'},
+    prodprov: {type: Schema.Types.ObjectId, ref: 'ProdProv'},
     order: {type: Schema.Types.ObjectId, ref: 'Order'}
 });
 
