@@ -9,7 +9,7 @@ var ObjectId = mongoose.Types.ObjectId;
 //No está funcionando
 router.get('/', (req, res, next) => {
     Product.find({})
-    .populate({path: 'price', options: { $sort: {'fecha': -1}, limit: 1}})
+    .populate('subcategory')
     .then(product => {
         if(!product) {return res.sendStatus(401);}
         return res.json(product)
@@ -28,8 +28,7 @@ router.post('/new', (req, res, err) => {
     var product = new Product({
         name: name,
         description: description,
-        subcategory: subcategory,
-        price: price,
+        subcategory: subcategory, 
         provider: provider
     });
 

@@ -1,15 +1,5 @@
-.header{
-    background: #ffffff;
-    border-bottom: 1px solid #EEEEEE;
-    padding: 2em 0 2em 0;
-}
-
-.shadow{
+/*.shadow{
     box-shadow: 0 4px 2px -2px #00000041;
-}
-
-.logo{
-    width: 70px;
 }
 
 input.shadow:hover{
@@ -18,7 +8,18 @@ input.shadow:hover{
     box-shadow: 0px 9px 12px -8px rgba(0,0,0,0.25);
 }
 
-/* Show the dropdown menu on hover */
-.dropdown:hover>.dropdown-menu {
-    display: block;
+div.fixed{
+    position: fixed !important;
+    width:195px;
+    height: 16px;
+  }*/
+
+.fixed{
+    z-index: +1; 
+    position:absolute;
+    width: 100%;
+}
+  /* HeroSearch private styles */
+a{
+    text-decoration: none;
 }

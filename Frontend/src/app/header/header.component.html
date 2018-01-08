@@ -7,15 +7,10 @@
           </a>
       </div>
       <div class="col-md-7 my-auto">
-          <div class="input-group mb-3">
-              <input type="text" class="form-control shadow" placeholder="Buscar productos" aria-label="Recipient's username" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary shadow" type="button"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
+          <app-product-search></app-product-search>
       </div>
       <div class="col-md-2 my-auto">
-          <nav class="navbar navbar-expand-lg navbar-light">
+          <nav class="navbar navbar-expand-lg navbar-light my-0">
               <div class="justify-content-md-center">
                 <ul class="navbar-nav">
                   <li class="nav-item">
@@ -26,13 +21,12 @@
                   </li>
                 </ul>
               </div>
-            </nav>
+            </nav>   
       </div>
-    </div>
-      
-      
+    </div>     
   </div>
 </div>
+
 <div class="navigation">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,28 +35,34 @@
   
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">TV, Audio y Video <span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown" *ngFor="let category of categories">
+              <a class="nav-link" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ category.name }}
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <ng-container *ngFor="let subcategory of category.subcategories">
+                    <a class="dropdown-item"   href="#">
+                        {{ subcategory.name}}
+                    </a>
+                </ng-container>
+              </div>
+             
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Tecnologia y Celulares </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Electrodomesticos y Aires Ac.</a>
-              </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
+            
+
+          <!--<li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
               <div class="dropdown-menu" aria-labelledby="dropdown08">
                 <a class="dropdown-item" href="#">Action</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
+        
       </nav>
+      
 
 </div>

@@ -6,7 +6,7 @@ var ObjectId = mongoose.Types.ObjectId;
 
 //Get all
 router.get('/', (req, res, next) => {
-    OrderDetail.find({}).populate('product').populate('order').then(orderdetail => {
+    OrderDetail.find({}).populate('prodprov').populate('order').then(orderdetail => {
         if(!orderdetail) {return res.sendStatus(401);}
         return res.json(orderdetail)
     })
@@ -19,14 +19,14 @@ router.post('/new', (req, res, err) => {
     let number = req.body.number;
     let subtotal = req.body.subtotal;
     let quantity = req.body.quantity;
-    let product = req.body.product;
+    let prodprov = req.body.prodprov;
     let order = req.body.order;
 
     var orderDetail = new OrderDetail({   
         number: number,
         subtotal: subtotal,
         quantity: quantity,
-        product: product,
+        prodprov: prodprov,
         order: order
     });
 

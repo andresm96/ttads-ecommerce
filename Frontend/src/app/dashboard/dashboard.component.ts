@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../category.service';
 import { Category } from '../category';
+import { CategoryService } from '../category.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   categories: Category[];
 
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
   }
-  
+
   getCategories(): void {
     this.categoryService.getCategories().subscribe(categories => this.categories = categories);
   }
