@@ -39,7 +39,7 @@ export class InMemoryDataService implements InMemoryDbService {
             { id: 2, name: "Heladeras" },
             { id: 3, name: "Aires Ac." }
           ] },
-        { id: 3, 
+        { id: 5, 
           name: 'Muebles',
           subcategories: [
             { id: 1, name: "Comedor" },
