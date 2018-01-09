@@ -16,6 +16,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryService } from './category.service';
+import { ProductsPageComponent } from './products-page/products-page.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CategoryService } from './category.service';
     ProductComponent,
     ProductDetailComponent,
     ProductSearchComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductsPageComponent
   ],
   imports: [
     BrowserModule,
