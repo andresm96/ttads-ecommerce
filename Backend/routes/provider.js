@@ -14,6 +14,19 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+//Get one
+router.get('/:id', (req, res, next) => {
+    Provider.findById(req.params.id).populate('products')
+    .then(provider => {
+        if(!provider){
+            res.send("Not found");
+        }
+        else{
+            res.json(provider);
+        }
+    });   
+});
+
 //Create
 router.post('/new', (req, res, err) => {
     let cuit = req.body.cuit;
@@ -41,7 +54,7 @@ router.post('/new', (req, res, err) => {
     
 });
 
-router.delete('/:id', (req, res, next) =>{
+router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
 
     Provider.findByIdAndRemove(id, (err, provider)=>{
@@ -57,5 +70,17 @@ router.delete('/:id', (req, res, next) =>{
         }
     });
 });
+
+router.put('/update/:id', (req, res, next) =>{
+    let query = {"_id": req.params.id};
+    Provider.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, provider){
+        if(err){
+            res.send("got an error");
+        }
+        else{
+            res.send(provider);                
+        }
+    });
+})
 
 module.exports=router;

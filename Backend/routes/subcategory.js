@@ -14,6 +14,7 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+
 //Create and update category with the reference
 router.post('/new', (req, res, err) => {
     let name = req.body.name;
@@ -44,10 +45,11 @@ router.post('/new', (req, res, err) => {
 });
 
 
-router.delete('/:id', (req, res, next) =>{
-    let id = req.params.id;
+router.delete('/delete/:id', (req, res, next) =>{
+    var id = req.params.id;
 
     SubCategory.findByIdAndRemove(id, (err, subcategory)=>{
+        var idCat = subcategory.category;
         if(err){
             res.status(500).send(err);
         }
@@ -61,5 +63,16 @@ router.delete('/:id', (req, res, next) =>{
     });
 });
 
+router.put('/update/:id', (req, res, next) =>{
+    let query = {"_id": req.params.id};
+    SubCategory.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, subcategory){
+        if(err){
+            res.send("got an error");
+        }
+        else{
+            res.send(subcategory);                
+        }
+    });
+})
 
 module.exports=router;

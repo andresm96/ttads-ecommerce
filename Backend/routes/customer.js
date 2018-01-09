@@ -42,7 +42,7 @@ router.post('/new', (req, res, err) => {
     
 });
 
-router.delete('/:id', (req, res, next) =>{
+router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
 
     Customer.findByIdAndRemove(id, (err, customer)=>{
@@ -58,6 +58,8 @@ router.delete('/:id', (req, res, next) =>{
         }
     });
 });
+
+
 
 
 module.exports=router;
