@@ -18,6 +18,19 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+//Get one
+router.get('/:id', (req, res, next) => {
+    ProdProv.findById(req.params.id).populate('idProvider').populate('idProduct')
+    .then(prodprov => {
+        if(!prodprov){
+            res.send("Not found");
+        }
+        else{
+            res.json(prodprov);
+        }
+    });   
+});
+
 //Create and update ProdProv in product
 //Ver misma duda que en subcategory
 router.post('/new', (req, res, err) => {
@@ -93,6 +106,36 @@ router.get('/:idProdProv/image', function(request, response){
     imageStream.pipe(response);
 });
 
+//Delete prod-prov
+router.delete('/delete/:id', (req, res, next) =>{
+    let id = req.params.id;
+
+    ProdProv.findByIdAndRemove(id, (err, prodprov)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            let response = {
+                message: "El producto del proveedor fue eliminado correctamente",
+                id: prodprov._id
+            };
+            res.status(200).send(response);
+        }
+    });
+});
+
+//Update prod-prov
+router.put('/update/:id', (req, res, next) =>{
+    let query = {"_id": req.params.id};
+    ProdProv.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, prodprov){
+        if(err){
+            res.send("got an error");
+        }
+        else{
+            res.send(prodprov);                
+        }
+    });
+})
 
 
 module.exports=router;
