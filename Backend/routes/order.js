@@ -13,6 +13,19 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+//Get one
+router.get('/:id', (req, res, next) => {
+    Order.findById(req.params.id).populate('idCustomer').populate('order')
+    .then(order => {
+        if(!order){
+            res.send("Not found");
+        }
+        else{
+            res.json(order);
+        }
+    });   
+});
+
 //Create
 router.post('/new', (req, res, err) => {
     let total = req.body.total;
