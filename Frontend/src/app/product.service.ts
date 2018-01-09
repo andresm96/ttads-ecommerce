@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from './product';
+import { Product } from './models/product';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
