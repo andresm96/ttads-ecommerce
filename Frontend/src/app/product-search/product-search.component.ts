@@ -4,9 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 import { of }         from 'rxjs/observable/of';
  
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
  
 import { Product } from '../models/product';
 import { ProductService } from '../product.service';
@@ -17,6 +15,7 @@ import { ProductService } from '../product.service';
   styleUrls: [ './product-search.component.css' ]
 })
 export class ProductSearchComponent implements OnInit {
+  
   products$: Observable<Product[]>;
   private searchTerms = new Subject<string>();
   private hide: boolean = true;

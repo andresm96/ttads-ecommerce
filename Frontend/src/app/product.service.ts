@@ -31,13 +31,13 @@ export class ProductService {
 
   /* GET (Search) products whose name contains search term */
   searchProducts(term: string): Observable<Product[]> {
-  if (!term.trim()) {
-    // if not search term, return empty product array.
-    return of([]);
-  }
-  return this.http.get<Product[]>(`api/products/?name=${term}`).pipe(
-    catchError(this.handleError<Product[]>('searchProducts', []))
-  );
+    if (!term.trim()) {
+      // if not search term, return empty product array.
+      return of([]);
+    }
+    return this.http.get<Product[]>(`api/products/?name=${term}`).pipe(
+      catchError(this.handleError<Product[]>('searchProducts', []))
+    );
   }
 
   /**
