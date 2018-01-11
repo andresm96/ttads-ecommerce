@@ -30,10 +30,15 @@ export class ProductService {
   /** GET hero by id. Will 404 if id not found */
   getProduct(id: string): Observable<ProdProv> {
     const url = `${this.productsUrl}${id}`;
-    console.log(url);
     return this.http.get<ProdProv>(url).pipe(
       catchError(this.handleError<ProdProv>(`getProduct id=${id}`))
     );
+  }
+
+  getProductImageUrl(id: string): string{
+    const url = `${this.productsUrl}${id}` +"/image";
+    console.log(url);
+    return url;
   }
 
   /* GET (Search) products whose name contains search term */

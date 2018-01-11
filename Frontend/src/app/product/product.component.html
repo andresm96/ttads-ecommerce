@@ -3,7 +3,7 @@
 
     <div class="card my-4">
       <a routerLink="/prodprov/{{prodprov._id}}">
-        <img class="card-img-top image-responsive" src="./assets/descarga.svg" alt="Card image cap">
+        <img class="card-img-top image-responsive" [src]="sanitize(prodprov._id)" alt="Card image cap">
       </a>
       <div class="card-body">
         <h5 class="card-title">{{prodprov.idProduct.name}} </h5>
