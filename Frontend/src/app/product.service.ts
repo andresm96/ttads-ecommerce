@@ -17,7 +17,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  private productsUrl = baseURL + '/prodprov';  // URL to web api
+  private productsUrl = baseURL + '/prodprov/';  // URL to web api
 
   /** GET products from the server */
   getProducts (): Observable<ProdProv[]> {
@@ -28,8 +28,9 @@ export class ProductService {
   }
 
   /** GET hero by id. Will 404 if id not found */
-  getProduct(id: number): Observable<ProdProv> {
+  getProduct(id: string): Observable<ProdProv> {
     const url = `${this.productsUrl}${id}`;
+    console.log(url);
     return this.http.get<ProdProv>(url).pipe(
       catchError(this.handleError<ProdProv>(`getProduct id=${id}`))
     );
