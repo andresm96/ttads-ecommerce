@@ -35,7 +35,7 @@ router.post('/new', (req, res, err) => {
            doc.subcategory.push(subcategory._id);
            doc.save(function(err, doc){
             if(err){
-               res.send('Error al intentar guardar la sub-categoria.');
+               res.send('Error al intentar guardar la sub-categoria.' + err);
             }
             else{
                 res.json({ message: 'Sub-categoria agregada', data: doc})

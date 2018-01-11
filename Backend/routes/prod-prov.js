@@ -58,7 +58,7 @@ router.post('/new', (req, res, err) => {
             }
          })
      }))
-     .then(ProviderSchema.findById(idProduct, (err, doc) => {
+     .then(ProviderSchema.findById(idProvider, (err, doc) => {
         doc.prodprovs.push(prodprov._id);
         doc.save();
     })); 

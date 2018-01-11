@@ -31,7 +31,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/new', (req, res, err) => {
     let cuit = req.body.cuit;
     let company = req.body.company;
-    let adress = req.body.adres;
+    let adress = req.body.adress;
     let phone = req.body.phone;
     let products = req.body.products;
 

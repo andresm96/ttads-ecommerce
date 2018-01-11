@@ -4,12 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 import { of }         from 'rxjs/observable/of';
  
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
  
-import { Product } from '../product';
+import { Product } from '../models/product';
 import { ProductService } from '../product.service';
+import { ProdProv } from '../models/prod-prov';
  
 @Component({
   selector: 'app-product-search',
@@ -17,7 +16,8 @@ import { ProductService } from '../product.service';
   styleUrls: [ './product-search.component.css' ]
 })
 export class ProductSearchComponent implements OnInit {
-  products$: Observable<Product[]>;
+  
+  products$: Observable<ProdProv[]>;
   private searchTerms = new Subject<string>();
   private hide: boolean = true;
  

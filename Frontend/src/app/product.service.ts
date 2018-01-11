@@ -1,43 +1,73 @@
 import { Injectable } from '@angular/core';
-import { Product } from './product';
+import { Product } from './models/product';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { baseURL } from './back-url-path';
+import { ProdProv } from './models/prod-prov';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  private productsUrl = 'api/products';  // URL to web api
+  private productsUrl = baseURL + '/prodprov';  // URL to web api
 
   /** GET products from the server */
-  getProducts (): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl)
+  getProducts (): Observable<ProdProv[]> {
+    return this.http.get<ProdProv[]>(this.productsUrl)
       .pipe(
         catchError(this.handleError('getProducts', []))
       );
   }
 
-  /** GET products by id. Will 404 if id not found */
-  getProduct(id: number): Observable<Product> {
-    const url = `${this.productsUrl}/${id}`;
-    return this.http.get<Product>(url).pipe(
-      catchError(this.handleError<Product>(`getHero id=${id}`))
+  /** GET hero by id. Will 404 if id not found */
+  getProduct(id: number): Observable<ProdProv> {
+    const url = `${this.productsUrl}${id}`;
+    return this.http.get<ProdProv>(url).pipe(
+      catchError(this.handleError<ProdProv>(`getProduct id=${id}`))
     );
   }
 
   /* GET (Search) products whose name contains search term */
-  searchProducts(term: string): Observable<Product[]> {
-  if (!term.trim()) {
-    // if not search term, return empty product array.
-    return of([]);
+  searchProducts(term: string): Observable<ProdProv[]> {
+    if (!term.trim()) {
+      // if not search term, return empty product array.
+      return of([]);
+    }
+    return this.http.get<ProdProv[]>(this.productsUrl+`/?name=${term}`).pipe(
+      catchError(this.handleError<ProdProv[]>('searchProducts', []))
+    );
   }
-  return this.http.get<Product[]>(`api/products/?name=${term}`).pipe(
-    catchError(this.handleError<Product[]>('searchProducts', []))
-  );
+
+  /** PUT: update the product on the server */
+  updateProduct (prodprov: ProdProv): Observable<any> {
+    return this.http.put(this.productsUrl, prodprov, httpOptions).pipe(
+      catchError(this.handleError<any>('updateProduct'))
+    );
+  }
+
+  /** POST: add a new product to the server */
+  addProduct (prodprov: ProdProv): Observable<ProdProv> {
+    return this.http.post<ProdProv>(this.productsUrl, prodprov, httpOptions).pipe(
+      catchError(this.handleError<ProdProv>('addProduct'))
+    );
+  }
+
+  /** DELETE: delete the product from the server */
+  deleteProduct (prodprov: ProdProv | number): Observable<ProdProv> {
+    const id = typeof prodprov === 'number' ? prodprov : prodprov._id;
+    const url = `${this.productsUrl}/${id}`;
+
+    return this.http.delete<ProdProv>(url, httpOptions).pipe(
+      catchError(this.handleError<ProdProv>('deleteProduct'))
+    );
   }
 
   /**

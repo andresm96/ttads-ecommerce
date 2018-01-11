@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Category } from './Category';
+import { Category } from './models/category';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { baseURL } from './back-url-path'; 
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  private categoriesUrl = 'api/categories';  // URL to web api
+  private categoriesUrl = baseURL + '/category';  // URL to web api
 
   getCategories (): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoriesUrl)
