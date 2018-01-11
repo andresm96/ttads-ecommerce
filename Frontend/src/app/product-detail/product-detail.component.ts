@@ -14,6 +14,7 @@ import { ProdProv } from '../models/prod-prov';
 export class ProductDetailComponent implements OnInit {
   
   prodprov: ProdProv;
+  imageUrl: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,12 +24,18 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getProdProv();
+    this.getProdProvImage();
   }
 
   getProdProv(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.productService.getProduct(id)
       .subscribe(prodprov => this.prodprov = prodprov);
+  }
+
+  getProdProvImage(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.imageUrl = this.productService.getProductImageUrl(id)
   }
 
   goBack(): void {

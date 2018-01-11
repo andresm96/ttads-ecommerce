@@ -7,3 +7,7 @@
 .bg-red{
     background: #ff5063;
 }
+.image-detail-size{
+    max-height: 750px;
+    max-width: 500px;
+}
