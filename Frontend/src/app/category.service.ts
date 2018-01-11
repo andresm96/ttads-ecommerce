@@ -13,7 +13,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  private categoriesUrl = 'api/categories';  // URL to web api
+  private categoriesUrl = baseURL + '/category';  // URL to web api
 
   getCategories (): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoriesUrl)

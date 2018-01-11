@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../models/product';
 import { ProductService } from '../product.service';
+import { ProdProv } from '../models/prod-prov';
 
 
 @Component({
@@ -10,18 +11,11 @@ import { ProductService } from '../product.service';
 })
 export class ProductComponent implements OnInit {
 
-  @Input() products: Product[];
-
-  //products: Product[];
+  @Input() products: ProdProv[];
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    //this.getProducts();
   }
-
-  /*getProducts(): void {
-    this.productService.getProducts().subscribe(products => this.products = products);
-  }*/
 
 }

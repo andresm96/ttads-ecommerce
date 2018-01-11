@@ -7,7 +7,7 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/destacados', pathMatch: 'full' },
-  { path: 'product/detail/:id', component: ProductDetailComponent },
+  { path: 'prodprov/:id', component: ProductDetailComponent },
   { path: 'destacados', component: ProductosDestacadosComponent },
   { path: 'product', component: ProductsPageComponent},
   { path: 'dashboard', component: DashboardComponent }

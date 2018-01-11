@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from '../models/product';
+import { ProdProv } from '../models/prod-prov';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Product } from '../models/product';
 export class ProductosDestacadosComponent implements OnInit {
   title = 'Productos destacados';
 
-  products: Product[];
+  products: ProdProv[];
 
   constructor(private productService: ProductService) { }
 

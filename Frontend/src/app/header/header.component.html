@@ -41,28 +41,16 @@
               </a>
 
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <ng-container *ngFor="let subcategory of category.subcategories">
-                    <a class="dropdown-item"   href="#">
+                <ng-container *ngFor="let subcategory of category.subcategory">
+                    <a class="dropdown-item" href="#">
                         {{ subcategory.name}}
                     </a>
                 </ng-container>
               </div>
              
             </li>
-            
-
-          <!--<li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown08">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li> -->
           </ul>
         </div>
         
       </nav>
-      
-
 </div>
