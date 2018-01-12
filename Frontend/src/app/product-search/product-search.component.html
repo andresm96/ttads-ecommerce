@@ -6,7 +6,7 @@
     <div *ngIf="hide">
     <div class="list-group fixed">
         <li *ngFor="let product of products$ | async" class="list-group-item list-group-item-action" >
-          <a routerLink="/product/detail/{{product.id}}" (click)="hideBar()" onclick="document.getElementById('search-box').value = ''">
+          <a routerLink="/prodprov/{{product.prodprovs}}" (click)="hideBar()" onclick="document.getElementById('search-box').value = ''">
             {{product.name}}
           </a>
         </li>
