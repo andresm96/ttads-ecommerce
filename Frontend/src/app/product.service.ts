@@ -8,6 +8,12 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { baseURL } from './back-url-path';
 import { ProdProv } from './models/prod-prov';
 
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -42,13 +48,13 @@ export class ProductService {
   }
 
   /* GET (Search) products whose name contains search term */
-  searchProducts(term: string): Observable<ProdProv[]> {
+  searchProducts(term: string): Observable<Product[]> {
     if (!term.trim()) {
       // if not search term, return empty product array.
       return of([]);
     }
-    return this.http.get<ProdProv[]>(this.productsUrl+`/?name=${term}`).pipe(
-      catchError(this.handleError<ProdProv[]>('searchProducts', []))
+    return this.http.get<Product[]>(baseURL+`/product/search?name=${term}`).pipe(
+      catchError(this.handleError<Product[]>('searchProducts', []))
     );
   }
 

@@ -17,7 +17,7 @@ import { ProdProv } from '../models/prod-prov';
 })
 export class ProductSearchComponent implements OnInit {
   
-  products$: Observable<ProdProv[]>;
+  products$: Observable<Product[]>;
   private searchTerms = new Subject<string>();
   private hide: boolean = true;
  
@@ -37,13 +37,13 @@ export class ProductSearchComponent implements OnInit {
   ngOnInit(): void {
     this.products$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
-      debounceTime(200),
+      debounceTime(300),
  
       // ignore new term if same as previous term
       distinctUntilChanged(),
  
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.productService.searchProducts(term)),
+      switchMap((term: string) => this.productService.searchProducts(term))
     );
   }
 }

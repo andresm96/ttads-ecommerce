@@ -17,6 +17,20 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+//Search term
+router.get('/search', (req, res, next)=> {
+
+    var name = req.query.name;
+
+    Product.find({name: new RegExp(name, 'i')}).then(products =>{
+        if(!products) {return res.sendStatus(401);}
+        return res.json({'products': products})
+    })
+    .catch(next);
+
+});
+
+
 //Get one
 router.get('/:id', (req, res, next) => {
     Product.findById(req.params.id).populate('subcategory')
@@ -29,6 +43,7 @@ router.get('/:id', (req, res, next) => {
         }
     });   
 });
+
 
 //Create
 router.post('/new', (req, res, err) => {
