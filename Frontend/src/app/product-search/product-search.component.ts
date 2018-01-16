@@ -17,10 +17,11 @@ import { ProdProv } from '../models/prod-prov';
 })
 export class ProductSearchComponent implements OnInit {
   
-  products$: Observable<Product[]>;
+  products$: Observable<any>;
   private searchTerms = new Subject<string>();
   private hide: boolean = true;
  
+  pruebaprod: Product[];
   constructor(private productService: ProductService) {}
  
   // Push a search term into the observable stream.
@@ -45,5 +46,6 @@ export class ProductSearchComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.productService.searchProducts(term))
     );
+    this.products$.subscribe(a => this.pruebaprod = a.products);
   }
 }
