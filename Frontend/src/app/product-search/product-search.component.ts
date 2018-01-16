@@ -46,6 +46,6 @@ export class ProductSearchComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.productService.searchProducts(term))
     );
-    this.products$.subscribe(a => this.pruebaprod = a.products);
+    
   }
 }

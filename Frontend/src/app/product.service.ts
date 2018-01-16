@@ -48,12 +48,12 @@ export class ProductService {
   }
 
   /* GET (Search) products whose name contains search term */
-  searchProducts(term: string): Observable<Product[]> {
+  searchProducts(term: string): Observable<any> {
     if (!term.trim()) {
       // if not search term, return empty product array.
       return of([]);
     }
-    return this.http.get<Product[]>(baseURL+`/product/search?name=${term}`).pipe(
+    return this.http.get<any>(baseURL+`/product/search?name=${term}`).map(res => {return res.products}).pipe(
       catchError(this.handleError<Product[]>('searchProducts', []))
     );
   }
