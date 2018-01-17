@@ -59,15 +59,18 @@ export class ProductService {
   }
 
   /** PUT: update the product on the server */
-  updateProduct (prodprov: ProdProv): Observable<any> {
-    return this.http.put(this.productsUrl, prodprov, httpOptions).pipe(
+  updateProduct (prodprov: ProdProv | number): Observable<ProdProv> {
+    const id = typeof prodprov === 'number' ? prodprov : prodprov._id;
+    const url = `${this.productsUrl+ "update"}/${id}`;
+
+    return this.http.put(url, prodprov, httpOptions).pipe(
       catchError(this.handleError<any>('updateProduct'))
     );
   }
 
   /** POST: add a new product to the server */
   addProduct (prodprov: ProdProv): Observable<ProdProv> {
-    return this.http.post<ProdProv>(this.productsUrl, prodprov, httpOptions).pipe(
+    return this.http.post<ProdProv>(this.productsUrl + "new", prodprov, httpOptions).pipe(
       catchError(this.handleError<ProdProv>('addProduct'))
     );
   }
@@ -75,7 +78,7 @@ export class ProductService {
   /** DELETE: delete the product from the server */
   deleteProduct (prodprov: ProdProv | number): Observable<ProdProv> {
     const id = typeof prodprov === 'number' ? prodprov : prodprov._id;
-    const url = `${this.productsUrl}/${id}`;
+    const url = `${this.productsUrl+ "delete"}/${id}`;
 
     return this.http.delete<ProdProv>(url, httpOptions).pipe(
       catchError(this.handleError<ProdProv>('deleteProduct'))

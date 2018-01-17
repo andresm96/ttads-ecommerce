@@ -69,6 +69,17 @@ router.delete('/delete/:id', (req, res, next) =>{
     });
 });
 
+router.put('/update/:id', (req, res, next) =>{
+    let query = {"_id": req.params.id};
+    Customer.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, customer){
+        if(err){
+            res.send("got an error");
+        }
+        else{
+            res.send(customer);                
+        }
+    });
+})
 
 router.post('/authenticate', function(req, res) {
     // find the user
