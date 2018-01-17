@@ -15,6 +15,7 @@ export class ProductDetailComponent implements OnInit {
   
   prodprov: ProdProv;
   imageUrl: string;
+  id: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,19 +24,29 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
     this.getProdProv();
     this.getProdProvImage();
   }
 
+  ngDoCheck() {
+    let newId = this.route.snapshot.paramMap.get('id');
+    if (newId !== this.id) {
+      this.getProdProv();
+      this.getProdProvImage();
+    }
+  }
+  
+
   getProdProv(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.productService.getProduct(id)
+    //const id = this.route.snapshot.paramMap.get('id');
+    this.productService.getProduct(this.id)
       .subscribe(prodprov => this.prodprov = prodprov);
   }
 
   getProdProvImage(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.imageUrl = this.productService.getProductImageUrl(id)
+    //const id = this.route.snapshot.paramMap.get('id');
+    this.imageUrl = this.productService.getProductImageUrl(this.id)
   }
 
   goBack(): void {
