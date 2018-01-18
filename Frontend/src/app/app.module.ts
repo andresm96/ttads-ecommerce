@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +17,7 @@ import { InMemoryDataService }  from './in-memory-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryService } from './category.service';
 import { ProductsPageComponent } from './products-page/products-page.component';
+import { AbmListComponent } from './abm-list/abm-list.component';
 
 
 @NgModule({
@@ -29,10 +30,12 @@ import { ProductsPageComponent } from './products-page/products-page.component';
     ProductDetailComponent,
     ProductSearchComponent,
     DashboardComponent,
-    ProductsPageComponent
+    ProductsPageComponent,
+    AbmListComponent
   ],
   imports: [
     BrowserModule,
+    DataTablesModule,
     AppRoutingModule,
     HttpClientModule,
     /*
