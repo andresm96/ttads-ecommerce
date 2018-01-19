@@ -16,7 +16,11 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryService } from './category.service';
+import { CustomerService } from './customer.service';
 import { ProductsPageComponent } from './products-page/products-page.component';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { AbmListComponent } from './abm-list/abm-list.component';
 
 
@@ -31,6 +35,7 @@ import { AbmListComponent } from './abm-list/abm-list.component';
     ProductSearchComponent,
     DashboardComponent,
     ProductsPageComponent,
+    CustomerFormComponent,
     AbmListComponent
   ],
   imports: [
@@ -38,6 +43,8 @@ import { AbmListComponent } from './abm-list/abm-list.component';
     DataTablesModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    HttpModule
     /*
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -46,7 +53,7 @@ import { AbmListComponent } from './abm-list/abm-list.component';
     InMemoryDataService, { dataEncapsulation: false }
 )*/
   ],
-  providers: [ ProductService, CategoryService ],
+  providers: [ ProductService, CategoryService, CustomerService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
