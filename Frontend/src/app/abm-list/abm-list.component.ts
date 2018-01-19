@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ProdProv } from '../models/prod-prov';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
 import { Product } from '../classes/product';
 import { ProductService } from '../product.service';
 import { Subject } from 'rxjs/Subject';
 
 
 import 'rxjs/add/operator/map';
+import { CategoryService } from '../category.service';
+import { Category } from '../classes/category';
 
 class Person {
   id: number;
@@ -19,26 +21,38 @@ class Person {
   styleUrls: ['./abm-list.component.css']
 })
 export class AbmListComponent implements OnInit {
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-  products: Product[] = [];
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject();
 
-  private dataUrl = 'api/data';  // URL to web api
+  items: any[] =[{}];
+  action: string = 'products';
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService
+  ) { }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.getProducts();
+  }
+  
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  getProducts(): void {
     this.productService.getProducts()
     .map(result => {
-      let array = [];
+      var array = [];
       result.forEach(item => {
-        let product = new Product();
+        var product = new Product();
         product.ID = item._id;
         product.Nombre = item.idProduct.name;
         product.Precio = item.price;
@@ -48,9 +62,23 @@ export class AbmListComponent implements OnInit {
       return array;
     })
     .subscribe(products => {
-      this.products = products;
-
-      this.dtTrigger.next();
+      this.items= products;
     });
   }
+
+  getCategories():void {
+    this.categoryService.getCategories()
+    .map(result => {
+      var array = [];
+      result.forEach(item => {
+        var category = new Category();
+        category.ID = item._id;
+        category.Nombre = item.name;
+        array.push(category);
+      });
+      return array;
+    })
+    .subscribe(categories => this.items = categories);
+  }
+
 }
