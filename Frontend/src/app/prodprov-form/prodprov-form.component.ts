@@ -36,4 +36,29 @@ export class ProdprovFormComponent implements OnInit {
     .subscribe(products => this.products = products);
   }
 
+  saveProdProv(){
+    this.prodprovService.addProduct(this.newprodprov as ProdProv)
+    .subscribe(
+      data => alert(data),
+      error => alert(error)
+    );
+  }
+
+  updateProdProv(){
+    this.newprodprov._id = this.prodprov._id;
+    this.prodprovService.updateProduct(this.newprodprov as ProdProv)
+    .subscribe(
+      data => alert(data),
+      error => alert(error)
+    )
+  }
+
+  deleteCustomer(){
+    this.prodprovService.deleteProduct(this.prodprov)
+    .subscribe(
+      data => alert(data),
+      error => alert(error)
+    )
+  }
+
 }

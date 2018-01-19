@@ -5,14 +5,29 @@
             <div class="col-md-6">
               <form (ngSubmit)="saveProdProv()" name="saveProdProv" action="#" >
                 <div class="form-group">
-                  <label for="user">Usuario:</label>
-                  <input type="text" class="form-control" [(ngModel)]="newcustomer.user" name="user" required>
+                  <label for="product">Tipo de producto:</label>
+                  <select [(ngModel)]="newprodprov.idProduct" class="form-control" placeholder="Tipo de producto" name="product">
+                    <option *ngFor="let prod of products" [value]="prod._id">
+                      {{ prod.name }}
+                    </option>
+                  </select>              
                 </div>
-                <md-select [(ngModel)]="products" class="btn btn-primary select-form" placeholder="TIpo de producto" name="producto">
-                  <md-option *ngFor="let prod of products" [value]="prod._id">
-                    {{ prod.name }}
-                  </md-option>
-                </md-select>                
+                <div class="form-group">
+                    <label for="provider">Proveedor:</label>
+                    <select [(ngModel)]="newprodprov.idProvider" class="form-control" placeholder="Proveedor" name="provider">
+                      <option *ngFor="let prov of providers" [value]="prov._id">
+                        {{ prov.company }}
+                      </option>
+                    </select>              
+                  </div>  
+                <div class="form-group">
+                  <label for="price">Precio:</label>
+                  <input type="number" class="form-control" [(ngModel)]="newprodprov.price" name="price" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newprodprov.description" name="description" required>
+                  </div>             
                 <div class="form-group">
                   <button type="submit" class="btn btn-success" >Guardar</button>
                 </div>
