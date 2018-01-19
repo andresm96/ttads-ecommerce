@@ -7,7 +7,7 @@ import { of }         from 'rxjs/observable/of';
 import { debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
  
 import { Product } from '../models/product';
-import { ProductService } from '../product.service';
+import { ProdProvService } from '../prodprov.service';
 import { ProdProv } from '../models/prod-prov';
  
 @Component({
@@ -22,7 +22,7 @@ export class ProductSearchComponent implements OnInit {
   private hide: boolean = true;
  
   pruebaprod: Product[];
-  constructor(private productService: ProductService) {}
+  constructor(private prodprovService: ProdProvService) {}
  
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -44,7 +44,7 @@ export class ProductSearchComponent implements OnInit {
       distinctUntilChanged(),
  
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.productService.searchProducts(term))
+      switchMap((term: string) => this.prodprovService.searchProducts(term))
     );
     
   }

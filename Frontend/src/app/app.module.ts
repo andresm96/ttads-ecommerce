@@ -9,6 +9,7 @@ import { ProductosDestacadosComponent } from './productos-destacados/productos-d
 import { AppRoutingModule } from './/app-routing.module';
 import { ProductComponent } from './product/product.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProdProvService } from './prodprov.service';
 import { ProductService } from './product.service';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,8 +17,14 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryService } from './category.service';
+import { CustomerService } from './customer.service';
+import { ProviderService } from './provider.service';
 import { ProductsPageComponent } from './products-page/products-page.component';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { AbmListComponent } from './abm-list/abm-list.component';
+import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 
 
 @NgModule({
@@ -31,13 +38,17 @@ import { AbmListComponent } from './abm-list/abm-list.component';
     ProductSearchComponent,
     DashboardComponent,
     ProductsPageComponent,
-    AbmListComponent
+    CustomerFormComponent,
+    AbmListComponent,
+    ProdprovFormComponent
   ],
   imports: [
     BrowserModule,
     DataTablesModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    HttpModule
     /*
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -46,7 +57,7 @@ import { AbmListComponent } from './abm-list/abm-list.component';
     InMemoryDataService, { dataEncapsulation: false }
 )*/
   ],
-  providers: [ ProductService, CategoryService ],
+  providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

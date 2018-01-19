@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Product } from '../classes/product';
 import { ProductService } from '../product.service';
+
 import { Subject } from 'rxjs/Subject';
 
 
@@ -29,6 +30,7 @@ export class AbmListComponent implements OnInit {
 
   items: any[] =[{}];
   action: string = 'products';
+
 
   constructor(
     private productService: ProductService,
@@ -63,6 +65,7 @@ export class AbmListComponent implements OnInit {
     })
     .subscribe(products => {
       this.items= products;
+
     });
   }
 
