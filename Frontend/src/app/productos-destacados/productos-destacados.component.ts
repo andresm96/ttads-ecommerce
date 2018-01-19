@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../product.service';
+import { ProdProvService } from '../prodprov.service';
 import { Product } from '../models/product';
 import { ProdProv } from '../models/prod-prov';
 
@@ -14,13 +14,13 @@ export class ProductosDestacadosComponent implements OnInit {
 
   products: ProdProv[];
 
-  constructor(private productService: ProductService) { }
+  constructor(private prodprovService: ProdProvService) { }
 
   ngOnInit() {
     this.getProducts();
   }
 
   getProducts(): void {
-    this.productService.getProducts().subscribe(products => this.products = products);
+    this.prodprovService.getProducts().subscribe(products => this.products = products);
   }
 }

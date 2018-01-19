@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../models/product';
-import { ProductService } from '../product.service';
+import { ProdProvService } from '../prodprov.service';
 import { ProdProv } from '../models/prod-prov';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -14,7 +14,7 @@ export class ProductComponent implements OnInit {
 
   @Input() products: ProdProv[];
 
-  constructor(private productService: ProductService, private sanitizer:DomSanitizer) { }
+  constructor(private prodprovService: ProdProvService, private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
   }
