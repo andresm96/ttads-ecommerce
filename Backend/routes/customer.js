@@ -9,7 +9,7 @@ var secret = config.secret;
 var ObjectId = mongoose.Types.ObjectId;
 
 //Get all
-router.get('/', auth, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Customer.find({}).populate('order').then(customer => {
         if(!customer) {return res.sendStatus(401);}
         return res.json(customer)

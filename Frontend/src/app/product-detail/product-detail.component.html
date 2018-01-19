@@ -28,13 +28,11 @@
         <div class="col-md-4">
 
           <!-- Portfolio Item Heading -->
-          <h1 class="my-4"> {{ prodprov.price }}
-            <small>ID: {{ prodprov.idProduct.id }} </small>
-          </h1>
+          <h1 class="my-4"> {{ prodprov.idProduct.name }}</h1>
           <hr>
           
           <h3 class="my-3">Descripción</h3>
-          <p>{{ prodprov.description }}</p>
+          <p>{{ prodprov.idProduct.description }}</p>
           <hr>
           <h3 class="my-3"><small class="text-muted">Precio en un pago</small></h3>
           <h3><i class="fas fa-dollar-sign"></i> {{ prodprov.price }}</h3>

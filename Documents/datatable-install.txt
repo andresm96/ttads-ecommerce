@@ -1,0 +1,40 @@
+Dependencias para usar datatable (bootstrap 4):
+
+npm install jquery --save
+npm install datatables.net --save
+npm install datatables.net-bs4 --save
+npm install angular-datatables --save
+npm install @types/jquery --save-dev
+npm install @types/datatables.net --save-dev
+npm install popper.js --save
+
+angular-cli.json:
+
+Update ".angular-cli.json" files Styles and scripts properties as below.
+
+{
+ ........
+  "apps": [
+    { 
+      "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css",
+        "styles.css"
+        
+      ],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/datatables.net/js/jquery.dataTables.js",
+        "../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js",
+        "../node_modules/popper.js/dist/umd/popper.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js"
+        
+      ],
+      ...
+    }
+  ],
+ .....
+}
+
+tutorial:
+https://l-lin.github.io/angular-datatables/#/getting-started

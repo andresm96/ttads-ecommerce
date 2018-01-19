@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -21,6 +21,7 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { AbmListComponent } from './abm-list/abm-list.component';
 
 
 @NgModule({
@@ -34,10 +35,12 @@ import { HttpModule } from '@angular/http';
     ProductSearchComponent,
     DashboardComponent,
     ProductsPageComponent,
-    CustomerFormComponent
+    CustomerFormComponent,
+    AbmListComponent
   ],
   imports: [
     BrowserModule,
+    DataTablesModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
