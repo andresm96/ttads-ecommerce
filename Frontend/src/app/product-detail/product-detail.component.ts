@@ -3,7 +3,7 @@ import { Product } from '../models/product';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { ProductService }  from '../product.service';
+import { ProdProvService }  from '../prodprov.service';
 import { ProdProv } from '../models/prod-prov';
 
 @Component({
@@ -19,7 +19,7 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService,
+    private prodprovService: ProdProvService,
     private location: Location
   ) { }
 
@@ -40,13 +40,13 @@ export class ProductDetailComponent implements OnInit {
 
   getProdProv(): void {
     //const id = this.route.snapshot.paramMap.get('id');
-    this.productService.getProduct(this.id)
+    this.prodprovService.getProduct(this.id)
       .subscribe(prodprov => this.prodprov = prodprov);
   }
 
   getProdProvImage(): void {
     //const id = this.route.snapshot.paramMap.get('id');
-    this.imageUrl = this.productService.getProductImageUrl(this.id)
+    this.imageUrl = this.prodprovService.getProductImageUrl(this.id)
   }
 
   goBack(): void {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdProv } from '../models/prod-prov';
-import { ProductService } from '../product.service';
+import { ProdProvService } from '../prodprov.service';
 import { Subject } from 'rxjs/Subject';
 
 
@@ -28,14 +28,14 @@ export class AbmListComponent implements OnInit {
 
   private dataUrl = 'api/data';  // URL to web api
 
-  constructor(private productService: ProductService) { }
+  constructor(private prodprovService: ProdProvService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10
     };
-    this.productService.getProducts().subscribe(products => {
+    this.prodprovService.getProducts().subscribe(products => {
       this.products = products;
       this.dtTrigger.next();
     });

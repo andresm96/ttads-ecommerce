@@ -1,0 +1,22 @@
+
+  <div class="container">
+          <h1>Crear nuevo producto de proveedor</h1>
+          <div class="row">
+            <div class="col-md-6">
+              <form (ngSubmit)="saveProdProv()" name="saveProdProv" action="#" >
+                <div class="form-group">
+                  <label for="user">Usuario:</label>
+                  <input type="text" class="form-control" [(ngModel)]="newcustomer.user" name="user" required>
+                </div>
+                <md-select [(ngModel)]="products" class="btn btn-primary select-form" placeholder="TIpo de producto" name="producto">
+                  <md-option *ngFor="let prod of products" [value]="prod._id">
+                    {{ prod.name }}
+                  </md-option>
+                </md-select>                
+                <div class="form-group">
+                  <button type="submit" class="btn btn-success" >Guardar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+  </div>
