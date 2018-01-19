@@ -23,7 +23,7 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AbmListComponent } from './abm-list/abm-list.component';
+import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
 import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 
 
@@ -39,7 +39,7 @@ import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
     DashboardComponent,
     ProductsPageComponent,
     CustomerFormComponent,
-    AbmListComponent,
+    AbmProductListComponent,
     ProdprovFormComponent
   ],
   imports: [
@@ -55,7 +55,7 @@ import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
     InMemoryDataService, { dataEncapsulation: false }
-)*/
+    )*/
   ],
   providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService ],
   bootstrap: [AppComponent]

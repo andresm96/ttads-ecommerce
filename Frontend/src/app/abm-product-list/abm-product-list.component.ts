@@ -4,24 +4,14 @@ import { Product } from '../classes/product';
 import { ProductService } from '../product.service';
 
 import { Subject } from 'rxjs/Subject';
-
-
 import 'rxjs/add/operator/map';
-import { CategoryService } from '../category.service';
-import { Category } from '../classes/category';
-
-class Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-}
 
 @Component({
-  selector: 'app-abm-list',
-  templateUrl: './abm-list.component.html',
-  styleUrls: ['./abm-list.component.css']
+  selector: 'app-abm-product-list',
+  templateUrl: './abm-product-list.component.html',
+  styleUrls: ['./abm-product-list.component.css']
 })
-export class AbmListComponent implements OnInit {
+export class AbmProductListComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
