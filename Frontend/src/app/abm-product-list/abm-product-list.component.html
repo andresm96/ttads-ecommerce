@@ -1,0 +1,20 @@
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+  <thead>
+      <tr class="thead-light">
+          <th>Nombre</th>
+          <th>Subcategoria</th>
+          <th>Descripcion</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.subcategory }}</td>
+          <td>{{ product.description }}</td>       
+      </tr>
+      <tr *ngIf="products?.length == 0">
+          <td colspan="3" class="no-data-available">No data!</td>
+      </tr>
+  </tbody>
+</table>

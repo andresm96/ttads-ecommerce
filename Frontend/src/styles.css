@@ -11,3 +11,6 @@
     max-height: 750px;
     max-width: 500px;
 }
+.dataTables_empty {
+    display: none;
+}
