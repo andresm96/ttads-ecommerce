@@ -2,17 +2,17 @@
   <thead class="thead-light">
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Provider</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Proveedor</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
-      <td>{{ product._id }}</td>
-      <td>{{ product.idProduct.name }}</td>
-      <td>{{ product.price }}</td>
-      <td>{{ product.idProvider.company }}</td>
+      <td>{{ product.ID }}</td>
+      <td>{{ product.Nombre }}</td>
+      <td>{{ product.Precio }}</td>
+      <td>{{ product.Proveedor }}</td>
     </tr>
   </tbody>
   </table>

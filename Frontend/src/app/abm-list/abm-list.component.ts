@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdProv } from '../models/prod-prov';
+import { Product } from '../classes/product';
 import { ProductService } from '../product.service';
 import { Subject } from 'rxjs/Subject';
 
@@ -12,8 +13,6 @@ class Person {
   lastName: string;
 }
 
-
-
 @Component({
   selector: 'app-abm-list',
   templateUrl: './abm-list.component.html',
@@ -21,7 +20,7 @@ class Person {
 })
 export class AbmListComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
-  products: ProdProv[] = [];
+  products: Product[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject();
@@ -35,14 +34,23 @@ export class AbmListComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10
     };
-    this.productService.getProducts().subscribe(products => {
+    this.productService.getProducts()
+    .map(result => {
+      let array = [];
+      result.forEach(item => {
+        let product = new Product();
+        product.ID = item._id;
+        product.Nombre = item.idProduct.name;
+        product.Precio = item.price;
+        product.Proveedor = item.idProvider.company;
+        array.push(product);
+      });
+      return array;
+    })
+    .subscribe(products => {
       this.products = products;
+
       this.dtTrigger.next();
     });
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
   }
 }
