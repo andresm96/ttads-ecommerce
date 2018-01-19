@@ -28,14 +28,9 @@ export class AbmListComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
-  items: any[] =[{}];
-  action: string = 'products';
+  products: Product[] =[];
 
-
-  constructor(
-    private productService: ProductService,
-    private categoryService: CategoryService
-  ) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -55,33 +50,16 @@ export class AbmListComponent implements OnInit {
       var array = [];
       result.forEach(item => {
         var product = new Product();
-        product.ID = item._id;
-        product.Nombre = item.idProduct.name;
-        product.Precio = item.price;
-        product.Proveedor = item.idProvider.company;
+        product.id = item._id;
+        product.name = item.name;
+        product.subcategory = item.subcategory.name;
+        product.description = item.description;
         array.push(product);
       });
       return array;
     })
     .subscribe(products => {
-      this.items= products;
-
+      this.products= products;
     });
   }
-
-  getCategories():void {
-    this.categoryService.getCategories()
-    .map(result => {
-      var array = [];
-      result.forEach(item => {
-        var category = new Category();
-        category.ID = item._id;
-        category.Nombre = item.name;
-        array.push(category);
-      });
-      return array;
-    })
-    .subscribe(categories => this.items = categories);
-  }
-
 }
