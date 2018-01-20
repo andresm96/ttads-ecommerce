@@ -25,7 +25,12 @@ export class AbmProductListComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10
+      pageLength: 10,
+      columnDefs: [{ 
+        orderable: false, 
+        searchable: false, 
+        targets: [3] 
+        }]
     };
     this.getProducts();
   }
