@@ -7,7 +7,7 @@ var ObjectId = mongoose.Types.ObjectId;
 
 //Get all
 router.get('/', (req, res, next) => {
-    SubCategory.find({}).populate('products').then(subcategory => {
+    SubCategory.find({}).populate('products').populate('category').then(subcategory => {
         if(!subcategory) {return res.sendStatus(401);}
         return res.json(subcategory)
     })
