@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
 import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
+import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
     ProductsPageComponent,
     CustomerFormComponent,
     AbmProductListComponent,
-    ProdprovFormComponent
+    ProdprovFormComponent,
+    AbmCustomerListComponent
   ],
   imports: [
     BrowserModule,

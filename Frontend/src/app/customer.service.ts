@@ -25,6 +25,14 @@ export class CustomerService {
 
   private customersUrl = baseURL + '/customer/';
 
+  //Get All Customers
+  getCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.customersUrl)
+    .pipe(
+      catchError(this.handleError('getCustomers()', []))
+    );
+  }
+
   //Add new customer
   addCustomer (customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(this.customersUrl + "new", customer, httpOptions).pipe(
@@ -42,8 +50,8 @@ export class CustomerService {
     );
   }
 
-  deleteCustomer (customer: Customer | number): Observable<Customer> {
-    const id = typeof customer === 'number' ? customer : customer._id;
+  deleteCustomer (customer: any | number): Observable<Customer> {
+    const id = typeof customer === 'number' ? customer : customer.id;
     const url = `${this.customersUrl+ "delete"}/${id}`;
 
     return this.http.delete<Customer>(url, httpOptions).pipe(
