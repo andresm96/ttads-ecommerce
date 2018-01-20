@@ -4,21 +4,23 @@
   <thead>
       <tr class="thead-light">
           <th>Nombre</th>
-          <th>Subcategorias</th>
+          <th>Categoria</th>
+          <th>Productos</th>
           <th>Accion</th>
       </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let category of categories">
-          <td>{{ category.name }}</td>
-          <td>{{ category.subcategory.length }}</td>
-          <td class="text-center">
+      <tr *ngFor="let subcategory of subcategories">
+          <td>{{ subcategory.name }}</td>
+          <td>{{ subcategory.category.name }}</td>
+          <td>{{ subcategory.products.length }}</td>
+          <td>
             <button type="button" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
             <button type="button" class="btn btn-danger btn-sm"
-            (click)="delete(category)" title="delete category"><i class="far fa-trash-alt"></i></button>
+            (click)="delete(subcategory)" title="delete subcategory"><i class="far fa-trash-alt"></i></button>
         </td>       
       </tr>
-      <tr *ngIf="categories?.length == 0">
+      <tr *ngIf="subcategories?.length == 0">
           <td colspan="3" class="no-data-available">No data!</td>
       </tr>
   </tbody>

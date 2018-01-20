@@ -28,6 +28,8 @@ import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
 import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.component';
 import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.component';
+import { AbmSubcategoryListComponent } from './abm-subcategory-list/abm-subcategory-list.component';
+import { SubcategoryService } from './subcategory.service';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.
     ProdprovFormComponent,
     AbmCustomerListComponent,
     AbmProviderListComponent,
-    AbmCategoryListComponent
+    AbmCategoryListComponent,
+    AbmSubcategoryListComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,7 @@ import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.
     InMemoryDataService, { dataEncapsulation: false }
     )*/
   ],
-  providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService ],
+  providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService, SubcategoryService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

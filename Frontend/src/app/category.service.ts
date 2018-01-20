@@ -16,7 +16,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  private categoriesUrl = baseURL + '/category';  // URL to web api
+  private categoriesUrl = baseURL + '/category/';  // URL to web api
 
   getCategories (): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoriesUrl)
@@ -29,7 +29,7 @@ export class CategoryService {
     const id = typeof category === 'number' ? category : category._id;
     const url = `${this.categoriesUrl+ "delete"}/${id}`;
 
-    return this.http.delete<Category>(url, httpOptions).pipe(
+    return this.http.delete<any>(url, httpOptions).pipe(
       catchError(this.handleError<Category>('deleteCategory'))
     );
   }
