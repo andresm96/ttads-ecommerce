@@ -25,13 +25,22 @@ export class ProviderService {
 
   private providerUrl = baseURL + '/provider/'
 
-    /** GET providers from the server */
-    getProviders (): Observable<Provider[]> {
-      return this.http.get<Provider[]>(this.providerUrl)
-        .pipe(
-          catchError(this.handleError('getProvider', []))
-        );
-    }
+  /** GET providers from the server */
+  getProviders (): Observable<Provider[]> {
+    return this.http.get<Provider[]>(this.providerUrl)
+      .pipe(
+        catchError(this.handleError('getProvider', []))
+      );
+  }
+
+  deleteProvider (provider: Provider | number): Observable<Provider> {
+    const id = typeof provider === 'number' ? provider : provider._id;
+    const url = `${this.providerUrl+ "delete"}/${id}`;
+
+    return this.http.delete<Provider>(url, httpOptions).pipe(
+      catchError(this.handleError<Provider>('deleteProvider'))
+    );
+  }
 
     
   /**

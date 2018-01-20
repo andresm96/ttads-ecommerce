@@ -26,6 +26,7 @@ import { HttpModule } from '@angular/http';
 import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
 import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
+import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.
     CustomerFormComponent,
     AbmProductListComponent,
     ProdprovFormComponent,
-    AbmCustomerListComponent
+    AbmCustomerListComponent,
+    AbmProviderListComponent
   ],
   imports: [
     BrowserModule,
