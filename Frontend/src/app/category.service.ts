@@ -7,6 +7,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { baseURL } from './back-url-path'; 
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class CategoryService {
@@ -20,6 +23,15 @@ export class CategoryService {
       .pipe(
         catchError(this.handleError('getCategory', []))
       );
+  }
+
+  deleteCategory (category: Category | number): Observable<Category> {
+    const id = typeof category === 'number' ? category : category._id;
+    const url = `${this.categoriesUrl+ "delete"}/${id}`;
+
+    return this.http.delete<Category>(url, httpOptions).pipe(
+      catchError(this.handleError<Category>('deleteCategory'))
+    );
   }
 
     /**

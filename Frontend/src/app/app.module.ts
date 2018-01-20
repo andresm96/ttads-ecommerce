@@ -27,6 +27,7 @@ import { AbmProductListComponent } from './abm-product-list/abm-product-list.com
 import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
 import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.component';
+import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.
     AbmProductListComponent,
     ProdprovFormComponent,
     AbmCustomerListComponent,
-    AbmProviderListComponent
+    AbmProviderListComponent,
+    AbmCategoryListComponent
   ],
   imports: [
     BrowserModule,

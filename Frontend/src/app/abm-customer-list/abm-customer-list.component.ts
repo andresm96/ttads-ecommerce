@@ -30,7 +30,7 @@ export class AbmCustomerListComponent implements OnInit {
         orderable: false, 
         searchable: false, 
         targets: [6] 
-        }]
+      }]
     };
     this.getCustomers();
   }
