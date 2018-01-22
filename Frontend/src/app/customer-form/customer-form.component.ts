@@ -12,27 +12,47 @@ export class CustomerFormComponent implements OnInit {
 
   @Input() typeForm: any;
   @Input() customer: Customer;
-  newcustomer = { _id: ''};
+  newcustomer = { _id: '',
+                  birthdate: null,
+                  admin: false
+                 };
+  uploadCustomer = 0;
   
   constructor(private customerService: CustomerService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
+    if(this.customer != null){
+      let localDate = new Date(this.customer.birthdate);
+      let localTime = localDate.getTime();
+      let localOffset = localDate.getTimezoneOffset()*60000;
+      this.customer.birthdate = new Date(localTime + localOffset);
+      this.newcustomer = this.customer;
+    }
+
   }
 
   saveCustomer() {
+    this.ConvertDate();
     this.customerService.addCustomer(this.newcustomer as Customer)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadCustomer = 1;
+      },
       error => alert(error)
     );
   }
 
   updateCustomer(){
+    this.ConvertDate();
     this.newcustomer._id = this.customer._id;
     this.customerService.updateCustomer(this.newcustomer as Customer)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadCustomer = 1;
+      },
       error => alert(error)
     )
   }
@@ -40,10 +60,22 @@ export class CustomerFormComponent implements OnInit {
   deleteCustomer(){
     this.customerService.deleteCustomer(this.customer)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadCustomer = 1;
+      },
       error => alert(error)
     )
   }
 
+  ConvertDate(){
+    let localDate = new Date(this.newcustomer.birthdate);
+    let localTime = localDate.getTime();
+    let localOffset = localDate.getTimezoneOffset()*60000;
+    this.newcustomer.birthdate = new Date(localTime + localOffset);
+  }
 
+  refresh(){
+    location.reload();
+  }
 }
