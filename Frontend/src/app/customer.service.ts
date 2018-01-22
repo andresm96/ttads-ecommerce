@@ -41,8 +41,8 @@ export class CustomerService {
   }
 
   //Update customer
-  updateCustomer (customer: Customer | number): Observable<Customer> {
-    const id = typeof customer === 'number' ? customer : customer._id;
+  updateCustomer (customer: any | number): Observable<Customer> {
+    const id = typeof customer === 'number' ? customer : customer.id;
     const url = `${this.customersUrl+ "update"}/${id}`;
 
     return this.http.put(url, customer, httpOptions).pipe(

@@ -17,6 +17,9 @@ export class AbmCustomerListComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  onFormActive = false;
+  typeForm = 0;
+  customerSelected : Customer;
 
   customers: Customer[] = [];
 
@@ -62,15 +65,21 @@ export class AbmCustomerListComponent implements OnInit {
     });
   }
 
-  delete(customer: Customer): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      this.customers = this.customers.filter(c => c !== customer);
-      this.customerService.deleteCustomer(customer).subscribe();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
+  newCustomer(){
+    this.onFormActive = true;
+    this.typeForm = 1;
+  }
+
+  updateCustomer(customer: Customer){
+    this.customerSelected = customer;
+    this.onFormActive = true;
+    this.typeForm = 2;
+  }
+
+  deleteCustomer(customer: Customer){
+    this.customerSelected = customer;
+    this.onFormActive = true;
+    this.typeForm = 3;
   }
 
 }
