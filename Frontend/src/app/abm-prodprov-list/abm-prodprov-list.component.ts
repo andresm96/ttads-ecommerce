@@ -17,6 +17,9 @@ export class AbmProdprovListComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  onFormActive = false;
+  typeForm = 0;
+  prodprovSelected: ProdProv;
 
   prodprovs: ProdProv[] =[];
 
@@ -59,15 +62,21 @@ export class AbmProdprovListComponent implements OnInit {
     });
   }
 
-  delete(prodprov: ProdProv): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      this.prodprovs = this.prodprovs.filter(p => p !== prodprov);
-      this.prodprovService.deleteProduct(prodprov).subscribe();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
+  newProdProv(){
+    this.onFormActive = true;
+    this.typeForm = 1;
+  }
+
+  updateProdProv(prodprov: ProdProv){
+    this.prodprovSelected = prodprov;
+    this.onFormActive = true;
+    this.typeForm = 2;
+  }
+
+  deleteProdProv(prodprov: ProdProv){
+    this.prodprovSelected = prodprov;
+    this.onFormActive = true;
+    this.typeForm = 3;
   }
 
 }
