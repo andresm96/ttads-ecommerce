@@ -17,6 +17,9 @@ export class AbmSubcategoryListComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  onFormActive = false;
+  subcategorySelected: Subcategory;
+  typeForm = 0;
 
   subcategories: Subcategory[] =[];
 
@@ -67,6 +70,23 @@ export class AbmSubcategoryListComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  newSubcategory(){
+    this.onFormActive = true;
+    this.typeForm = 1;
+  }
+
+  updateSubcategory(subcategory: Subcategory){
+    this.subcategorySelected = subcategory;
+    this.onFormActive = true;
+    this.typeForm = 2;
+  }
+
+  deleteSubcategory(subcategory: Subcategory){
+    this.subcategorySelected = subcategory;
+    this.onFormActive = true;
+    this.typeForm = 3;
   }
 
 }

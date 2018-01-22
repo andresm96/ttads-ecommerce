@@ -16,6 +16,7 @@ export class SubcategoryFormComponent implements OnInit {
   @Input() subcategory: Subcategory;
   newsubcategory = { _id: ''};
   categories: Category[];
+  uploadSubcategory = 0;
 
   constructor(
     private subcategoryService: SubcategoryService,
@@ -25,12 +26,19 @@ export class SubcategoryFormComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getCategories()
     .subscribe(categories => this.categories = categories);
+
+    if(this.subcategory != null){
+      this.newsubcategory = this.subcategory;
+    };
   }
 
   saveSubcategory() {
     this.subcategoryService.addSubcategory(this.newsubcategory as Subcategory)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadSubcategory = 1;
+        },
       error => alert(error)
     );
   }
@@ -39,7 +47,10 @@ export class SubcategoryFormComponent implements OnInit {
     this.newsubcategory._id = this.subcategory._id;
     this.subcategoryService.updateSubcategory(this.newsubcategory as Subcategory)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadSubcategory = 1;
+        },
       error => alert(error)
     )
   }
@@ -47,9 +58,16 @@ export class SubcategoryFormComponent implements OnInit {
   deleteSubcategory(){
     this.subcategoryService.deleteSubcategory(this.subcategory)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadSubcategory = 1;
+        },
       error => alert(error)
     )
+  }
+
+  refresh(){
+    location.reload();
   }
 
 }
