@@ -72,9 +72,9 @@ export class ProdProvService {
   }
 
   /** POST: add a new product to the server */
-  addProduct (prodprov: ProdProv): Observable<ProdProv> {
-    return this.http.post<ProdProv>(this.productsUrl + "new", prodprov, httpOptions).pipe(
-      catchError(this.handleError<ProdProv>('addProduct'))
+  addProduct (prodprov: ProdProv): Observable<any> {
+    return this.http.post<any>(this.productsUrl + "new", prodprov, httpOptions).pipe(
+      catchError(this.handleError<any>('addProduct'))
     );
   }
 
