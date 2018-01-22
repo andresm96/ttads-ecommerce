@@ -33,6 +33,23 @@ export class ProviderService {
       );
   }
 
+  /** POST: add a new category to the server */
+  addProvider (provider: Provider): Observable<Provider> {
+    return this.http.post<Provider>(this.providerUrl + "new", provider, httpOptions).pipe(
+      catchError(this.handleError<Provider>('addProvider'))
+    );
+  }
+
+  /** PUT: update the category on the server */
+  updateProvider (provider: Provider | number): Observable<Provider> {
+    const id = typeof provider === 'number' ? provider : provider._id;
+    const url = `${this.providerUrl+ "update"}/${id}`;
+
+    return this.http.put(url, provider, httpOptions).pipe(
+      catchError(this.handleError<any>('updateProvider'))
+    );
+  }
+
   deleteProvider (provider: Provider | number): Observable<Provider> {
     const id = typeof provider === 'number' ? provider : provider._id;
     const url = `${this.providerUrl+ "delete"}/${id}`;

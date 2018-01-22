@@ -33,6 +33,23 @@ export class ProductService {
           );
       }
 
+      /** POST: add a new category to the server */
+      addProduct (product: Product): Observable<Product> {
+        return this.http.post<Product>(this.productUrl + "new", product, httpOptions).pipe(
+          catchError(this.handleError<Product>('addProduct'))
+        );
+      }
+
+      /** PUT: update the category on the server */
+      updateProduct (product: Product | number): Observable<Product> {
+        const id = typeof product === 'number' ? product : product._id;
+        const url = `${this.productUrl+ "update"}/${id}`;
+
+        return this.http.put(url, product, httpOptions).pipe(
+          catchError(this.handleError<any>('updateProduct'))
+        );
+      }
+
       deleteProduct (product: any | number): Observable<Product> {
         const id = typeof product === 'number' ? product : product.id;
         const url = `${this.productUrl+ "delete"}/${id}`;
