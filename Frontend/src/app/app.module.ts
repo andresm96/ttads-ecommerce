@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
 import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
+import { FileUploadModule } from 'ng2-file-upload';
 import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
 import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.component';
 import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.component';
@@ -59,7 +60,8 @@ import { AbmProdprovListComponent } from './abm-prodprov-list/abm-prodprov-list.
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    FileUploadModule
     /*
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
