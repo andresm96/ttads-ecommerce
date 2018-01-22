@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { baseURL } from './back-url-path';
 import { ProdProv } from './models/prod-prov';
+import { FileUploader } from 'ng2-file-upload';
 
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -20,6 +21,8 @@ const httpOptions = {
 
 @Injectable()
 export class ProdProvService {
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -85,6 +88,20 @@ export class ProdProvService {
     );
   }
 
+  addProductImage(file, _id:any){
+    let URL = this.productsUrl + _id + "/image";
+    console.log(file);
+    let uploader: FileUploader = new FileUploader({url: URL});
+    uploader.queue.push(file);
+    if(uploader.queue.length === 0){
+      console.log("no se agrego ni bosta");
+    }
+    else{
+      console.log("se agrego creo que esto: "+ uploader.queue[0]);
+    }
+    uploader.uploadAll(); 
+
+  }
   /**
  * Handle Http operation that failed.
  * Let the app continue.
