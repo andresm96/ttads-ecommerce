@@ -1,5 +1,6 @@
 <div *ngIf="typeForm === 1">
   <div class="container">
+      <div *ngIf ="uploadSubcategory === 0;else successmessage">
     <h1>Crear nueva Subcategoria</h1>
     <div class="row">
         <div class="col-md-6">
@@ -17,25 +18,37 @@
             </select>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-success" >Guardar</button>
+            <button type="submit" class="btn btn-success" >Guardar</button> | 
+            <button type="button" class="btn btn-link" (click)="refresh()">Volver</button>
           </div>
         </form>
         </div>
     </div>
+    </div>
+    <ng-template #successmessage>
+        <br>
+        <div class="alert alert-success" role="alert">
+            Subcategoria agregada correctamente!
+        </div>
+        <div class="form-group">
+            <button type="button" (click)="refresh()" class="btn btn-link" >Volver</button>
+        </div>
+    </ng-template>
   </div>
 </div>
 <div *ngIf="typeForm === 2">
     <div class="container">
+      <div *ngIf="uploadSubcategory === 0;else successmessage">
       <h1>Modificar Subcategoria</h1>
       <div class="row">
           <div class="col-md-6">
           <form (ngSubmit)="updateSubcategory()" name="saveSubcategory" action="#" >
               <div class="form-group">
                 <label for="user">Nombre:</label>
-                <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" value="{{subcategory.name}}" name="name" required>
+                <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" required>
               </div> 
               <div class="form-group">
-                <label for="category">Cateoria:</label>
+                <label for="category">Categoria:</label>
                 <select [(ngModel)]="newsubcategory.category" class="form-control" placeholder="Categoria" name="category">
                     <option *ngFor="let cat of categories" [value]="cat._id" [selected]="cat._id === subcategory.category._id" >
                     {{ cat.name }}
@@ -43,22 +56,34 @@
                 </select>              
               </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-success" >Guardar</button>
+              <button type="submit" class="btn btn-info" >Modificar</button> | 
+              <button type="button" class="btn btn-link" (click)="refresh()">Volver</button>
             </div>
           </form>
           </div>
       </div>
+      </div>
+      <ng-template #successmessage>
+          <br>
+          <div class="alert alert-info" role="alert">
+              Subcategoria modificada correctamente!
+          </div>
+          <div class="form-group">
+              <button type="button" (click)="refresh()" class="btn btn-link" >Volver</button>
+          </div>
+      </ng-template>
     </div>
   </div>
-  <div *ngIf="typeForm === 1">
+  <div *ngIf="typeForm === 3">
       <div class="container">
+       <div *ngIf="uploadSubcategory === 0;else successmessage">     
         <h1>Eliminar Subcategoria</h1>
         <div class="row">
             <div class="col-md-6">
             <form (ngSubmit)="deleteSubcategory()" name="deleteSubcategory" action="#" >
                 <div class="form-group">
                   <label for="name">Nombre:</label>
-                  <input type="number" class="form-control" [(ngModel)]="newsubcategory.name" name="name" disabled="true" required>
+                  <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" disabled="true" required>
                 </div> 
               <div class="form-group">
                 <label for="category">Categoria:</label>
@@ -75,5 +100,15 @@
             </form>
             </div>
         </div>
+        </div>
+        <ng-template #successmessage>
+            <br>
+            <div class="alert alert-danger" role="alert">
+                Subcategoria eliminada correctamente!
+            </div>
+            <div class="form-group">
+                <button type="button" (click)="refresh()" class="btn btn-link" >Volver</button>
+            </div>
+        </ng-template>
       </div>
     </div>       
