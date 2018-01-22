@@ -46,17 +46,17 @@ router.post('/new', (req, res, err) => {
         idProduct: idProduct
     });
 
-    prodprov.save()
+    prodprov.save(function(err, doc){
+        if(err){
+           res.send('Error al intentar guardar el producto proveedor.');
+        }
+        else{
+            res.json({ message: 'Producto proveedor agregado', data: doc });
+        }
+     })
      .then(ProductSchema.findById(idProduct, (err, doc) => {
          doc.prodprovs.push(prodprov._id);
-         doc.save(function(err, doc){
-            if(err){
-               res.send('Error al intentar guardar el precio.');
-            }
-            else{
-                res.json({ message: 'Precio agregado', data: doc });
-            }
-         })
+         doc.save()
      }))
      .then(ProviderSchema.findById(idProvider, (err, doc) => {
         doc.prodprovs.push(prodprov._id);

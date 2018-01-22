@@ -6,6 +6,8 @@ import { ProviderService } from '../provider.service';
 import { ProdProvService } from '../prodprov.service';
 import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-prodprov-form',
@@ -19,14 +21,18 @@ export class ProdprovFormComponent implements OnInit {
   @Input() prodprov: ProdProv;
   providers : Provider[];
   products : Product[];
-  newprodprov = { _id: ''}
-
+  newprodprov = { _id: ''};
+  uploadImage = 0;
+  uploadSuccess = 0;
+  public uploader:FileUploader;
+  uploadProdProv = 0;
 
 
   constructor(private providerService: ProviderService,
               private prodprovService: ProdProvService,
               private productService: ProductService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit() {
     this.providerService.getProviders()
@@ -34,14 +40,35 @@ export class ProdprovFormComponent implements OnInit {
 
     this.productService.getProducts()
     .subscribe(products => this.products = products);
+
+
   }
 
   saveProdProv(){
     this.prodprovService.addProduct(this.newprodprov as ProdProv)
     .subscribe(
-      data => alert(data),
+      data => {this.setImageUrl(data.data._id);
+               this.uploadImage = 1;
+               this.uploadSuccess = 0;
+               alert(data);
+               this.uploadProdProv = 1;
+      },
       error => alert(error)
     );
+  }
+
+  setImageUrl(_id:any){
+    let URL = 'http://localhost:3000/api/prodprov/new/'+_id+"/image"
+    this.uploader = new FileUploader({url: URL});
+
+    this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
+    
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log("ImageUpload:uploaded", item, status, response);
+          this.uploadSuccess = 1;
+          this.uploadImage = 0;
+          alert(status);
+    };
   }
 
   updateProdProv(){
@@ -49,8 +76,8 @@ export class ProdprovFormComponent implements OnInit {
     this.prodprovService.updateProduct(this.newprodprov as ProdProv)
     .subscribe(
       data => alert(data),
-      error => alert(error)
-    )
+      error => alert(error)     
+    );
   }
 
   deleteCustomer(){
@@ -61,4 +88,11 @@ export class ProdprovFormComponent implements OnInit {
     )
   }
 
+  goBack(){
+    this.router.navigate(["/dashboard"]);
+  }
+
+  refresh(){
+    location.reload();
+  }
 }
