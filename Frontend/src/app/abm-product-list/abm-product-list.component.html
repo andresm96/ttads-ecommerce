@@ -1,0 +1,27 @@
+<button type="button" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+  <thead>
+      <tr class="thead-light">
+          <th>Nombre</th>
+          <th>Subcategoria</th>
+          <th>Descripcion</th>
+          <th>Accion</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.subcategory }}</td>
+          <td>{{ product.description }}</td>
+          <td>
+            <button type="button" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
+            <button type="button" class="btn btn-danger btn-sm"
+            (click)="delete(product)" title="delete product"><i class="far fa-trash-alt"></i></button>
+        </td>       
+      </tr>
+      <tr *ngIf="products?.length == 0">
+          <td colspan="3" class="no-data-available">No data!</td>
+      </tr>
+  </tbody>
+</table>

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../models/category';
-import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,16 +7,11 @@ import { CategoryService } from '../category.service';
 })
 export class DashboardComponent implements OnInit {
 
-  categories: Category[];
-
-  constructor(private categoryService: CategoryService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.getCategories();
+    
   }
 
-  getCategories(): void {
-    this.categoryService.getCategories().subscribe(categories => this.categories = categories);
-  }
 
 }

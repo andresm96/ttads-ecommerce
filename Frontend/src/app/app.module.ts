@@ -23,9 +23,15 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AbmListComponent } from './abm-list/abm-list.component';
+import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
 import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
+import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.component';
+import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.component';
+import { AbmSubcategoryListComponent } from './abm-subcategory-list/abm-subcategory-list.component';
+import { SubcategoryService } from './subcategory.service';
+import { AbmProdprovListComponent } from './abm-prodprov-list/abm-prodprov-list.component';
 
 
 @NgModule({
@@ -40,8 +46,13 @@ import { FileUploadModule } from 'ng2-file-upload';
     DashboardComponent,
     ProductsPageComponent,
     CustomerFormComponent,
-    AbmListComponent,
-    ProdprovFormComponent
+    AbmProductListComponent,
+    ProdprovFormComponent,
+    AbmCustomerListComponent,
+    AbmProviderListComponent,
+    AbmCategoryListComponent,
+    AbmSubcategoryListComponent,
+    AbmProdprovListComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +68,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
     InMemoryDataService, { dataEncapsulation: false }
-)*/
+    )*/
   ],
-  providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService ],
+  providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService, SubcategoryService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

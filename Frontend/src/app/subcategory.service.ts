@@ -1,65 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Customer } from './models/customer';
+import { Provider } from './models/provider';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { baseURL } from './back-url-path';
-
+import { ProdProv } from './models/prod-prov';
 
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
+import { Subcategory } from './models/subcategory';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable()
-export class CustomerService {
+export class SubcategoryService {
 
   constructor(private http: HttpClient) { }
 
-  private customersUrl = baseURL + '/customer/';
+  private subcategoryUrl = baseURL + '/subcategory/'
 
-  //Get All Customers
-  getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.customersUrl)
-    .pipe(
-      catchError(this.handleError('getCustomers()', []))
+  /** GET subcategories from the server */
+  getSubcategories (): Observable<Subcategory[]> {
+    return this.http.get<Subcategory[]>(this.subcategoryUrl)
+      .pipe(
+        catchError(this.handleError('getSubcategory', []))
+      );
+  }
+
+  deleteSubcategory (subcategory: Subcategory | number): Observable<Subcategory> {
+    const id = typeof subcategory === 'number' ? subcategory : subcategory._id;
+    const url = `${this.subcategoryUrl+ "delete"}/${id}`;
+
+    return this.http.delete<Subcategory>(url, httpOptions).pipe(
+      catchError(this.handleError<Subcategory>('deleteSubcategory'))
     );
   }
 
-  //Add new customer
-  addCustomer (customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(this.customersUrl + "new", customer, httpOptions).pipe(
-      catchError(this.handleError<Customer>('addCustomer'))
-    );
-  }
-
-  //Update customer
-  updateCustomer (customer: Customer | number): Observable<Customer> {
-    const id = typeof customer === 'number' ? customer : customer._id;
-    const url = `${this.customersUrl+ "update"}/${id}`;
-
-    return this.http.put(url, customer, httpOptions).pipe(
-      catchError(this.handleError<any>('updateCustomer'))
-    );
-  }
-
-  deleteCustomer (customer: any | number): Observable<Customer> {
-    const id = typeof customer === 'number' ? customer : customer.id;
-    const url = `${this.customersUrl+ "delete"}/${id}`;
-
-    return this.http.delete<Customer>(url, httpOptions).pipe(
-      catchError(this.handleError<Customer>('deleteCustomer'))
-    );
-  }
-
-   /**
+    
+  /**
  * Handle Http operation that failed.
  * Let the app continue.
  * @param operation - name of the operation that failed

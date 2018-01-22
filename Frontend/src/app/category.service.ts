@@ -7,19 +7,31 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { baseURL } from './back-url-path'; 
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  private categoriesUrl = baseURL + '/category';  // URL to web api
+  private categoriesUrl = baseURL + '/category/';  // URL to web api
 
   getCategories (): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoriesUrl)
       .pipe(
         catchError(this.handleError('getCategory', []))
       );
+  }
+
+  deleteCategory (category: Category | number): Observable<Category> {
+    const id = typeof category === 'number' ? category : category._id;
+    const url = `${this.categoriesUrl+ "delete"}/${id}`;
+
+    return this.http.delete<any>(url, httpOptions).pipe(
+      catchError(this.handleError<Category>('deleteCategory'))
+    );
   }
 
     /**
