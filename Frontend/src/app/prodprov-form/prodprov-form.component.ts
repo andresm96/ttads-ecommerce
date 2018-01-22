@@ -41,6 +41,9 @@ export class ProdprovFormComponent implements OnInit {
     this.productService.getProducts()
     .subscribe(products => this.products = products);
 
+    if(this.prodprov != null){
+      this.newprodprov = this.prodprov;
+    };
 
   }
 
@@ -75,15 +78,25 @@ export class ProdprovFormComponent implements OnInit {
     this.newprodprov._id = this.prodprov._id;
     this.prodprovService.updateProduct(this.newprodprov as ProdProv)
     .subscribe(
-      data => alert(data),
+      data => {
+               this.setImageUrl(this.newprodprov._id);
+               this.uploadImage = 1;
+               this.uploadSuccess = 0;
+               this.uploadProdProv = 1;
+               alert(data)
+      },
       error => alert(error)     
     );
   }
 
-  deleteCustomer(){
+  deleteProdProv(){
     this.prodprovService.deleteProduct(this.prodprov)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadSuccess = 1;
+        this.uploadProdProv = 1;
+      },
       error => alert(error)
     )
   }

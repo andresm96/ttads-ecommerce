@@ -1,29 +1,43 @@
-<button type="button" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
+<button type="button" (click)="newProdProv()" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
 
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
-  <thead>
-      <tr class="thead-light">
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th>Proveedor</th>
-          <th>Descripcion</th>
-          <th>Accion</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let prodprov of prodprovs">
-          <td>{{ prodprov.idProduct.name }}</td>
-          <td>{{ prodprov.price }}</td>
-          <td>{{ prodprov.idProvider.company }}</td>
-          <td>{{ prodprov.description }}</td>
-          <td>
-            <button type="button" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-            <button type="button" class="btn btn-danger btn-sm"
-            (click)="delete(prodprov)" title="delete prodprov"><i class="far fa-trash-alt"></i></button>
-        </td>       
-      </tr>
-      <tr *ngIf="products?.length == 0">
-          <td colspan="3" class="no-data-available">No data!</td>
-      </tr>
-  </tbody>
-</table>
+<div *ngIf="!onFormActive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+    <thead>
+        <tr class="thead-light">
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Proveedor</th>
+            <th>Descripcion</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prodprov of prodprovs">
+            <td>{{ prodprov.idProduct.name }}</td>
+            <td>{{ prodprov.price }}</td>
+            <td>{{ prodprov.idProvider.company }}</td>
+            <td>{{ prodprov.description }}</td>
+            <td>
+                <button type="button" (click) ="updateProdProv(prodprov)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
+                <button type="button" class="btn btn-danger btn-sm"
+                (click)="deleteProdProv(prodprov)" title="delete prodprov"><i class="far fa-trash-alt"></i></button>
+            </td>       
+        </tr>
+        <tr *ngIf="products?.length == 0">
+            <td colspan="3" class="no-data-available">No data!</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+<div *ngIf="onFormActive && typeForm === 1">
+    <app-prodprov-form [typeForm] = "1"></app-prodprov-form>
+</div>
+
+<div *ngIf="onFormActive && typeForm === 2">
+        <app-prodprov-form [typeForm] = "2" [prodprov]="prodprovSelected"></app-prodprov-form>
+</div>
+
+<div *ngIf="onFormActive && typeForm === 3">
+        <app-prodprov-form [typeForm] = "3" [prodprov]="prodprovSelected"></app-prodprov-form>
+</div>
