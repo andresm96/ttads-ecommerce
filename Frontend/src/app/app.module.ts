@@ -32,6 +32,7 @@ import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.
 import { AbmSubcategoryListComponent } from './abm-subcategory-list/abm-subcategory-list.component';
 import { SubcategoryService } from './subcategory.service';
 import { AbmProdprovListComponent } from './abm-prodprov-list/abm-prodprov-list.component';
+import { CategoryFormComponent } from './category-form/category-form.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { AbmProdprovListComponent } from './abm-prodprov-list/abm-prodprov-list.
     AbmProviderListComponent,
     AbmCategoryListComponent,
     AbmSubcategoryListComponent,
-    AbmProdprovListComponent
+    AbmProdprovListComponent,
+    CategoryFormComponent
   ],
   imports: [
     BrowserModule,

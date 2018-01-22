@@ -19,6 +19,7 @@ export class AbmCategoryListComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
 
   categories: Category[] =[];
+  category: Category;
 
   constructor(private categoryService: CategoryService) { }
 
@@ -30,7 +31,17 @@ export class AbmCategoryListComponent implements OnInit {
         orderable: false, 
         searchable: false, 
         targets: [2] 
-        }]
+        }],
+        rowCallback: (row: Node, data: Category, index: number) => {
+          const self = this;
+          // Unbind first in order to avoid any duplicate handler
+          // (see https://github.com/l-lin/angular-datatables/issues/87)
+          $('td', row).unbind('click');
+          $('td', row).bind('click', () => {
+            self.selectCategory(data);
+          });
+          return row;
+        }
     };
     this.getCategories();
   }
@@ -67,5 +78,11 @@ export class AbmCategoryListComponent implements OnInit {
       this.dtTrigger.next();
     });
   }
+
+  selectCategory(category: Category): void {
+    this.category = category;
+    console.log(this.category);
+  }
+
 
 }

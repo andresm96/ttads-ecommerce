@@ -25,6 +25,23 @@ export class CategoryService {
       );
   }
 
+  /** POST: add a new category to the server */
+  addCategory (category: Category): Observable<Category> {
+    return this.http.post<Category>(this.categoriesUrl + "new", category, httpOptions).pipe(
+      catchError(this.handleError<Category>('addCategory'))
+    );
+  }
+
+  /** PUT: update the category on the server */
+  updateCategory (category: Category | number): Observable<Category> {
+    const id = typeof category === 'number' ? category : category._id;
+    const url = `${this.categoriesUrl+ "update"}/${id}`;
+
+    return this.http.put(url, category, httpOptions).pipe(
+      catchError(this.handleError<any>('updateCategory'))
+    );
+  }
+
   deleteCategory (category: Category | number): Observable<Category> {
     const id = typeof category === 'number' ? category : category._id;
     const url = `${this.categoriesUrl+ "delete"}/${id}`;
