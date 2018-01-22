@@ -1,3 +1,118 @@
-<p>
-  product-form works!
-</p>
+<div *ngIf="typeForm === 1">
+    <div class="container">
+        <div *ngIf ="uploadProduct === 0;else successmessage">
+      <h1>Crear nuevo Producto</h1>
+      <div class="row">
+          <div class="col-md-6">
+          <form (ngSubmit)="saveProduct()" name="saveProduct" action="#" >
+            <div class="form-group">
+              <label for="name">Nombre:</label>
+              <input type="text" class="form-control" [(ngModel)]="newproduct.name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Descripcion:</label>
+                <input type="text" class="form-control" [(ngModel)]="newproduct.description" name="description" required>
+              </div>
+            <div class="form-group">
+              <label for="subcategory">Subcategoria:</label>
+              <select [(ngModel)]="newproduct.subcategory" class="form-control" placeholder="Subcategoria" name="subcategory">
+                  <option *ngFor="let sub of subcategories" [value]="sub._id">
+                  {{ sub.name }}
+                  </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Guardar</button> | 
+              <button type="button" class="btn btn-link" (click)="refresh()">Volver</button>
+            </div>
+          </form>
+          </div>
+      </div>
+      </div>
+      <ng-template #successmessage>
+          <br>
+          <div class="alert alert-success" role="alert">
+              Producto agregado correctamente!
+          </div>
+          <div class="form-group">
+              <button type="button" (click)="refresh()" class="btn btn-link" >Volver</button>
+          </div>
+      </ng-template>
+    </div>
+  </div>
+  <div *ngIf="typeForm === 2">
+      <div class="container">
+        <div *ngIf="uploadProduct === 0;else successmessage">
+        <h1>Modificar Producto</h1>
+        <div class="row">
+            <div class="col-md-6">
+            <form (ngSubmit)="updateProduct()" name="updateProduct" action="#" >
+                <div class="form-group">
+                  <label for="name">Nombre:</label>
+                  <input type="text" class="form-control" [(ngModel)]="newproduct.name" name="name" required>
+                </div> 
+                <div class="form-group">
+                  <label for="subcategory">Subcategoria:</label>
+                  <select [(ngModel)]="newproduct.subcategory" class="form-control" placeholder="Subcategoria" name="subcategory">
+                      <option *ngFor="let sub of subcategories" [value]="sub._id" [selected]="sub._id === product.subcategory._id" >
+                      {{ sub.name }}
+                      </option>
+                  </select>              
+                </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-info" >Modificar</button> | 
+                <button type="button" class="btn btn-link" (click)="refresh()">Volver</button>
+              </div>
+            </form>
+            </div>
+        </div>
+        </div>
+        <ng-template #successmessage>
+            <br>
+            <div class="alert alert-info" role="alert">
+                Producto modificado correctamente!
+            </div>
+            <div class="form-group">
+                <button type="button" (click)="refresh()" class="btn btn-link" >Volver</button>
+            </div>
+        </ng-template>
+      </div>
+    </div>
+    <div *ngIf="typeForm === 3">
+        <div class="container">
+         <div *ngIf="uploadProduct === 0;else successmessage">     
+          <h1>Eliminar Producto</h1>
+          <div class="row">
+              <div class="col-md-6">
+              <form (ngSubmit)="deleteProduct()" name="deleteProduct" action="#" >
+                  <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newProduct.name" name="name" disabled="true" required>
+                  </div> 
+                <div class="form-group">
+                  <label for="subcategory">Subcategoria:</label>
+                  <select [(ngModel)]="newproduct.subcategory" class="form-control" placeholder="Subcategoria" name="subcategory" disabled="true">
+                      <option *ngFor="let sub of subcategories" [value]="sub._id" [selected]="sub._id === product.subcategory._id">
+                          {{ sub.name }}
+                      </option>
+                  </select>  
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-danger" >Eliminar</button> | 
+                  <button type="button" (click)="refresh()" class="btn btn-link" >Volver</button>
+                </div>
+              </form>
+              </div>
+          </div>
+          </div>
+          <ng-template #successmessage>
+              <br>
+              <div class="alert alert-danger" role="alert">
+                  Producto eliminado correctamente!
+              </div>
+              <div class="form-group">
+                  <button type="button" (click)="refresh()" class="btn btn-link" >Volver</button>
+              </div>
+          </ng-template>
+        </div>
+      </div>

@@ -35,6 +35,7 @@ import { AbmProdprovListComponent } from './abm-prodprov-list/abm-prodprov-list.
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { SubcategoryFormComponent } from './subcategory-form/subcategory-form.component';
 import { ProductFormComponent } from './product-form/product-form.component';
+import { ProviderFormComponent } from './provider-form/provider-form.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ProductFormComponent } from './product-form/product-form.component';
     AbmProdprovListComponent,
     CategoryFormComponent,
     SubcategoryFormComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProviderFormComponent
   ],
   imports: [
     BrowserModule,

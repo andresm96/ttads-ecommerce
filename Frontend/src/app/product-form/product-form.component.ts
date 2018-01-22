@@ -3,7 +3,6 @@ import { Product } from '../models/product';
 import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
 import { SubcategoryService } from '../subcategory.service';
-import { ProviderService } from '../provider.service';
 import { Subcategory } from '../models/subcategory';
 import { Provider } from '@angular/compiler/src/core';
 
@@ -18,26 +17,25 @@ export class ProductFormComponent implements OnInit {
   @Input() product: Product;
   newproduct = { _id: ''};
   subcategories: Subcategory[];
-  providers: Provider[];
+  uploadProduct = 0;
 
   constructor(
     private productService: ProductService,
-    private subcategoryService: SubcategoryService,
-    private providerService: ProviderService
+    private subcategoryService: SubcategoryService
   ) { }
 
   ngOnInit() {
     this.subcategoryService.getSubcategories()
     .subscribe(subcategories => this.subcategories = subcategories);
-
-    this.providerService.getProviders()
-    .subscribe(providers => this.providers = providers);
   }
 
   saveProduct() {
     this.productService.addProduct(this.newproduct as Product)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadProduct = 1;
+        },
       error => alert(error)
     );
   }
@@ -46,7 +44,10 @@ export class ProductFormComponent implements OnInit {
     this.newproduct._id = this.product._id;
     this.productService.updateProduct(this.newproduct as Product)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadProduct = 1;
+        },
       error => alert(error)
     )
   }
@@ -54,9 +55,16 @@ export class ProductFormComponent implements OnInit {
   deleteProduct(){
     this.productService.deleteProduct(this.product)
     .subscribe(
-      data => alert(data),
+      data => {
+        alert(data);
+        this.uploadProduct = 1;
+        },
       error => alert(error)
     )
+  }
+
+  refresh(){
+    location.reload();
   }
 
 }
