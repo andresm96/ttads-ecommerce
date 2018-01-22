@@ -34,6 +34,23 @@ export class SubcategoryService {
       );
   }
 
+  /** POST: add a new category to the server */
+  addSubcategory (subcategory: Subcategory): Observable<Subcategory> {
+    return this.http.post<Subcategory>(this.subcategoryUrl + "new", subcategory, httpOptions).pipe(
+      catchError(this.handleError<Subcategory>('addSubcategory'))
+    );
+  }
+
+  /** PUT: update the category on the server */
+  updateSubcategory (subcategory: Subcategory | number): Observable<Subcategory> {
+    const id = typeof subcategory === 'number' ? subcategory : subcategory._id;
+    const url = `${this.subcategoryUrl+ "update"}/${id}`;
+
+    return this.http.put(url, subcategory, httpOptions).pipe(
+      catchError(this.handleError<any>('updateSubcategory'))
+    );
+  }
+
   deleteSubcategory (subcategory: Subcategory | number): Observable<Subcategory> {
     const id = typeof subcategory === 'number' ? subcategory : subcategory._id;
     const url = `${this.subcategoryUrl+ "delete"}/${id}`;
