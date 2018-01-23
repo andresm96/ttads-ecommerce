@@ -31,6 +31,29 @@ router.get('/:id', (req, res, next) => {
     });   
 });
 
+router.get('/subcategory/:id', (req, res, next) =>{
+    ProductSchema.find({}).where('subcategory').equals(req.params.id).then(prod => {
+        var idProds = [];
+        prod.forEach( element => {
+            idProds.push(element._id);
+        });
+        return idProds;
+    })
+    .then(idProds => {
+        ProdProv.find({}).where('idProduct').in(idProds)
+        .then(prodprov => {
+            if(!prodprov){
+                res.send("Not found");
+            }
+            else{
+                res.json(prodprov);
+            }
+        })
+    });
+});
+
+
+
 //Create and update ProdProv in product
 //Ver misma duda que en subcategory
 router.post('/new', (req, res, err) => {

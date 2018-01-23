@@ -44,6 +44,14 @@ export class ProdProvService {
     );
   }
 
+  getProductsBySubcategory(id: string): Observable<ProdProv[]> {
+    const url = this.productsUrl + "/subcategory/"+ id;
+    return this.http.get<ProdProv[]>(url)
+      .pipe(
+       catchError(this.handleError<ProdProv[]>(`getProduct id=${id}`))
+    );
+  }
+
   getProductImageUrl(id: string): string{
     const url = `${this.productsUrl}${id}` +"/image";
     console.log(url);
