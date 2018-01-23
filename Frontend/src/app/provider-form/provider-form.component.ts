@@ -18,6 +18,9 @@ export class ProviderFormComponent implements OnInit {
   constructor(private providerService: ProviderService) { }
 
   ngOnInit() {
+    if(this.provider != null){
+      this.newprovider = this.provider;
+    }
   }
 
   saveProvider() {

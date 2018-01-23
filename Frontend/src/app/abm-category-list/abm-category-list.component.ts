@@ -72,16 +72,6 @@ export class AbmCategoryListComponent implements OnInit {
     });
   }
 
-  delete(category: Category): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      this.categories = this.categories.filter(c => c !== category);
-      this.categoryService.deleteCategory(category).subscribe();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
 
   selectCategory(category: Category): void {
     this.category = category;
