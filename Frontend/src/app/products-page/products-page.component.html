@@ -15,7 +15,7 @@
           <div id="{{ category._id }}" class="collapse" role="tabpanel"  data-parent="#accordion">
             <div class="list-group">
               <ng-container *ngFor="let subcategory of category.subcategory">
-                <a  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" (click)="goPath(subcategory._id)">
                   {{ subcategory.name }} 
                 </a>
               </ng-container>
