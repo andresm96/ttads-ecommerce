@@ -27,6 +27,10 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.subcategoryService.getSubcategories()
     .subscribe(subcategories => this.subcategories = subcategories);
+
+    if(this.product != null){
+      this.newproduct = this.product;
+        }
   }
 
   saveProduct() {

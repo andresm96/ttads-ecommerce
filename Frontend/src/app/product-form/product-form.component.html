@@ -50,10 +50,14 @@
                 <div class="form-group">
                   <label for="name">Nombre:</label>
                   <input type="text" class="form-control" [(ngModel)]="newproduct.name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Descripcion:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newproduct.description" name="description" required>
                 </div> 
                 <div class="form-group">
                   <label for="subcategory">Subcategoria:</label>
-                  <select [(ngModel)]="newproduct.subcategory" class="form-control" placeholder="Subcategoria" name="subcategory">
+                  <select [(ngModel)]="newproduct.subcategory._id" class="form-control" placeholder="Subcategoria" name="subcategory">
                       <option *ngFor="let sub of subcategories" [value]="sub._id" [selected]="sub._id === product.subcategory._id" >
                       {{ sub.name }}
                       </option>
@@ -87,11 +91,15 @@
               <form (ngSubmit)="deleteProduct()" name="deleteProduct" action="#" >
                   <div class="form-group">
                     <label for="name">Nombre:</label>
-                    <input type="text" class="form-control" [(ngModel)]="newProduct.name" name="name" disabled="true" required>
+                    <input type="text" class="form-control" [(ngModel)]="newproduct.name" name="name" disabled="true" required>
                   </div> 
+                  <div class="form-group">
+                    <label for="name">Descripcion:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newproduct.description" name="description" disabled="true" required>
+                  </div>
                 <div class="form-group">
                   <label for="subcategory">Subcategoria:</label>
-                  <select [(ngModel)]="newproduct.subcategory" class="form-control" placeholder="Subcategoria" name="subcategory" disabled="true">
+                  <select [(ngModel)]="newproduct.subcategory._id" class="form-control" placeholder="Subcategoria" name="subcategory" disabled="true">
                       <option *ngFor="let sub of subcategories" [value]="sub._id" [selected]="sub._id === product.subcategory._id">
                           {{ sub.name }}
                       </option>
