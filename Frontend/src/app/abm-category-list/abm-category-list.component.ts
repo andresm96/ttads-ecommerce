@@ -21,6 +21,10 @@ export class AbmCategoryListComponent implements OnInit {
   categories: Category[] =[];
   category: Category;
 
+  onFormActive = false;
+  typeForm = 0;
+  categorySelected: Category;
+
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
@@ -82,6 +86,23 @@ export class AbmCategoryListComponent implements OnInit {
   selectCategory(category: Category): void {
     this.category = category;
     console.log(this.category);
+  }
+
+  newCategory(){
+    this.onFormActive = true;
+    this.typeForm = 1;
+  }
+
+  updateCategory(category: Category){
+    this.categorySelected = category;
+    this.onFormActive = true;
+    this.typeForm = 2;
+  }
+
+  deleteCategory(category: Category){
+    this.categorySelected = category;
+    this.onFormActive = true;
+    this.typeForm = 3;
   }
 
 
