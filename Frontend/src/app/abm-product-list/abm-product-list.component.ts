@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Product } from '../classes/product';
+import { Product } from '../models/product';
 import { ProductService } from '../product.service';
 
 import { Subject } from 'rxjs/Subject';
@@ -17,6 +17,9 @@ export class AbmProductListComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  onFormActive = false;
+  typeForm = 0;
+  productSelected :Product;
 
   products: Product[] =[];
 
@@ -45,11 +48,11 @@ export class AbmProductListComponent implements OnInit {
       var array = [];
       result.forEach(item => {
         var product = new Product();
-        product.id = item._id;
+        product._id = item._id;
         product.name = item.name;
-        product.subcategory = item.subcategory.name;
+        product.subcategory = item.subcategory;
         product.description = item.description;
-        array.push(product);
+        array.push(product);  
       });
       return array;
     })
@@ -58,14 +61,22 @@ export class AbmProductListComponent implements OnInit {
     });
   }
 
-  delete(product: Product): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      this.products = this.products.filter(p => p !== product);
-      this.productService.deleteProduct(product).subscribe();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
+  
+  newProduct(){
+    this.onFormActive = true;
+    this.typeForm = 1;
   }
+
+  updateProduct(product: Product){
+    this.productSelected = product;
+    this.onFormActive = true;
+    this.typeForm = 2;
+  }
+
+  deleteProduct(product: Product){
+    this.productSelected = product;
+    this.onFormActive = true;
+    this.typeForm = 3;
+  }
+
 }
