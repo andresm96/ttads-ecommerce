@@ -18,6 +18,10 @@ export class AbmProviderListComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
+  onFormActive = false;
+  typeForm = 0;
+  providerSelected : Provider;
+
   providers: Provider[] =[];
 
   constructor(private providerService: ProviderService) { }
@@ -59,15 +63,22 @@ export class AbmProviderListComponent implements OnInit {
     });
   }
 
-  delete(provider: Provider): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      this.providers = this.providers.filter(p => p !== provider);
-      this.providerService.deleteProvider(provider).subscribe();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
+  newProvider(){
+    this.onFormActive = true;
+    this.typeForm = 1;
   }
+
+  updateProvider(provider: Provider){
+    this.providerSelected = provider;
+    this.onFormActive = true;
+    this.typeForm = 2;
+  }
+
+  deleteProvider(provider: Provider){
+    this.providerSelected = provider;
+    this.onFormActive = true;
+    this.typeForm = 3;
+  }
+
 
 }
