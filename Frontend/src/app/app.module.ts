@@ -19,23 +19,25 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryService } from './category.service';
 import { CustomerService } from './customer.service';
 import { ProviderService } from './provider.service';
+import { SubcategoryService } from './subcategory.service';
 import { ProductsPageComponent } from './products-page/products-page.component';
-import { CustomerFormComponent } from './customer-form/customer-form.component';
+//import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
-import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
+//import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
+//import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
+/*import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
 import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.component';
 import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.component';
 import { AbmSubcategoryListComponent } from './abm-subcategory-list/abm-subcategory-list.component';
-import { SubcategoryService } from './subcategory.service';
 import { AbmProdprovListComponent } from './abm-prodprov-list/abm-prodprov-list.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { SubcategoryFormComponent } from './subcategory-form/subcategory-form.component';
 import { ProductFormComponent } from './product-form/product-form.component';
-import { ProviderFormComponent } from './provider-form/provider-form.component';
+import { ProviderFormComponent } from './provider-form/provider-form.component';*/
+
+import { DashboardModule } from './dashboard-feature/dashboard.module';
 
 
 @NgModule({
@@ -49,7 +51,7 @@ import { ProviderFormComponent } from './provider-form/provider-form.component';
     ProductSearchComponent,
     DashboardComponent,
     ProductsPageComponent,
-    CustomerFormComponent,
+   /* CustomerFormComponent,
     AbmProductListComponent,
     ProdprovFormComponent,
     AbmCustomerListComponent,
@@ -60,11 +62,12 @@ import { ProviderFormComponent } from './provider-form/provider-form.component';
     CategoryFormComponent,
     SubcategoryFormComponent,
     ProductFormComponent,
-    ProviderFormComponent
+    ProviderFormComponent*/
   ],
   imports: [
     BrowserModule,
     DataTablesModule,
+    DashboardModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

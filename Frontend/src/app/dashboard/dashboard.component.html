@@ -2,11 +2,25 @@
   <div class="row">
     <nav class="col-sm-3 col-md-2">
       <div class="list-group my-3">
-        <button class="list-group-item list-group-item-action">Productos</button>
-        <button class="list-group-item list-group-item-action">Proveedores</button>
-        <button class="list-group-item list-group-item-action">Categorias</button>
-        <button class="list-group-item list-group-item-action">Subcategorias</button>
-        <button class="list-group-item list-group-item-action">Usuarios</button>
+
+        <a routerLink="/dashboard/products" routerLinkActive="active" 
+        class="list-group-item list-group-item-action">Productos</a>
+
+        <a routerLink="/dashboard/prodprovs" routerLinkActive="active" 
+        class="list-group-item list-group-item-action">Productos-Proveedores</a>
+
+        <a routerLink="/dashboard/providers" routerLinkActive="active" 
+        class="list-group-item list-group-item-action">Proveedores</a>
+
+        <a routerLink="/dashboard/categories" routerLinkActive="active" 
+        class="list-group-item list-group-item-action">Categorias</a>
+
+        <a routerLink="/dashboard/subcategories" routerLinkActive="active" 
+        class="list-group-item list-group-item-action">Subcategorias</a>
+
+        <a routerLink="/dashboard/users" routerLinkActive="active" 
+        class="list-group-item list-group-item-action">Usuarios</a>
+
       </div>
     </nav>
 
@@ -15,7 +29,7 @@
         <small>Section title</small>
       </h1>
       <hr>
-      <app-abm-prodprov-list></app-abm-prodprov-list>
+      <router-outlet></router-outlet>
     </main>
   </div>
 </div>

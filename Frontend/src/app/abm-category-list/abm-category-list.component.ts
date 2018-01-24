@@ -48,6 +48,7 @@ export class AbmCategoryListComponent implements OnInit {
         }
     };
     this.getCategories();
+    
   }
   
   ngAfterViewInit(): void {

@@ -1,40 +1,39 @@
-
 <div *ngIf="!onFormActive">
-    <button type="button" (click)="newCategory()" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
-        
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
-    <thead>
-        <tr class="thead-light">
-            <th>Nombre</th>
-            <th>Subcategorias</th>
-            <th>Accion</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let category of categories">
-            <td>{{ category.name }}</td>
-            <td>{{ category.subcategory.length }}</td>
-            <td class="text-center">
-                <button type="button" (click)="updateCategory(category)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                <button type="button" class="btn btn-danger btn-sm"
-                (click)="deleteCategory(category)" title="delete category"><i class="far fa-trash-alt"></i></button>
-            </td>       
-        </tr>
-        <tr *ngIf="categories?.length == 0">
-            <td colspan="3" class="no-data-available">No data!</td>
-        </tr>
-    </tbody>
-    </table>
+  <button type="button" (click)="newCategory()" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
+      
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+  <thead>
+      <tr class="thead-light">
+          <th>Nombre</th>
+          <th>Subcategorias</th>
+          <th>Accion</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let category of categories">
+          <td>{{ category.name }}</td>
+          <td>{{ category.subcategory.length }}</td>
+          <td class="text-center">
+              <button type="button" (click)="updateCategory(category)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
+              <button type="button" class="btn btn-danger btn-sm"
+              (click)="deleteCategory(category)" title="delete category"><i class="far fa-trash-alt"></i></button>
+          </td>       
+      </tr>
+      <tr *ngIf="categories?.length == 0">
+          <td colspan="3" class="no-data-available">No data!</td>
+      </tr>
+  </tbody>
+  </table>
 </div>
 
 <div *ngIf="onFormActive && typeForm === 1">
-    <app-category-form [typeForm] = "1"></app-category-form>
+  <app-category-form [typeForm] = "1"></app-category-form>
 </div>
 
 <div *ngIf="onFormActive && typeForm === 2">
-    <app-category-form [typeForm] = "2" [category]="categorySelected"></app-category-form>
+  <app-category-form [typeForm] = "2" [category]="categorySelected"></app-category-form>
 </div>
 
 <div *ngIf="onFormActive && typeForm === 3">
-    <app-category-form [typeForm] = "3" [category]="categorySelected"></app-category-form>
+  <app-category-form [typeForm] = "3" [category]="categorySelected"></app-category-form>
 </div>
