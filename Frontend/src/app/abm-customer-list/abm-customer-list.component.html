@@ -17,14 +17,14 @@
     </thead>
     <tbody>
         <tr *ngFor="let customer of customers">
-            <td>{{ customer.user }}</td>
-            <td>{{ customer.admin }}</td>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.surname }}</td>
-            <td>{{ customer.adress }}</td>
-            <td>{{ customer.phone }}</td>
-            <td>{{ customer.birthdate | date: 'dd/MM/yyyy' }}</td>
-            <td>
+            <td>{{ customer.user || "-" }}</td>
+            <td>{{ customer.admin || "-" }}</td>
+            <td>{{ customer.name || "-" }}</td>
+            <td>{{ customer.surname || "-" }}</td>
+            <td>{{ customer.adress || "-" }}</td>
+            <td>{{ customer.phone || "-" }}</td>
+            <td>{{ customer.birthdate | date: 'dd/MM/yyyy' || "-" }}</td>
+            <td class="text-center">
                 <button type="button" (click)="updateCustomer(customer)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"
                  (click)="deleteCustomer(customer)" title="delete customer"><i class="far fa-trash-alt"></i></button>

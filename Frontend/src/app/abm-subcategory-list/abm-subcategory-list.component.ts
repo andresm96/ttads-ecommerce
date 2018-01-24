@@ -37,10 +37,6 @@ export class AbmSubcategoryListComponent implements OnInit {
     };
     this.getSubcategories();
   }
-  
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
 
   getSubcategories(): void {
     this.subcategoryService.getSubcategories()
@@ -58,16 +54,6 @@ export class AbmSubcategoryListComponent implements OnInit {
     })
     .subscribe(subcategories => {
       this.subcategories= subcategories;
-    });
-  }
-
-  delete(subcategory: Subcategory): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      this.subcategories = this.subcategories.filter(s => s !== subcategory);
-      this.subcategoryService.deleteSubcategory(subcategory).subscribe();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
   }

@@ -38,10 +38,6 @@ export class AbmProdprovListComponent implements OnInit {
     this.getProdProvs();
   }
   
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
-
   getProdProvs(): void {
     this.prodprovService.getProducts()
     .map(result => {
@@ -59,6 +55,7 @@ export class AbmProdprovListComponent implements OnInit {
     })
     .subscribe(prodprovs => {
       this.prodprovs= prodprovs;
+      this.dtTrigger.next();
     });
   }
 

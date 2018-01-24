@@ -37,10 +37,6 @@ export class AbmProductListComponent implements OnInit {
     };
     this.getProducts();
   }
-  
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
 
   getProducts(): void {
     this.productService.getProducts()
@@ -58,10 +54,10 @@ export class AbmProductListComponent implements OnInit {
     })
     .subscribe(products => {
       this.products= products;
+      this.dtTrigger.next();
     });
   }
 
-  
   newProduct(){
     this.onFormActive = true;
     this.typeForm = 1;

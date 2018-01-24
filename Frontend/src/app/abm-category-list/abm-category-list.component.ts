@@ -35,23 +35,9 @@ export class AbmCategoryListComponent implements OnInit {
         orderable: false, 
         searchable: false, 
         targets: [2] 
-        }],
-        rowCallback: (row: Node, data: Category, index: number) => {
-          const self = this;
-          // Unbind first in order to avoid any duplicate handler
-          // (see https://github.com/l-lin/angular-datatables/issues/87)
-          $('td', row).unbind('click');
-          $('td', row).bind('click', () => {
-            self.selectCategory(data);
-          });
-          return row;
-        }
+        }]
     };
     this.getCategories();
-  }
-  
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
   }
 
   getCategories(): void {
@@ -69,13 +55,8 @@ export class AbmCategoryListComponent implements OnInit {
     })
     .subscribe(categories => {
       this.categories = categories;
+      this.dtTrigger.next();
     });
-  }
-
-
-  selectCategory(category: Category): void {
-    this.category = category;
-    console.log(this.category);
   }
 
   newCategory(){

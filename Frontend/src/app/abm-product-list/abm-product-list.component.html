@@ -1,4 +1,3 @@
-
 <div *ngIf="!onFormActive">
     <button type="button" (click)="newProduct()" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
 
@@ -13,16 +12,16 @@
     </thead>
     <tbody>
         <tr *ngFor="let product of products">
-            <td>{{ product.name }}</td>    
-            <td>{{ product.subcategory.name }}</td>
-            <td>{{ product.description }}</td>
-            <td>
-                <button type="button" (click)="updateProduct(product)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
+            <td>{{ product.name || "-" }}</td>
+            <td>{{ product.subcategory.name || "-" }}</td>
+            <td>{{ product.description || "-" }}</td>
+            <td class="text-center">
+                <button type="button" (click) ="updateProduct(product)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"
                 (click)="deleteProduct(product)" title="delete product"><i class="far fa-trash-alt"></i></button>
             </td>       
         </tr>
-        <tr *ngIf="products?.length === 0">
+        <tr *ngIf="products?.length == 0">
             <td colspan="3" class="no-data-available">No data!</td>
         </tr>
     </tbody>
@@ -34,9 +33,9 @@
 </div>
 
 <div *ngIf="onFormActive && typeForm === 2">
-    <app-product-form [typeForm] = "2" [product]="productSelected"></app-product-form>
+        <app-product-form [typeForm] = "2" [product]="productSelected"></app-product-form>
 </div>
 
 <div *ngIf="onFormActive && typeForm === 3">
-    <app-product-form [typeForm] = "3" [product]="productSelected"></app-product-form>
+        <app-product-form [typeForm] = "3" [product]="productSelected"></app-product-form>
 </div>
