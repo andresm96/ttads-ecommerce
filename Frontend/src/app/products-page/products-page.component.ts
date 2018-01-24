@@ -34,7 +34,6 @@ export class ProductsPageComponent implements OnInit {
     this.getCategories();
     let id = this.route.snapshot.paramMap.get('id');
     this.getProducts(id);
-  
    }
 
 
@@ -49,5 +48,6 @@ export class ProductsPageComponent implements OnInit {
   goPath(id: string){
     let newpath = this.path + id;
     this.router.navigate([newpath.toString()]);
+    return true;
   }
 }
