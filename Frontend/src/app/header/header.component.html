@@ -42,7 +42,7 @@
 
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <ng-container *ngFor="let subcategory of category.subcategory">
-                    <a class="dropdown-item" (click)="goPath(subcategory._id)">
+                    <a class="dropdown-item" href="javascript:void(0)" (click)="goPath(subcategory._id)">
                         {{ subcategory.name}}
                     </a>
                 </ng-container>
