@@ -11,8 +11,8 @@
   </thead>
   <tbody>
       <tr *ngFor="let category of categories">
-          <td>{{ category.name }}</td>
-          <td>{{ category.subcategory.length }}</td>
+          <td>{{ category.name || "-" }}</td>
+          <td>{{ category.subcategory.length || "0" }}</td>
           <td class="text-center">
               <button type="button" (click)="updateCategory(category)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
               <button type="button" class="btn btn-danger btn-sm"

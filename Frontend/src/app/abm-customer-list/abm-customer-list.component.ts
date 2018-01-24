@@ -32,14 +32,10 @@ export class AbmCustomerListComponent implements OnInit {
       columnDefs: [{ 
         orderable: false, 
         searchable: false, 
-        targets: [6] 
+        targets: [7] 
       }]
     };
     this.getCustomers();
-  }
-  
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
   }
 
   getCustomers(): void {
@@ -62,6 +58,7 @@ export class AbmCustomerListComponent implements OnInit {
     })
     .subscribe(customers => {
       this.customers= customers;
+      this.dtTrigger.next();
     });
   }
 

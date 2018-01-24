@@ -13,10 +13,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let subcategory of subcategories">
-            <td>{{ subcategory.name }}</td>
-            <td>{{ subcategory.category.name }}</td>
-            <td>{{ subcategory.products.length }}</td>
-            <td>
+            <td>{{ subcategory.name || "-" }}</td>
+            <td>{{ subcategory.category.name || "-" }}</td>
+            <td>{{ subcategory.products.length || "0" }}</td>
+            <td class="text-center">
                 <button type="button" (click)="updateSubcategory(subcategory)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"
                 (click)="deleteSubcategory(subcategory)" title="delete subcategory"><i class="far fa-trash-alt"></i></button>

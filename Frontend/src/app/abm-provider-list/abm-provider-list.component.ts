@@ -38,10 +38,6 @@ export class AbmProviderListComponent implements OnInit {
     };
     this.getProviders();
   }
-  
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
 
   getProviders(): void {
     this.providerService.getProviders()
@@ -60,6 +56,7 @@ export class AbmProviderListComponent implements OnInit {
     })
     .subscribe(providers => {
       this.providers= providers;
+      this.dtTrigger.next();
     });
   }
 

@@ -14,17 +14,17 @@
     </thead>
     <tbody>
         <tr *ngFor="let prodprov of prodprovs">
-            <td>{{ prodprov.idProduct.name }}</td>
-            <td>{{ prodprov.price }}</td>
-            <td>{{ prodprov.idProvider.company }}</td>
-            <td>{{ prodprov.description }}</td>
-            <td>
+            <td>{{ prodprov.idProduct.name || "-" }}</td>
+            <td>{{ prodprov.price || "-" }}</td>
+            <td>{{ prodprov.idProvider.company || "-" }}</td>
+            <td>{{ prodprov.description || "-" }}</td>
+            <td class="text-center">
                 <button type="button" (click) ="updateProdProv(prodprov)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"
                 (click)="deleteProdProv(prodprov)" title="delete prodprov"><i class="far fa-trash-alt"></i></button>
             </td>       
         </tr>
-        <tr *ngIf="products?.length == 0">
+        <tr *ngIf="prodprovs?.length == 0">
             <td colspan="3" class="no-data-available">No data!</td>
         </tr>
     </tbody>
