@@ -46,7 +46,7 @@ router.post('/new', (req, res, err) => {
      });
     
 });
-
+/*
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
 
@@ -62,6 +62,24 @@ router.delete('/delete/:id', (req, res, next) =>{
             res.status(200).send(response);
         }
     });
+});*/
+
+router.delete('/delete/:id', (req, res, next) =>{
+    let id = req.params.id;
+    
+    Category.findByIdAndRemove(id, (err, category)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            let response = {
+                message: "Categoria eliminada correctamente",
+                id: category._id
+            };
+            res.status(200).send(response);
+        }
+    });
+
 });
 
 router.put('/update/:id', (req, res, next) =>{

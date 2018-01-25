@@ -7,4 +7,5 @@ var schema = new Schema({
     products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
 });
 
+
 module.exports = mongoose.model('SubCategory', schema);

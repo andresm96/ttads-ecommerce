@@ -3,7 +3,7 @@ import { CategoryService } from '../category.service';
 import { ProdProvService } from '../prodprov.service';
 import { Category } from '../models/category';
 import { ProdProv } from '../models/prod-prov';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
