@@ -37,7 +37,12 @@
           <h3 class="my-3"><small class="text-muted">Precio en un pago</small></h3>
           <h3><i class="fas fa-dollar-sign"></i> {{ prodprov.price }}</h3>
           <div class="my-4">
-            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-cart-plus"></i> Comprar</button>
+            <button type="button" (click)="addProductToCart(prodprov, 1)" class="btn btn-primary btn-lg btn-block"><i class="fas fa-cart-plus"></i> Comprar</button>
+            <button type="button"
+            class="btn btn-danger btn-sm btn-block"
+            *ngIf="productInCart(prodprov) | async"
+            (click)="removeProductFromCart(prodprov, 1)">Remove item from cart</button>
+          
           </div>
           
         </div>

@@ -21,6 +21,16 @@ import { CustomerService } from './customer.service';
 import { ProviderService } from './provider.service';
 import { SubcategoryService } from './subcategory.service';
 import { ProductsPageComponent } from './products-page/products-page.component';
+
+
+import { ShoppingCartService } from './shopping-cart-services/shopping-cart.service';
+import { LocalStorageService, StorageService } from './shopping-cart-services/storage.service';
+
+
+
+
+
+
 //import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -38,6 +48,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ProviderFormComponent } from './provider-form/provider-form.component';*/
 
 import { DashboardModule } from './dashboard-feature/dashboard.module';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 @NgModule({
@@ -51,6 +62,7 @@ import { DashboardModule } from './dashboard-feature/dashboard.module';
     ProductSearchComponent,
     DashboardComponent,
     ProductsPageComponent,
+    CheckoutComponent,
    /* CustomerFormComponent,
     AbmProductListComponent,
     ProdprovFormComponent,
@@ -81,7 +93,22 @@ import { DashboardModule } from './dashboard-feature/dashboard.module';
     InMemoryDataService, { dataEncapsulation: false }
     )*/
   ],
-  providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService, SubcategoryService ],
+  providers: [ 
+    ProdProvService, 
+    CategoryService, 
+    CustomerService, 
+    ProviderService, 
+    ProductService, 
+    SubcategoryService,
+    LocalStorageService,
+    {provide: StorageService, useClass: LocalStorageService },
+    {
+      deps: [StorageService, ProdProvService],
+      provide: ShoppingCartService,
+      useClass: ShoppingCartService
+    }
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
