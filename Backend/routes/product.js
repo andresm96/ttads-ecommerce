@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var router=require('express').Router();
 var Product = mongoose.model('Product');
-
+var ProdProv = mongoose.model('ProdProv');
 var ObjectId = mongoose.Types.ObjectId;
 
 
@@ -19,15 +19,28 @@ router.get('/', (req, res, next) => {
 
 //Search term
 router.get('/search', (req, res, next)=> {
-
     var name = req.query.name;
 
     Product.find({name: new RegExp(name, 'i')}).then(products =>{
         if(!products) {return res.sendStatus(401);}
-        return res.json({'products': products})
+        var idProds = [];
+        products.forEach( element => {
+            idProds.push(element._id);
+        });
+        return idProds;  
+    })
+    .then(idProds => {
+        ProdProv.find({}).where('idProduct').in(idProds).populate('idProduct').populate('idProvider')
+        .then(prodprov => {
+            if(!prodprov){
+                res.send("Not found");
+            }
+            else{
+                return res.json({'products': prodprov});
+            }
+        })
     })
     .catch(next);
-
 });
 
 

@@ -4,9 +4,10 @@
     <input #searchBox id="search-box" (keyup)="search(searchBox.value)" type="text" class="form-control shadow" placeholder="Buscar productos" aria-label="Recipient's username" aria-describedby="basic-addon2">
     <div *ngIf="hide">
     <div class="list-group fixed">
-        <li *ngFor="let product of products$ | async" class="list-group-item list-group-item-action" >
-          <a routerLink="/prodprov/{{product.prodprovs}}" (click)="hideBar()" onclick="document.getElementById('search-box').value = ''">
-            {{product.name}}
+        <li *ngFor="let prodprov of products$ | async" class="list-group-item list-group-item-action" >
+          <a (click)="goPath(prodprov._id)" href="javascript:void(0)" onclick="document.getElementById('search-box').value = ''">
+            {{prodprov.idProduct.name}} - 
+            {{prodprov.idProvider.company}}
           </a>
         </li>
       </div>

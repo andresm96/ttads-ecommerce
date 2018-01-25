@@ -65,7 +65,7 @@ export class ProdProvService {
       return of([]);
     }
     return this.http.get<any>(baseURL+`/product/search?name=${term}`).map(res => {return res.products}).pipe(
-      catchError(this.handleError<Product[]>('searchProducts', []))
+      catchError(this.handleError<ProdProv[]>('searchProducts', []))
     );
   }
 

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
 var schema = new Schema({
     name: {type: String, required: true},
     description: {type: String, required: true},
@@ -8,5 +9,6 @@ var schema = new Schema({
     prodprovs: [{type: Schema.Types.ObjectId, ref: 'ProdProv'}],
     provider: [{type: Schema.Types.ObjectId, ref: 'Provider'}]
 });
+
 
 module.exports = mongoose.model('Product', schema);
