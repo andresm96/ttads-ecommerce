@@ -1,31 +1,65 @@
-<br>
+<div class="container my-3">
+    <h1 class="display-4 small">Mi Carrito <small><span class="badge badge-pill badge-secondary">{{cartItems.length}}</span></small></h1>
+    
+    <hr>
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="card mb-4" *ngFor="let item of cartItems">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5 my-auto">
+              <h6>{{item.prodprov.idProduct.name}}</h6>
+            </div>
+            <div class="col-md-2">
+              <h6 class="card-subtitle mb-2 text-muted">Cantidad</h6>
+              <input type="number" class="form-control text-center" name="quantity" min="1" max="5" value="{{item.quantity}}">
+            </div>
+            <div class="col-md-2">
+              <h6 class="card-subtitle mb-2 text-muted">Precio</h6>
+              <p>${{item.prodprov.price}}</p>
+            </div>
+            <div class="col-md-2">
+              <h6 class="card-subtitle mb-2 text-muted">Total</h6>
+              <p>subtotal</p>
+            </div>
+            <div class="col-md-1 my-auto">
+              <a href=""><i class="far fa-trash-alt btn-lg text-danger"></i></a>
+            </div>
+
+          </div>
+          
+          
+              
+            
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="card">
+            <div class="card-body">
+              <ul class="list-group my-2">
+                <li class="d-flex justify-content-between">
+                    <h4>Total</h4>
+                    <h4>${{(cart | async).itemsTotal }}</h4>
+                </li>
+              </ul>
+              <hr>
+              <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary btn-lg btn-block">Finalizar Compra</button>
+              <button type="button" (click)="goBack()" class="btn btn-outline-success btn-lg btn-block">Continuar Comprando</button>
+            </div>
+          </div>
+          <button class="btn btn-outline-danger my-4" (click)="emptyCart()">Vaciar</button>
+
+    </div>
+  </div>
+</div>
+
 <div class="container">
     <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Tu carrito</span>
-            <span class="badge badge-secondary badge-pill">{{cartItems.length}}</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li *ngFor="let item of cartItems" class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">{{item.prodprov.idProduct.name}}</h6>
-                <small class="text-muted">{{item.prodprov.description}}</small>
-                <br>
-                <small class ="text-muted">Cantidad: {{item.quantity}}</small>
-              </div>
-              <span class="text-muted">${{item.prodprov.price}}</span>
-
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (ARS)</span>
-              <strong>${{(cart | async).itemsTotal }}</strong>
-            </li>
-          </ul>
-          <button type="button" (click)="goBack()" class="btn btn-success btn-lg btn-block">Seguir comprando</button>
-          <button type="button" (click)="emptyCart()" class="btn btn-danger btn-sm btn-block">Limpiar carrito</button>      
-        </div>
+      
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
           <form class="needs-validation" novalidate>
@@ -184,3 +218,25 @@
         </ul>
       </footer>
     </div>
+
+
+    <!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Checkout</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Finalizar Compra</button>
+        </div>
+      </div>
+    </div>
+  </div>

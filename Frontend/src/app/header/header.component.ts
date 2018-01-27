@@ -5,7 +5,6 @@ import { Category } from '../models/category';
 import { ProdProv } from '../models/prod-prov';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

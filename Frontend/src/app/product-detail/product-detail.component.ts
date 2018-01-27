@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../models/product';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ProdProvService }  from '../prodprov.service';
 import { ShoppingCartService }  from '../shopping-cart-services/shopping-cart.service';
 
 import { ProdProv } from '../models/prod-prov';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
@@ -21,28 +21,28 @@ export class ProductDetailComponent implements OnInit {
   
   prodprov: ProdProv;
   imageUrl: string;
-  id: string;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private prodprovService: ProdProvService,
     private shoppingCartService: ShoppingCartService,
     private location: Location
-  ) { }
+  ) {
+    this.router.events.subscribe((val) =>{    
+      if(val instanceof NavigationEnd){
+        let id = this.route.snapshot.paramMap.get('id');
+        this.getProdProv(id);
+        this.getProdProvImage(id);
+      }
+    })
+   }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.getProdProv();
-    this.getProdProvImage();
-  }
-
-  ngDoCheck() {
-    let newId = this.route.snapshot.paramMap.get('id');
-    if (newId !== this.id) {
-      this.getProdProv();
-      this.getProdProvImage();
-    }
-  }
+    let id = this.route.snapshot.paramMap.get('id');
+    this.getProdProv(id);
+    this.getProdProvImage(id);
+  } 
 
   addProductToCart(prodprov: ProdProv): void {
 
@@ -65,15 +65,15 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  getProdProv(): void {
+  getProdProv(id: string): void {
     //const id = this.route.snapshot.paramMap.get('id');
-    this.prodprovService.getProduct(this.id)
+    this.prodprovService.getProduct(id)
       .subscribe(prodprov => this.prodprov = prodprov);
   }
 
-  getProdProvImage(): void {
+  getProdProvImage(id: string): void {
     //const id = this.route.snapshot.paramMap.get('id');
-    this.imageUrl = this.prodprovService.getProductImageUrl(this.id)
+    this.imageUrl = this.prodprovService.getProductImageUrl(id)
   }
 
   goBack(): void {

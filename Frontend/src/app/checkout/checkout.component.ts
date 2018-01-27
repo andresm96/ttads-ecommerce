@@ -39,18 +39,18 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.cart = this.shoppingCartService.get();
     this.cartSubscription = this.cart.subscribe((cart) => {
-      this.itemCount = cart.items.map((x) => x.quantity).reduce((p, n) => p + n, 0);
-      this.prodprovService.getProducts().subscribe((prodprov) => {
-        this.prodprovs = prodprov;
-        this.cartItems = cart.items
-                             .map((item) => {
-                               const prodprov = this.prodprovs.find((p) => p._id === item.prodprovId);
-                               return {
-                                 ...item,
-                                 prodprov,
-                                 totalCost: prodprov.price * item.quantity
-                               };
-                             });
+    this.itemCount = cart.items.map((x) => x.quantity).reduce((p, n) => p + n, 0);
+    this.prodprovService.getProducts().subscribe((prodprov) => {
+    this.prodprovs = prodprov;
+    this.cartItems = cart.items
+        .map((item) => {
+          const prodprov = this.prodprovs.find((p) => p._id === item.prodprovId);
+          return {
+            ...item,
+            prodprov,
+            totalCost: prodprov.price * item.quantity
+          };
+        });
       });
     });
   }
