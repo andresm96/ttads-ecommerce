@@ -25,6 +25,7 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 
 import { ShoppingCartService } from './shopping-cart-services/shopping-cart.service';
 import { LocalStorageService, StorageService } from './shopping-cart-services/storage.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -49,6 +50,7 @@ import { ProviderFormComponent } from './provider-form/provider-form.component';
 
 import { DashboardModule } from './dashboard-feature/dashboard.module';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { PopOverComponent } from './pop-over/pop-over.component';
 
 
 @NgModule({
@@ -63,6 +65,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     DashboardComponent,
     ProductsPageComponent,
     CheckoutComponent,
+    PopOverComponent,
    /* CustomerFormComponent,
     AbmProductListComponent,
     ProdprovFormComponent,
@@ -84,7 +87,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     HttpClientModule,
     FormsModule,
     HttpModule,
-    FileUploadModule
+    FileUploadModule,
+    BrowserAnimationsModule
     /*
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
