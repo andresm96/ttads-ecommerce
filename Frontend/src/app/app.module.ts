@@ -49,23 +49,25 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ProviderFormComponent } from './provider-form/provider-form.component';*/
 
 import { DashboardModule } from './dashboard-feature/dashboard.module';
+import { ProductModule } from './product-feature/product.module';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PopOverComponent } from './pop-over/pop-over.component';
+import { MainComponent } from './product-feature/main/main.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    /*HeaderComponent,
     FooterComponent,
     ProductosDestacadosComponent,
     ProductComponent,
     ProductDetailComponent,
-    ProductSearchComponent,
+    ProductSearchComponent,*/
     DashboardComponent,
-    ProductsPageComponent,
+    /*ProductsPageComponent,
     CheckoutComponent,
-    PopOverComponent,
+    PopOverComponent,*/
    /* CustomerFormComponent,
     AbmProductListComponent,
     ProdprovFormComponent,
@@ -82,6 +84,7 @@ import { PopOverComponent } from './pop-over/pop-over.component';
   imports: [
     BrowserModule,
     DataTablesModule,
+    ProductModule,
     DashboardModule,
     AppRoutingModule,
     HttpClientModule,

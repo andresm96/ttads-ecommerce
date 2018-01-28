@@ -12,13 +12,13 @@ import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/destacados', pathMatch: 'full' },
-  { path: 'prodprov/:id', component: ProductDetailComponent },
-  { path: 'destacados', component: ProductosDestacadosComponent },
-  { path: 'search/:id', component: ProductsPageComponent},
+  //{ path: 'prodprov/:id', component: ProductDetailComponent },
+  //{ path: 'destacados', component: ProductosDestacadosComponent },
+  //{ path: 'search/:id', component: ProductsPageComponent},
   //{ path: 'dashboard', component: DashboardComponent },
   { path: 'customer-form', component: CustomerFormComponent },
   { path: 'prodprov-form', component: ProdprovFormComponent},
-  { path: 'checkout', component: CheckoutComponent }
+  //{ path: 'checkout', component: CheckoutComponent }
 ];
 
 @NgModule({

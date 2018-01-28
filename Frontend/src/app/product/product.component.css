@@ -1,4 +1,24 @@
 img {
     max-width: 348px;
-    height: auto;
+    height: 348px;
+}
+
+a:hover {
+    text-decoration: none;
+    -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.35);
+    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.35);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.display-4 {
+    font-size: 2em;
+}
+
+.card-title {
+    font-size: 1.2em;
 }

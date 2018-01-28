@@ -1,16 +1,13 @@
 <div class="row">
-  <div class="col-md-4" *ngFor="let prodprov of products">
+  <div class="col-md-4 fixed" *ngFor="let prodprov of products">
     <div class="card mb-4 box-shadow">
       <a routerLink="/prodprov/{{prodprov._id}}">
       <img class="card-img-top responsive" [src]="sanitize(prodprov._id)" alt="Card image cap">
-      </a>
-      <div class="card-body">
-        <h5 class="card-title">{{prodprov.idProduct.name}} </h5>
-        <h5><i class="fas fa-dollar-sign"></i> {{ prodprov.price }}</h5>
-        <hr>
-        <p class="card-text">{{ prodprov.idProduct.description }}</p>
-        <button routerLink="/prodprov/{{prodprov._id}}" class="btn btn-dark btn-lg btn-block">Mas Informacion</button>
+      <div class="card-body text-center">
+        <p class="card-title">{{prodprov.idProduct.name}} </p>
+        <h4 class="display-4">$ {{ prodprov.price }}</h4>
       </div>
+    </a>
     </div>
   </div>
 </div>
