@@ -2,14 +2,14 @@
 <div *ngIf="!onFormActive">
     <button type="button" (click)="newProdProv()" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
 
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover responsive">
     <thead>
         <tr class="thead-light">
             <th>Nombre</th>
             <th>Precio</th>
             <th>Proveedor</th>
             <th>Descripcion</th>
-            <th>Accion</th>
+            <th class="all">Accion</th>
         </tr>
     </thead>
     <tbody>

@@ -14,8 +14,9 @@ import 'rxjs/add/operator/map';
 export class AbmCustomerListComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
+  // Must be declared as "any", not as "DataTables.Settings"
+  dtOptions: any = {};
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   onFormActive = false;
   typeForm = 0;
@@ -29,11 +30,15 @@ export class AbmCustomerListComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-      columnDefs: [{ 
+      columnDefs: [
+        { 
         orderable: false, 
-        searchable: false, 
-        targets: [7] 
-      }]
+        searchable: false,
+        targets: [7],
+      }
+    ],
+       // Use this attribute to enable the responsive extension
+       responsive: true
     };
     this.getCustomers();
   }

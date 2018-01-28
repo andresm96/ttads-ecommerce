@@ -15,7 +15,7 @@ export class AbmProviderListComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
 
   onFormActive = false;
@@ -34,7 +34,8 @@ export class AbmProviderListComponent implements OnInit {
         orderable: false, 
         searchable: false, 
         targets: [4] 
-        }]
+        }],
+      responsive: true
     };
     this.getProviders();
   }
