@@ -33,8 +33,10 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  constructor(private prodprovService: ProdProvService,
-    private shoppingCartService: ShoppingCartService) { }
+  constructor(
+    private prodprovService: ProdProvService,
+    private shoppingCartService: ShoppingCartService
+  ) { }
 
   ngOnInit() {
     this.cart = this.shoppingCartService.get();
@@ -45,6 +47,7 @@ export class CheckoutComponent implements OnInit {
     this.cartItems = cart.items
         .map((item) => {
           const prodprov = this.prodprovs.find((p) => p._id === item.prodprovId);
+          item.subtotal = prodprov.price * item.quantity;
           return {
             ...item,
             prodprov,
@@ -68,6 +71,15 @@ export class CheckoutComponent implements OnInit {
     location.replace("/destacados");
   }
 
+  increaseQuantity(prodprov: ProdProv): void {
+    this.shoppingCartService.addItem(prodprov, 1);
+  }
+  
+  decreaseQuantity(prodprov: ProdProv): void {
+    this.shoppingCartService.addItem(prodprov, -1);
+  }
 
-
+  removeProductFromCart(prodprov: ProdProv): void {
+    this.shoppingCartService.deleteItem(prodprov, -1);
+  }
 }

@@ -2,19 +2,14 @@
   <div class="col-md-4" *ngFor="let prodprov of products">
     <div class="card mb-4 box-shadow">
       <a routerLink="/prodprov/{{prodprov._id}}">
-      <img class="card-img-top responsive fixed" [src]="sanitize(prodprov._id)" alt="Card image cap">
+      <img class="card-img-top responsive" [src]="sanitize(prodprov._id)" alt="Card image cap">
       </a>
       <div class="card-body">
         <h5 class="card-title">{{prodprov.idProduct.name}} </h5>
         <h5><i class="fas fa-dollar-sign"></i> {{ prodprov.price }}</h5>
+        <hr>
         <p class="card-text">{{ prodprov.idProduct.description }}</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-muted">9 mins</small>
-        </div>
+        <button routerLink="/prodprov/{{prodprov._id}}" class="btn btn-dark btn-lg btn-block">Mas Informacion</button>
       </div>
     </div>
   </div>

@@ -52,6 +52,20 @@ export class ShoppingCartService {
 
   }
 
+  public deleteItem(prodprov: ProdProv, quantity: number): void {
+    const cart = this.retrieve();
+    let item = cart.items.find((p) => p.prodprovId === prodprov._id);
+    let index = cart.items.indexOf(item, 0);
+    if (index > -1) {
+      cart.items.splice(index, 1);
+    }
+
+    this.calculateCart(cart);
+    this.save(cart);
+    this.dispatch(cart);
+
+  }
+
   public empty(): void{
     const newCart = new ShoppingCart();
     this.save(newCart);

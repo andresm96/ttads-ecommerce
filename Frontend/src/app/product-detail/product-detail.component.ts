@@ -45,12 +45,7 @@ export class ProductDetailComponent implements OnInit {
   } 
 
   addProductToCart(prodprov: ProdProv): void {
-
     this.shoppingCartService.addItem(prodprov, 1);
-  }
-  
-  removeProductFromCart(prodprov: ProdProv): void {
-    this.shoppingCartService.addItem(prodprov, -1);
   }
 
   productInCart(prodprov: ProdProv): void {
