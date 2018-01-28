@@ -15,7 +15,7 @@ export class AbmProductListComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
   onFormActive = false;
   typeForm = 0;
@@ -33,7 +33,8 @@ export class AbmProductListComponent implements OnInit {
         orderable: false, 
         searchable: false, 
         targets: [3] 
-        }]
+        }],
+      responsive: true
     };
     this.getProducts();
   }
