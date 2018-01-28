@@ -6,24 +6,31 @@
     <thead>
         <tr class="thead-light">
             <th>Usuario</th>
-            <th>Administrador</th>
             <th>Nombre</th>
             <th>Apellido</th>
+            <th>Email</th>
             <th>Direccion</th>
+            <th>Ciudad</th>
+            <th>Provincia</th>
             <th>Telefono</th>
             <th>Fecha de nacimiento</th>
+            <th>Admin</th>            
             <th>Accion</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let customer of customers">
             <td>{{ customer.user || "-" }}</td>
-            <td>{{ customer.admin || "-" }}</td>
             <td>{{ customer.name || "-" }}</td>
             <td>{{ customer.surname || "-" }}</td>
+            <td>{{ customer.email || "-" }}</td>
             <td>{{ customer.adress || "-" }}</td>
+            <td>{{ customer.city || "-" }}</td>
+            <td>{{ customer.province || "-" }}</td>
             <td>{{ customer.phone || "-" }}</td>
             <td>{{ customer.birthdate | date: 'dd/MM/yyyy' || "-" }}</td>
+            <td>{{ customer.admin || "-" }}</td>
+            
             <td class="text-center">
                 <button type="button" (click)="updateCustomer(customer)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"

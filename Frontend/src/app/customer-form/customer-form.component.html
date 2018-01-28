@@ -22,8 +22,26 @@
                         <input type="text" class="form-control" [(ngModel)]="newcustomer.surname" name="surname" required>
                       </div>
                       <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" [(ngModel)]="newcustomer.email" name="email" required>
+                      </div>
+                      <div class="form-group">
                         <label for="adress">Dirección:</label>
                         <input type="text" class="form-control" [(ngModel)]="newcustomer.adress" name="adress" required>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="city">Ciudad</label>
+                          <input type="text" class="form-control" [(ngModel)]="newcustomer.city" name="city" required>
+                        </div>    
+                        <div class="form-group col-md-5 offset-md-1">
+                          <label for="province">Provincia</label>
+                          <select [(ngModel)]="newcustomer.province" class="form-control" placeholder="Provincia" name="provincia">
+                            <option *ngFor="let p of provinces" [value]="p">
+                            {{ p }}
+                            </option>
+                        </select>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label for="phone">Teléfono</label>
@@ -76,8 +94,26 @@
                         <input type="text" class="form-control" [(ngModel)]="newcustomer.surname" name="surname" required>
                       </div>
                       <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" [(ngModel)]="newcustomer.email" name="email" required>
+                      </div>
+                      <div class="form-group">
                         <label for="adress">Dirección:</label>
                         <input type="text" class="form-control" [(ngModel)]="newcustomer.adress" name="adress" required>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="city">Ciudad</label>
+                          <input type="text" class="form-control" [(ngModel)]="newcustomer.city" name="city" required>
+                        </div>    
+                        <div class="form-group col-md-5 offset-md-1">
+                          <label for="province">Provincia</label>
+                          <select [(ngModel)]="newcustomer.province" class="form-control" placeholder="Provincia" name="provincia">
+                            <option *ngFor="let p of provinces" [value]="p">
+                            {{ p }}
+                            </option>
+                        </select>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label for="phone">Teléfono</label>
@@ -130,8 +166,26 @@
                         <input type="text" class="form-control" value="{{customer.surname}}" name="surname" disabled="true" required>
                       </div>
                       <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" value="{{newcustomer.email}}" name="email" disabled="true" required>
+                      </div>                      
+                      <div class="form-group">
                         <label for="adress">Dirección:</label>
                         <input type="text" class="form-control" value="{{customer.adress}}" name="adress" disabled="true" required>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="city">Ciudad</label>
+                          <input type="text" class="form-control" [(ngModel)]="newcustomer.city" name="city" disabled="true" required>
+                        </div>    
+                        <div class="form-group col-md-5 offset-md-1">
+                          <label for="province">Provincia</label>
+                          <select [(ngModel)]="newcustomer.province" class="form-control" placeholder="Provincia" name="provincia" disabled="true">
+                            <option *ngFor="let p of provinces" [value]="p">
+                            {{ p }}
+                            </option>
+                        </select>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label for="phone">Teléfono</label>

@@ -52,6 +52,9 @@ export class AbmCustomerListComponent implements OnInit {
         customer.adress = item.adress;
         customer.birthdate = item.birthdate;
         customer.phone = item.phone;
+        customer.city = item.city;
+        customer.province = item.province;
+        customer.email = item.email;
         array.push(customer);
       });
       return array;
