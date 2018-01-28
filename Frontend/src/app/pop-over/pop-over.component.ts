@@ -53,12 +53,8 @@ export class PopOverComponent implements OnInit {
 
 
   ngOnInit() {
-
-
     this.cart = this.shoppingCartService.get();
     this.cartSubscription = this.cart.subscribe((cart) => {
-
-
       if(cart.quantityItems != 0){
         if(cart.quantityItems > this.lastQuantityInCart){         
           this.lastQuantityInCart = cart.quantityItems;
