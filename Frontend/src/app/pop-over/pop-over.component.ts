@@ -37,6 +37,8 @@ interface ICartItemWithProduct extends CartItem {
 export class PopOverComponent implements OnInit {
   public cart: Observable<ShoppingCart>;
   private cartSubscription: Subscription;
+  lastQuantityInCart = 0;
+  
 
   private prodprovs: ProdProv[];
   
@@ -49,15 +51,27 @@ export class PopOverComponent implements OnInit {
     return this.show? 'show': 'hide'
   }
 
-  toggle(){
-    this.show = !this.show;
-  }
 
   ngOnInit() {
+
+
     this.cart = this.shoppingCartService.get();
     this.cartSubscription = this.cart.subscribe((cart) => {
-      this.show = true;
-      setTimeout(()=>{ this.show = false }, 1500)
+
+
+      if(cart.quantityItems != 0){
+        if(cart.quantityItems > this.lastQuantityInCart){         
+          this.lastQuantityInCart = cart.quantityItems;
+          this.show = true;
+          setTimeout(()=>{ this.show = false }, 1500)
+          }
+          else{
+            this.lastQuantityInCart -= 1;
+          }
+        }
+        else{
+          this.lastQuantityInCart = 0;
+        }
       });
   }
 

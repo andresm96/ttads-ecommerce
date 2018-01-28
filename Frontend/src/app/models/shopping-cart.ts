@@ -8,6 +8,7 @@ export class ShoppingCart {
   public grossTotal: number = 0;
   public deliveryTotal: number = 0;
   public itemsTotal: number = 0;
+  public quantityItems : number = 0;
 
   public updateFrom(src: ShoppingCart) {
     this.items = src.items;
@@ -16,5 +17,6 @@ export class ShoppingCart {
     this.grossTotal = src.grossTotal;
     this.deliveryTotal = src.deliveryTotal;
     this.itemsTotal = src.itemsTotal;
+    this.quantityItems = src.quantityItems;
   }
 }

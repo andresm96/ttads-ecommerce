@@ -77,6 +77,10 @@ export class ShoppingCartService {
     cart.itemsTotal = cart.items
                           .map((item) => item.quantity * this.prodprovs.find((p) => p._id === item.prodprovId).price)
                           .reduce((previous, current) => previous + current, 0);
+    cart.quantityItems = cart.items
+                             .map((item)=> item.quantity )
+                             .reduce((p, c) => p + c, 0);
+                             
   }
 
 
