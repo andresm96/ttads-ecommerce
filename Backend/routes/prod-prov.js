@@ -40,7 +40,7 @@ router.get('/subcategory/:id', (req, res, next) =>{
         return idProds;
     })
     .then(idProds => {
-        ProdProv.find({}).where('idProduct').in(idProds)
+        ProdProv.find({}).where('idProduct').in(idProds).populate('idProduct').populate('idProvider')
         .then(prodprov => {
             if(!prodprov){
                 res.send("Not found");

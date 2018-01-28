@@ -21,6 +21,17 @@ import { CustomerService } from './customer.service';
 import { ProviderService } from './provider.service';
 import { SubcategoryService } from './subcategory.service';
 import { ProductsPageComponent } from './products-page/products-page.component';
+
+
+import { ShoppingCartService } from './shopping-cart-services/shopping-cart.service';
+import { LocalStorageService, StorageService } from './shopping-cart-services/storage.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
+
+
+
 //import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -38,6 +49,8 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ProviderFormComponent } from './provider-form/provider-form.component';*/
 
 import { DashboardModule } from './dashboard-feature/dashboard.module';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PopOverComponent } from './pop-over/pop-over.component';
 
 
 @NgModule({
@@ -51,6 +64,8 @@ import { DashboardModule } from './dashboard-feature/dashboard.module';
     ProductSearchComponent,
     DashboardComponent,
     ProductsPageComponent,
+    CheckoutComponent,
+    PopOverComponent,
    /* CustomerFormComponent,
     AbmProductListComponent,
     ProdprovFormComponent,
@@ -72,7 +87,8 @@ import { DashboardModule } from './dashboard-feature/dashboard.module';
     HttpClientModule,
     FormsModule,
     HttpModule,
-    FileUploadModule
+    FileUploadModule,
+    BrowserAnimationsModule
     /*
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -81,7 +97,22 @@ import { DashboardModule } from './dashboard-feature/dashboard.module';
     InMemoryDataService, { dataEncapsulation: false }
     )*/
   ],
-  providers: [ ProdProvService, CategoryService, CustomerService, ProviderService, ProductService, SubcategoryService ],
+  providers: [ 
+    ProdProvService, 
+    CategoryService, 
+    CustomerService, 
+    ProviderService, 
+    ProductService, 
+    SubcategoryService,
+    LocalStorageService,
+    {provide: StorageService, useClass: LocalStorageService },
+    {
+      deps: [StorageService, ProdProvService],
+      provide: ShoppingCartService,
+      useClass: ShoppingCartService
+    }
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
