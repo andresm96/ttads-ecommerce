@@ -7,5 +7,8 @@ export class Customer{
     public surname: string;
     public adress: string;
     public phone: string;
+    public email: string;
+    public city : string;
+    public province: string;
     public birthdate: Date;
 }

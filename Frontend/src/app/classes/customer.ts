@@ -8,6 +8,9 @@ export class Customer {
     adress: string;
     birthdate: Date;
     phone: string;
+    city: string;
+    province: string;
+    email: string;
 
     constructor() {}
 }

@@ -28,6 +28,9 @@ router.post('/new', (req, res, err) => {
     let birthdate = req.body.birthdate;
     let phone = req.body.phone;
     let order = req.body.order;
+    let city = req.body.city;
+    let province = req.body.province;
+    let email = req.body.email;
 
     var customer = new Customer({
         user: user,
@@ -38,6 +41,9 @@ router.post('/new', (req, res, err) => {
         adress: adress,
         birthdate: birthdate,
         phone: phone,
+        city: city,
+        province: province,
+        email: email,
         order: order
     });
 
