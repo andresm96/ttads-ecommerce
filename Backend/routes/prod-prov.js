@@ -57,12 +57,14 @@ router.get('/subcategory/:id', (req, res, next) =>{
 //Create and update ProdProv in product
 //Ver misma duda que en subcategory
 router.post('/new', (req, res, err) => {
+    let name = req.body.name;
     let price = req.body.price;
     let description = req.body.description;
     let idProvider = req.body.idProvider;
     let idProduct = req.body.idProduct;
 
     var prodprov = new ProdProv({   
+        name: name,
         price: price,
         description: description,
         idProvider: idProvider,

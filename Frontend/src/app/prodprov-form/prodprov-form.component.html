@@ -6,6 +6,10 @@
                 <div class="col-md-6">
                 <form (ngSubmit)="saveProdProv()" name="saveProdProv" action="#" >
                     <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" class="form-control" [(ngModel)]="newprodprov.name" name="name" required>
+                    </div>
+                    <div class="form-group">
                     <label for="product">Tipo de producto:</label>
                     <select [(ngModel)]="newprodprov.idProduct" class="form-control" placeholder="Tipo de producto" name="product">
                         <option *ngFor="let prod of products" [value]="prod._id">
@@ -77,6 +81,10 @@
                     <div class="col-md-6">
                     <form (ngSubmit)="updateProdProv()" name="updateProdProv" action="#" >
                         <div class="form-group">
+                             <label for="name">Nombre:</label>
+                             <input type="text" class="form-control" [(ngModel)]="newprodprov.name" name="name" required>
+                        </div>
+                        <div class="form-group">
                             <label for="product">Tipo de producto:</label>
                             <select [(ngModel)]="newprodprov.idProduct._id" class="form-control" placeholder="Tipo de producto" name="product">
                                 <option *ngFor="let prod of products" [value]="prod._id" [selected]="prod._id === prodprov.idProduct._id" >
@@ -146,10 +154,14 @@
     <div *ngIf="typeForm === 3">
             <div class="container">
                 <div *ngIf="uploadProdProv === 0;else successmessage">
-                    <h1>Modificar producto de proveedor</h1>
+                    <h1>Eliminar producto de proveedor</h1>
                     <div class="row">
                         <div class="col-md-6">
                         <form (ngSubmit)="deleteProdProv()" name="deleteProdProv" action="#" >
+                              <div class="form-group">
+                                 <label for="name">Nombre:</label>
+                                 <input type="text" class="form-control" [(ngModel)]="newprodprov.name" name="name" disabled="true">
+                            </div>
                             <div class="form-group">
                                 <label for="product">Tipo de producto:</label>
                                 <select [(ngModel)]="newprodprov.idProduct._id" class="form-control" placeholder="Tipo de producto" name="product" disabled="true">
