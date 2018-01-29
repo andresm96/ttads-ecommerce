@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var Float = require('mongoose-float').loadType(mongoose);
 
 var schema = new Schema({
-    number: {type: Number, required: true},
+    number: {type: Number},
     subtotal: {type: Float, required: true},
     quantity: {type: Number, required: true},
     prodprov: {type: Schema.Types.ObjectId, ref: 'ProdProv'},

@@ -2,12 +2,16 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/
 import { CartItem } from "../models/cart-item";
 import { ProdProv } from "../models/prod-prov";
 import { ShoppingCart } from "../models/shopping-cart";
+import { Customer } from "../models/customer";
+import { Order } from "../models/order";
+import { OrderDetail } from "../models/order-detail";
 import { ProdProvService } from "../prodprov.service";
+import { CustomerService } from "../customer.service";
+import { OrderService } from "../order.service";
 import { ShoppingCartService } from "../shopping-cart-services/shopping-cart.service";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { Location } from '@angular/common';
-
 
 interface ICartItemWithProduct extends CartItem {
   prodprov: ProdProv;
@@ -22,6 +26,7 @@ interface ICartItemWithProduct extends CartItem {
 })
 export class CheckoutComponent implements OnInit {
 
+
   public cart: Observable<ShoppingCart>;
   public cartItems: ICartItemWithProduct[];
   public itemCount: number;
@@ -31,11 +36,19 @@ export class CheckoutComponent implements OnInit {
   private prodprovs: ProdProv[];
   private cartSubscription: Subscription;
 
+  private needRegister = false;
 
+  confirmPassword = '';
+  coincidePasswords = true;
+  customer = new Customer();
+
+  order: Order;
 
   constructor(
     private prodprovService: ProdProvService,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private customerService: CustomerService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit() {
@@ -81,5 +94,64 @@ export class CheckoutComponent implements OnInit {
 
   removeProductFromCart(prodprov: ProdProv): void {
     this.shoppingCartService.deleteItem(prodprov, -1);
+  }
+
+  //Falta implementar cuanto tengamos listo el registro
+  isLogged(){
+    return false;
+  }
+
+  onCheckChange(eve: any){
+    this.needRegister = eve.srcElement.checked
+  }
+
+
+  submitForm(){
+    if(this.needRegister){
+      if(this.customer.password != this.confirmPassword){
+        this.coincidePasswords = false;
+      }
+      else{
+        this.coincidePasswords = true;
+        this.saveCustomer();        
+      }
+    }
+    else{
+      this.saveOrder();
+        }
+
+  }
+
+  saveCustomer(){
+    console.log(this.customer);
+    this.customer.admin = false;
+    this.customerService.addCustomer(this.customer)
+                        .subscribe((c) => {
+                          this.saveOrder();
+                        })
+  }
+
+  generateOrder(){
+    this.order = new Order();
+    this.cartItems.forEach((item) => {
+      let od = new OrderDetail();
+      od.idProdProv = item.prodprovId;
+      od.quantity = item.quantity;
+      od.subtotal = item.subtotal;
+
+      this.order.order.push(od);
+    })
+
+    this.order.idCustomer = this.customer._id;
+    this.cart.subscribe((c) => this.order.total = c.itemsTotal);
+  }
+
+  saveOrder(){
+    this.generateOrder();
+    console.log(this.order);
+    this.orderService.addOrder(this.order)
+    .subscribe(data => alert(data),
+                err => alert(err)
+  );
   }
 }

@@ -22,16 +22,21 @@ import { ProdProvService } from '../prodprov.service';
 import { CustomerService } from '../customer.service';
 import { ProviderService } from '../provider.service';
 import { ProductService } from '../product.service';
+import { OrderService } from '../order.service';
 import { ShoppingCartService } from './../shopping-cart-services/shopping-cart.service';
 
 import { FileUploadModule } from 'ng2-file-upload';
 import { MainComponent } from './main/main.component';
 
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 @NgModule({
   imports: [
     CommonModule,
     ProductRoutingModule,
-    FileUploadModule
+    FileUploadModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     HeaderComponent,
@@ -54,6 +59,7 @@ import { MainComponent } from './main/main.component';
     ProductService, 
     SubcategoryService,
     LocalStorageService,
+    OrderService,
     {provide: StorageService, useClass: LocalStorageService },
     {
       deps: [StorageService, ProdProvService],
