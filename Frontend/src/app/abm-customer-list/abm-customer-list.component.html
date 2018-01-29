@@ -2,7 +2,7 @@
 <div *ngIf="!onFormActive">
     <button type="button" (click)="newCustomer()" class="btn btn-primary my-3 mx-3">Agregar <i class="fas fa-plus"></i></button>
 
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover responsive">
     <thead>
         <tr class="thead-light">
             <th>Usuario</th>
@@ -10,12 +10,12 @@
             <th>Apellido</th>
             <th>Email</th>
             <th>Direccion</th>
-            <th>Ciudad</th>
-            <th>Provincia</th>
-            <th>Telefono</th>
-            <th>Fecha de nacimiento</th>
+            <th class="none">Ciudad</th>
+            <th class="none">Provincia</th>
+            <th class="none">Telefono</th>
+            <th class="none">Fecha de nacimiento</th>
             <th>Admin</th>            
-            <th>Accion</th>
+            <th class="all">Accion</th>
         </tr>
     </thead>
     <tbody>

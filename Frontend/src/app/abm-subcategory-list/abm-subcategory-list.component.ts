@@ -15,7 +15,7 @@ export class AbmSubcategoryListComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
   onFormActive = false;
   subcategorySelected: Subcategory;
@@ -33,7 +33,8 @@ export class AbmSubcategoryListComponent implements OnInit {
         orderable: false, 
         searchable: false, 
         targets: [3] 
-        }]
+        }],
+      responsive: true
     };
     this.getSubcategories();
   }

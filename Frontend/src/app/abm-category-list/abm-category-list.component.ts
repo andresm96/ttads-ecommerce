@@ -15,7 +15,7 @@ export class AbmCategoryListComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
 
   categories: Category[] =[];
@@ -35,7 +35,8 @@ export class AbmCategoryListComponent implements OnInit {
         orderable: false, 
         searchable: false, 
         targets: [2] 
-        }]
+        }],
+        responsive: true
     };
     this.getCategories();
   }

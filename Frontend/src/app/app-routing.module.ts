@@ -16,8 +16,6 @@ const routes: Routes = [
   //{ path: 'destacados', component: ProductosDestacadosComponent },
   //{ path: 'search/:id', component: ProductsPageComponent},
   //{ path: 'dashboard', component: DashboardComponent },
-  { path: 'customer-form', component: CustomerFormComponent },
-  { path: 'prodprov-form', component: ProdprovFormComponent},
   //{ path: 'checkout', component: CheckoutComponent }
 ];
 
