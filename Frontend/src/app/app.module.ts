@@ -11,6 +11,8 @@ import { ProductComponent } from './product/product.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProdProvService } from './prodprov.service';
 import { ProductService } from './product.service';
+import { OrderService } from './order.service';
+
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -33,7 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 //import { CustomerFormComponent } from './customer-form/customer-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 //import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
 //import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
@@ -64,7 +66,7 @@ import { MainComponent } from './product-feature/main/main.component';
     ProductComponent,
     ProductDetailComponent,
     ProductSearchComponent,*/
-    DashboardComponent,
+    DashboardComponent
     /*ProductsPageComponent,
     CheckoutComponent,
     PopOverComponent,*/
@@ -91,7 +93,9 @@ import { MainComponent } from './product-feature/main/main.component';
     FormsModule,
     HttpModule,
     FileUploadModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
     /*
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -107,6 +111,8 @@ import { MainComponent } from './product-feature/main/main.component';
     ProviderService, 
     ProductService, 
     SubcategoryService,
+    OrderService,
+    
     LocalStorageService,
     {provide: StorageService, useClass: LocalStorageService },
     {
