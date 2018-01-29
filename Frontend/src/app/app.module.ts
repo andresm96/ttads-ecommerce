@@ -53,6 +53,7 @@ import { ProductModule } from './product-feature/product.module';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PopOverComponent } from './pop-over/pop-over.component';
 import { MainComponent } from './product-feature/main/main.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { MainComponent } from './product-feature/main/main.component';
     ProductDetailComponent,
     ProductSearchComponent,*/
     DashboardComponent,
+    LoginComponent,
     /*ProductsPageComponent,
     CheckoutComponent,
     PopOverComponent,*/
