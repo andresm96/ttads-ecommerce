@@ -32,7 +32,7 @@ export class AbmProdprovListComponent implements OnInit {
       columnDefs: [{ 
         orderable: false, 
         searchable: false, 
-        targets: [4] 
+        targets: [5] 
         }],
       responsive: true
     };
