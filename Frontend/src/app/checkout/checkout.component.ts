@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { CartItem } from "../models/cart-item";
 import { ProdProv } from "../models/prod-prov";
 import { ShoppingCart } from "../models/shopping-cart";
@@ -26,6 +26,10 @@ interface ICartItemWithProduct extends CartItem {
 })
 export class CheckoutComponent implements OnInit {
 
+  @ViewChild('closeBtn') closeBtn: ElementRef;
+  @ViewChild('successModal') successModal: ElementRef;
+  
+  successCheckout = false;
 
   public cart: Observable<ShoppingCart>;
   public cartItems: ICartItemWithProduct[];
@@ -37,6 +41,9 @@ export class CheckoutComponent implements OnInit {
   private cartSubscription: Subscription;
 
   private needRegister = false;
+
+  provinces = new Array('Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán');
+  
 
   confirmPassword = '';
   coincidePasswords = true;
@@ -102,7 +109,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   onCheckChange(eve: any){
-    this.needRegister = eve.srcElement.checked
+    this.needRegister = eve.srcElement.checked;
+    console.log(this.successModal);
   }
 
 
@@ -113,12 +121,16 @@ export class CheckoutComponent implements OnInit {
       }
       else{
         this.coincidePasswords = true;
-        this.saveCustomer();        
+        this.saveCustomer(); 
+        this.emptyCart();       
+        this.closeModal();
       }
     }
     else{
       this.saveOrder();
-        }
+      this.emptyCart();
+      this.closeModal();
+    }
 
   }
 
@@ -152,6 +164,11 @@ export class CheckoutComponent implements OnInit {
     this.orderService.addOrder(this.order)
     .subscribe(data => alert(data),
                 err => alert(err)
-  );
+    );
   }
+
+  private closeModal(){
+    this.closeBtn.nativeElement.click();
+    this.successCheckout = true;
+    }
 }
