@@ -6,6 +6,7 @@
     <thead>
         <tr class="thead-light">
             <th>Nombre</th>
+            <th>Tipo de producto</th>
             <th>Precio</th>
             <th>Proveedor</th>
             <th>Descripcion</th>
@@ -14,6 +15,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let prodprov of prodprovs">
+            <td>{{ prodprov.name || "-"}}</td>
             <td>{{ prodprov.idProduct.name || "-" }}</td>
             <td>{{ prodprov.price || "-" }}</td>
             <td>{{ prodprov.idProvider.company || "-" }}</td>
