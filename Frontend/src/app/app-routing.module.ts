@@ -8,16 +8,20 @@ import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 
 import { CheckoutComponent } from './checkout/checkout.component';
+import { LoginComponent } from './login/login.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/destacados', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent},
+  { path: 'forbidden', component: ForbiddenComponent}
   //{ path: 'prodprov/:id', component: ProductDetailComponent },
   //{ path: 'destacados', component: ProductosDestacadosComponent },
   //{ path: 'search/:id', component: ProductsPageComponent},
   //{ path: 'dashboard', component: DashboardComponent },
-  { path: 'customer-form', component: CustomerFormComponent },
-  { path: 'prodprov-form', component: ProdprovFormComponent},
   //{ path: 'checkout', component: CheckoutComponent }
 ];
 

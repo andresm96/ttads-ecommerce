@@ -10,6 +10,8 @@ import { ShoppingCartService } from "../shopping-cart-services/shopping-cart.ser
 import { CartItem } from "../models/cart-item";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
+import { AuthenticationService } from '../guard-services/authentication.service';
+import { StorageService } from '../shopping-cart-services/storage.service';
 
 interface ICartItemWithProduct extends CartItem {
   prodprov: ProdProv;
@@ -29,14 +31,27 @@ export class HeaderComponent implements OnInit {
   prodprovs: ProdProv[];
   path = '/search/';
   numberItems = 0;
+  login: boolean = false;
+  admin: boolean = false;
+  localStorage: Storage;
 
   constructor(private categoryService: CategoryService,
               private prodprovService: ProdProvService,
               private shoppingCartService: ShoppingCartService,
-              private router : Router
-             ) { }
+              private router : Router,
+              private storageService: StorageService,
+              private authService: AuthenticationService
+             ) { 
+              this.localStorage = this.storageService.get();
+             }
 
   ngOnInit() {
+    if(this.localStorage.getItem('token')){
+      this.login = true;
+    } else {
+      this.login = false;
+    }
+    this.admin = this.authService.isAdmin();
     this.getCategories();
 
     this.cart = this.shoppingCartService.get();
@@ -57,5 +72,10 @@ export class HeaderComponent implements OnInit {
   goPath(id: string){
     let newpath = this.path + id;
     this.router.navigate([newpath.toString()]);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    location.reload();
   }
 }

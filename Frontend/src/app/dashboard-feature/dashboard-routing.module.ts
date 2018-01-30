@@ -1,5 +1,5 @@
-import { NgModule }             from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { AbmProductListComponent } from './../abm-product-list/abm-product-list.component';
@@ -9,10 +9,16 @@ import { AbmCategoryListComponent } from './../abm-category-list/abm-category-li
 import { AbmSubcategoryListComponent } from './../abm-subcategory-list/abm-subcategory-list.component';
 import { AbmCustomerListComponent } from './../abm-customer-list/abm-customer-list.component';
 
+import { AuthGuardService as AuthGuard } from './../guard-services/auth-guard.service';
+import { RoleGuardService as RoleGuard } from './../guard-services/role-guard.service';
+
 const dashboardRoutes: Routes = [
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: DashboardComponent,canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'admin'
+    } ,
     children: [
       { path: 'products', component: AbmProductListComponent },
       { path: 'prodprovs', component: AbmProdprovListComponent },
