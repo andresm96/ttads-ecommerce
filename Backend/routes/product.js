@@ -95,18 +95,20 @@ router.post('/new', (req, res, err) => {
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
 
-    Product.findByIdAndRemove(id, (err, product)=>{
+    Product.findOne({"_id": id}, (err, prod) => {
         if(err){
             res.status(500).send(err);
         }
         else{
+            prod.remove();
             let response = {
-                message: "Producto eliminado correctamente",
-                id: product._id
+                message: "Product eliminado correctamente",
+                data: prod
             };
             res.status(200).send(response);
         }
-    });
+    })
+
 });
 
 router.put('/update/:id', (req, res, next) =>{
