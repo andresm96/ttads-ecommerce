@@ -24,31 +24,14 @@ import { ProviderService } from './provider.service';
 import { SubcategoryService } from './subcategory.service';
 import { ProductsPageComponent } from './products-page/products-page.component';
 
-
 import { ShoppingCartService } from './shopping-cart-services/shopping-cart.service';
 import { LocalStorageService, StorageService } from './shopping-cart-services/storage.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
-
-
-
-//import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-//import { AbmProductListComponent } from './abm-product-list/abm-product-list.component';
-//import { ProdprovFormComponent } from './prodprov-form/prodprov-form.component';
 import { FileUploadModule } from 'ng2-file-upload';
-/*import { AbmCustomerListComponent } from './abm-customer-list/abm-customer-list.component';
-import { AbmProviderListComponent } from './abm-provider-list/abm-provider-list.component';
-import { AbmCategoryListComponent } from './abm-category-list/abm-category-list.component';
-import { AbmSubcategoryListComponent } from './abm-subcategory-list/abm-subcategory-list.component';
-import { AbmProdprovListComponent } from './abm-prodprov-list/abm-prodprov-list.component';
-import { CategoryFormComponent } from './category-form/category-form.component';
-import { SubcategoryFormComponent } from './subcategory-form/subcategory-form.component';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { ProviderFormComponent } from './provider-form/provider-form.component';*/
+
 
 import { DashboardModule } from './dashboard-feature/dashboard.module';
 import { ProductModule } from './product-feature/product.module';
@@ -56,34 +39,19 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PopOverComponent } from './pop-over/pop-over.component';
 import { MainComponent } from './product-feature/main/main.component';
 import { LoginComponent } from './login/login.component';
+import { AuthenticationService } from './guard-services/authentication.service';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    /*HeaderComponent,
-    FooterComponent,
-    ProductosDestacadosComponent,
-    ProductComponent,
-    ProductDetailComponent,
-    ProductSearchComponent,*/
     DashboardComponent,
     LoginComponent,
-    /*ProductsPageComponent,
-    CheckoutComponent,
-    PopOverComponent,*/
-   /* CustomerFormComponent,
-    AbmProductListComponent,
-    ProdprovFormComponent,
-    AbmCustomerListComponent,
-    AbmProviderListComponent,
-    AbmCategoryListComponent,
-    AbmSubcategoryListComponent,
-    AbmProdprovListComponent,
-    CategoryFormComponent,
-    SubcategoryFormComponent,
-    ProductFormComponent,
-    ProviderFormComponent*/
+    UnauthorizedComponent,
+    ForbiddenComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -114,7 +82,7 @@ import { LoginComponent } from './login/login.component';
     ProductService, 
     SubcategoryService,
     OrderService,
-    
+    AuthenticationService,
     LocalStorageService,
     {provide: StorageService, useClass: LocalStorageService },
     {

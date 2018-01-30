@@ -2,6 +2,8 @@ import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { HttpClientModule } from '@angular/common/http'; 
+import { HttpModule } from '@angular/http';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AbmProductListComponent } from './../abm-product-list/abm-product-list.component';
@@ -25,6 +27,9 @@ import { ProviderService } from '../provider.service';
 import { ProductService } from '../product.service';
 
 import { FileUploadModule } from 'ng2-file-upload';
+import { AuthenticationService } from '../guard-services/authentication.service';
+import { RoleGuardService } from '../guard-services/role-guard.service';
+import { AuthGuardService } from '../guard-services/auth-guard.service';
 
 @NgModule({
   imports: [
@@ -32,7 +37,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     CommonModule,
     FormsModule,
     DashboardRoutingModule,
-    FileUploadModule
+    FileUploadModule,
+    HttpClientModule,
+    HttpModule
   ],
   declarations: [
     AbmProductListComponent,
@@ -48,6 +55,16 @@ import { FileUploadModule } from 'ng2-file-upload';
     AbmCustomerListComponent,
     CustomerFormComponent
   ],
-  providers: [ProdProvService, CategoryService, CustomerService, ProviderService, ProductService, SubcategoryService]
+  providers: [
+    ProdProvService, 
+    CategoryService, 
+    CustomerService, 
+    ProviderService, 
+    ProductService, 
+    SubcategoryService,
+    RoleGuardService,
+    AuthGuardService
+    
+  ]
 })
 export class DashboardModule {}
