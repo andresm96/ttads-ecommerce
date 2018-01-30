@@ -57,12 +57,14 @@ router.get('/subcategory/:id', (req, res, next) =>{
 //Create and update ProdProv in product
 //Ver misma duda que en subcategory
 router.post('/new', (req, res, err) => {
+    let name = req.body.name;
     let price = req.body.price;
     let description = req.body.description;
     let idProvider = req.body.idProvider;
     let idProduct = req.body.idProduct;
 
     var prodprov = new ProdProv({   
+        name: name,
         price: price,
         description: description,
         idProvider: idProvider,
@@ -150,14 +152,114 @@ router.delete('/delete/:id', (req, res, next) =>{
 //Update prod-prov
 router.put('/update/:id', (req, res, next) =>{
     let query = {"_id": req.params.id};
-    ProdProv.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, prodprov){
-        if(err){
-            res.send("got an error");
+    let resSend = false;
+
+    ProdProv.findOne(query, (err, prodprov) => {
+        if(req.body.idProduct != prodprov.idProduct){
+            ProductSchema.findOne({"_id": prodprov.idProduct}, (err, prod) => {
+                index = prod.prodprovs.indexOf(prodprov._id);
+                prod.prodprovs.splice(index, 1);
+                prod.save();
+            })
+            .then(() => {
+                ProductSchema.findOne({"_id": req.body.idProduct}, (err, prod) => {
+                    index = prod.prodprovs.indexOf(prodprov._id);
+                    if(index === -1){
+                        prod.prodprovs.push(prodprov._id);
+                        prod.save();
+                    }
+                })
+            })
+            .then(() => {
+                prodprov.name = req.body.name;
+                prodprov.description = req.body.description;
+                prodprov.price = req.body.price;
+                prodprov.idProvider = req.body.idProvider;
+                prodprov.idProduct = req.body.idProduct;
+
+                prodprov.save((err, doc) => {
+                    if(err){
+                        res.status(500).send(err);
+                    }
+                    else{
+                        if(!resSend){
+                            resSend = true;
+                            let response = {
+                                message: "Prodprov modificado correctamente",
+                                data: doc                
+                            };
+                            res.status(200).send(response);
+                        }
+                    }
+                })
+            })
         }
-        else{
-            res.send(prodprov);                
+        if(req.body.idProvider != prodprov.idProvider){
+            ProviderSchema.findOne({"_id": prodprov.idProvider}, (err, prov) => {
+                index = prov.prodprovs.indexOf(prodprov._id);
+                prov.prodprovs.splice(index, 1);
+                prov.save();
+            })
+            .then(() => {
+                ProviderSchema.findOne({"_id": req.body.idProvider}, (err, prov) => {
+                    index = prov.prodprovs.indexOf(prodprov._id);
+                    if(index === -1){
+                        prov.prodprovs.push(prodprov._id);
+                        prov.save();
+                    }
+                })
+            })
+            .then(() => {
+                prodprov.name = req.body.name;
+                prodprov.description = req.body.description;
+                prodprov.price = req.body.price;
+                prodprov.idProvider = req.body.idProvider;
+                prodprov.idProduct = req.body.idProduct;
+
+                prodprov.save((err, doc) => {
+                    if(err){
+                        res.status(500).send(err);
+                    }
+                    else{
+                        if(!resSend){
+                            resSend = true;
+                            let response = {
+                                message: "Prodprov modificado correctamente",
+                                data: doc                
+                            };
+                            res.status(200).send(response);
+                        }
+                    }
+                })
+            })
         }
-    });
+
+        if((req.body.idProvider === prodprov.idProvider) && (req.body.idProduct === prodprov.idProduct)){
+            prodprov.name = req.body.name;
+            prodprov.description = req.body.description;
+            prodprov.price = req.body.price;
+            prodprov.idProvider = req.body.idProvider;
+            prodprov.idProduct = req.body.idProduct;
+
+            prodprov.save((err, doc) => {
+                if(err){
+                    res.status(500).send(err);
+                }
+                else{
+                    if(!resSend){
+                        resSend = true;
+                        let response = {
+                            message: "Prodprov modificado correctamente",
+                            data: doc                
+                        };
+                        res.status(200).send(response);
+                    }
+                }
+            })
+        }
+
+
+    })
 })
 
 

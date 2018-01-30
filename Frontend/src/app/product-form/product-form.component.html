@@ -58,7 +58,7 @@
                 <div class="form-group">
                   <label for="subcategory">Subcategoria:</label>
                   <select [(ngModel)]="newproduct.subcategory._id" class="form-control" placeholder="Subcategoria" name="subcategory">
-                      <option *ngFor="let sub of subcategories" [value]="sub._id" [selected]="sub._id === product.subcategory._id" >
+                      <option *ngFor="let sub of subcategories" [value]="sub._id" >
                       {{ sub.name }}
                       </option>
                   </select>              

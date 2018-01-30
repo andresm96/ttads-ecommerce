@@ -32,7 +32,7 @@ export class AbmProdprovListComponent implements OnInit {
       columnDefs: [{ 
         orderable: false, 
         searchable: false, 
-        targets: [4] 
+        targets: [5] 
         }],
       responsive: true
     };
@@ -46,6 +46,7 @@ export class AbmProdprovListComponent implements OnInit {
       result.forEach(item => {
         var prodprov = new ProdProv();
         prodprov._id = item._id;
+        prodprov.name = item.name;
         prodprov.price = item.price;
         prodprov.idProduct = item.idProduct;
         prodprov.idProvider = item.idProvider;
