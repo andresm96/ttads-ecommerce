@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 var router=require('express').Router();
 var Category = mongoose.model('Category');
+var Subcategory = mongoose.model('SubCategory');
+var Product = mongoose.model('Product');
+var ProdProv = mongoose.model('ProdProv');
+
 
 var ObjectId = mongoose.Types.ObjectId;
 
@@ -65,13 +69,13 @@ router.delete('/delete/:id', (req, res, next) =>{
 });*/
 
 router.delete('/delete/:id', (req, res, next) =>{
-    let id = req.params.id;
-    
-    Category.findByIdAndRemove(id, (err, category)=>{
+    let id = req.params.id;    
+    Category.findOne({_id: id}, (err, category)=>{
         if(err){
             res.status(500).send(err);
         }
         else{
+            category.remove();
             let response = {
                 message: "Categoria eliminada correctamente",
                 id: category._id
@@ -80,6 +84,7 @@ router.delete('/delete/:id', (req, res, next) =>{
         }
     });
 
+    
 });
 
 router.put('/update/:id', (req, res, next) =>{

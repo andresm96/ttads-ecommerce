@@ -48,16 +48,16 @@ router.post('/new', (req, res, err) => {
 router.delete('/delete/:id', (req, res, next) =>{
     var id = req.params.id;
 
-    SubCategory.findByIdAndRemove(id, (err, subcategory)=>{
-        var idCat = subcategory.category;
+    SubCategory.findOne({_id: id}, (err, subcategory)=>{
         if(err){
             res.status(500).send(err);
         }
         else{
-            let response = {
+            let response = {               
                 message: "Subcategoria eliminada correctamente",
                 id: subcategory._id
             };
+            subcategory.remove();            
             res.status(200).send(response);
         }
     });
@@ -65,14 +65,59 @@ router.delete('/delete/:id', (req, res, next) =>{
 
 router.put('/update/:id', (req, res, next) =>{
     let query = {"_id": req.params.id};
-    SubCategory.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, subcategory){
-        if(err){
-            res.send("got an error");
+
+    SubCategory.findOne(query, (err, subcat) => {
+        if(subcat.category != req.body.category){
+            Category.findOne({"_id": subcat.category}, (err, cat) => {
+                index = cat.subcategory.indexOf(subcat._id);
+                cat.subcategory.splice(index, 1);
+                cat.save((err, doc) => {
+                });   
+            })
+            .then(() => {
+                Category.findOne({"_id": req.body.category}, (err, cat) =>{
+                    index = cat.subcategory.indexOf(subcat._id);
+                    if(index === -1){
+                        cat.subcategory.push(subcat._id);
+                        cat.save();
+                    }
+                })
+            })
+            .then(() => {
+                subcat.name = req.body.name;
+                subcat.category = req.body.category;
+                subcat.save((err, doc) => {
+                    if(err){
+                        res.status(500).send(err);
+                    }
+                    else{
+                        let response = {
+                            message: "Subcategoria modificada correctamente",
+                            data: doc
+                        };
+                        res.status(200).send(response);
+                    }
+                })
+            })
+        }else{
+            subcat.name = req.body.name;
+            subcat.category = req.body.category;
+            subcat.save((err, doc) => {
+                if(err){
+                    res.status(500).send(err);
+                }
+                else{
+                    let response = {
+                        message: "Subcategoria modificada correctamente",
+                        data: doc
+                    };
+                    res.status(200).send(response);
+                }
+            })
         }
-        else{
-            res.send(subcategory);                
-        }
-    });
+
+    })
+
 })
 
 module.exports=router;
