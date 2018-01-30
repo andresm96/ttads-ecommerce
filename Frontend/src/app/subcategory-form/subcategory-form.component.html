@@ -4,7 +4,7 @@
     <h1>Crear nueva Subcategoria</h1>
     <div class="row">
         <div class="col-md-6">
-        <form (ngSubmit)="saveSubcategory()" name="saveSubcategory" action="#" >
+        <form (ngSubmit)="saveSubcategory()" name="saveSubcategory" action="#" ngNativeValidate>
           <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" required>
@@ -42,7 +42,7 @@
       <h1>Modificar Subcategoria</h1>
       <div class="row">
           <div class="col-md-6">
-          <form (ngSubmit)="updateSubcategory()" name="saveSubcategory" action="#" >
+          <form (ngSubmit)="updateSubcategory()" name="saveSubcategory" action="#" ngNativeValidate>
               <div class="form-group">
                 <label for="user">Nombre:</label>
                 <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" required>
@@ -80,7 +80,7 @@
         <h1>Eliminar Subcategoria</h1>
         <div class="row">
             <div class="col-md-6">
-            <form (ngSubmit)="deleteSubcategory()" name="deleteSubcategory" action="#" >
+            <form (ngSubmit)="deleteSubcategory()" name="deleteSubcategory" action="#" ngNativeValidate>
                 <div class="form-group">
                   <label for="name">Nombre:</label>
                   <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" disabled="true" required>

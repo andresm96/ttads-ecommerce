@@ -4,7 +4,7 @@
       <h1>Crear nueva Categoria</h1>
       <div class="row">
         <div class="col-md-6">
-          <form (ngSubmit)="saveCategory()" name="saveCategory" action="#" >
+          <form (ngSubmit)="saveCategory()" name="saveCategory" action="#" ngNativeValidate>
             <div class="form-group">
               <label for="user">Nombre:</label>
               <input type="text" class="form-control" [(ngModel)]="newcategory.name" name="name" required>
@@ -34,7 +34,7 @@
     <h1>Modificar Categoria</h1>
     <div class="row">
       <div class="col-md-6">
-        <form (ngSubmit)="updateCategory()" >
+        <form (ngSubmit)="updateCategory()" ngNativeValidate>
           <div class="form-group">
             <label for="user">Nombre:</label>
             <input type="text" class="form-control" [(ngModel)]="newcategory.name" value="{{category.name}}" name="name" required>
@@ -64,7 +64,7 @@
           <h1>Eliminar usuario</h1>
           <div class="row">
             <div class="col-md-6">
-              <form (ngSubmit)="deleteCategory()" >
+              <form (ngSubmit)="deleteCategory()" ngNativeValidate>
                 <div class="form-group">
                   <label for="user">Nombre:</label>
                   <input type="text" class="form-control" value="{{category.name}}" name="name" disabled="true" required>
