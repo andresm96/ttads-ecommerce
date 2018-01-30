@@ -27,7 +27,7 @@ export class SubcategoryService {
   private subcategoryUrl = baseURL + '/subcategory/'
 
   /** GET subcategories from the server */
-  getSubcategories (): Observable<Subcategory[]> {
+  getSubcategories(): Observable<Subcategory[]> {
     return this.http.get<Subcategory[]>(this.subcategoryUrl)
       .pipe(
         catchError(this.handleError('getSubcategory', []))
@@ -35,14 +35,14 @@ export class SubcategoryService {
   }
 
   /** POST: add a new category to the server */
-  addSubcategory (subcategory: Subcategory): Observable<Subcategory> {
+  addSubcategory(subcategory: Subcategory): Observable<Subcategory> {
     return this.http.post<Subcategory>(this.subcategoryUrl + "new", subcategory, httpOptions).pipe(
       catchError(this.handleError<Subcategory>('addSubcategory'))
     );
   }
 
   /** PUT: update the category on the server */
-  updateSubcategory (subcategory: Subcategory | number): Observable<Subcategory> {
+  updateSubcategory(subcategory: Subcategory | number): Observable<Subcategory> {
     const id = typeof subcategory === 'number' ? subcategory : subcategory._id;
     const url = `${this.subcategoryUrl+ "update"}/${id}`;
 
@@ -51,7 +51,7 @@ export class SubcategoryService {
     );
   }
 
-  deleteSubcategory (subcategory: Subcategory | number): Observable<Subcategory> {
+  deleteSubcategory(subcategory: Subcategory | number): Observable<Subcategory> {
     const id = typeof subcategory === 'number' ? subcategory : subcategory._id;
     const url = `${this.subcategoryUrl+ "delete"}/${id}`;
 

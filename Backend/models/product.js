@@ -10,5 +10,14 @@ var schema = new Schema({
     provider: [{type: Schema.Types.ObjectId, ref: 'Provider'}]
 });
 
+schema.pre('findOneAndUpdate', function(){
+    var v = this.getUpdate().v;
+    console.log(v);
+})
+
+schema.post('findOneAndUpdate', function(result){
+    console.log(JSON.stringify(result));
+    
+})
 
 module.exports = mongoose.model('Product', schema);
