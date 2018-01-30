@@ -4,7 +4,7 @@
       <a routerLink="/prodprov/{{prodprov._id}}">
       <img class="card-img-top responsive" [src]="sanitize(prodprov._id)" alt="Card image cap">
       <div class="card-body text-center">
-        <p class="card-title">{{prodprov.idProduct.name}} </p>
+        <p class="card-title">{{prodprov.name}} </p>
         <h4 class="display-4">$ {{ prodprov.price }}</h4>
       </div>
     </a>

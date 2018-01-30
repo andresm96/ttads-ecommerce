@@ -4,7 +4,7 @@
             <h1>Crear nuevo producto de proveedor</h1>
             <div class="row">
                 <div class="col-md-6">
-                <form (ngSubmit)="saveProdProv()" name="saveProdProv" action="#" >
+                <form (ngSubmit)="saveProdProv()" name="saveProdProv" action="#" ngNativeValidate>
                     <div class="form-group">
                         <label for="name">Nombre:</label>
                         <input type="text" class="form-control" [(ngModel)]="newprodprov.name" name="name" required>
@@ -79,7 +79,7 @@
                 <h1>Modificar producto de proveedor</h1>
                 <div class="row">
                     <div class="col-md-6">
-                    <form (ngSubmit)="updateProdProv()" name="updateProdProv" action="#" >
+                    <form (ngSubmit)="updateProdProv()" name="updateProdProv" action="#" ngNativeValidate>
                         <div class="form-group">
                              <label for="name">Nombre:</label>
                              <input type="text" class="form-control" [(ngModel)]="newprodprov.name" name="name" required>
@@ -157,7 +157,7 @@
                     <h1>Eliminar producto de proveedor</h1>
                     <div class="row">
                         <div class="col-md-6">
-                        <form (ngSubmit)="deleteProdProv()" name="deleteProdProv" action="#" >
+                        <form (ngSubmit)="deleteProdProv()" name="deleteProdProv" action="#" ngNativeValidate>
                               <div class="form-group">
                                  <label for="name">Nombre:</label>
                                  <input type="text" class="form-control" [(ngModel)]="newprodprov.name" name="name" disabled="true">
