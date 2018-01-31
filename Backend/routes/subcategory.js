@@ -83,12 +83,10 @@ router.delete('/delete/:id', (req, res, next) =>{
                                 .then((idsProvider) => {
                                     deleteReferenceProviders(idsProvider, idProdProvs)
                                     .then(() => {
+                                        prod.remove();
                                         next();
                                     })
                                 })
-                            }
-                            else{
-                                console.log(prod);
                             }
                         })
                     })
