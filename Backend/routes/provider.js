@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 var router=require('express').Router();
 var Provider = mongoose.model('Provider');
+var ProdProvSchema = mongoose.model('ProdProv');
+var ProductSchema = mongoose.model('Product');
+var async = require('async');
+
 
 var ObjectId = mongoose.Types.ObjectId;
 
@@ -56,18 +60,38 @@ router.post('/new', (req, res, err) => {
 
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
+    let idProdProvs = [];
 
-    Provider.findByIdAndRemove(id, (err, provider)=>{
+    Provider.findById(id, (err, provider) => {
+        
         if(err){
             res.status(500).send(err);
         }
         else{
+            idProdProvs = provider.prodprovs;
+            provider.remove();
             let response = {
                 message: "Proveedor eliminado correctamente",
-                id: provider._id
+                data: provider
             };
             res.status(200).send(response);
         }
+    })
+    .then(() => {
+        deleteProdProvs(idProdProvs)
+                        .then((idProds) => {
+                            var index = 0;
+                            async.eachSeries(idProds, function(id, next) {
+                                ProductSchema.findById(id, (err, prod) => {
+                                    indexPP = prod.prodprovs.indexOf(idProdProvs[index]);
+                                    prod.prodprovs.splice(indexPP, 1);
+                                    prod.save((err, doc) => {
+                                        index++;
+                                        next();
+                                    });
+                                })
+                            })
+                        })
     });
 });
 
@@ -82,5 +106,23 @@ router.put('/update/:id', (req, res, next) =>{
         }
     });
 })
+
+function deleteProdProvs(arrayProdProv){
+    return new Promise( function (resolve, reject){
+        let idProds = [];
+        arrayProdProv.forEach((idPP, index, array) => {
+            ProdProvSchema.findById(idPP, (err, prodprov) => {
+                idProds.push(prodprov.idProduct);
+                prodprov.remove();
+                console.log(idProds);
+                if(idProds.length === (array.length)){
+                    resolve(idProds);
+                }
+            });
+
+            
+        });
+    })
+}
 
 module.exports=router;

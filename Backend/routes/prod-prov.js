@@ -135,17 +135,34 @@ router.get('/:idProdProv/image', function(request, response){
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
 
-    ProdProv.findByIdAndRemove(id, (err, prodprov)=>{
-        if(err){
-            res.status(500).send(err);
+
+    ProdProv.findById(id, (err, prodprov) => {
+        if(!err){
+            ProviderSchema.findById(prodprov.idProvider, (err, provider) => {
+                index = provider.prodprovs.indexOf(id);
+                provider.prodprovs.splice(index, 1);
+                provider.save();
+            })
+            .then(() => {
+                ProductSchema.findById(prodprov.idProduct, (err, product) => {
+                    index = product.prodprovs.indexOf(id);
+                    product.prodprovs.splice(index, 1);
+                    product.save();
+                })
+            })
+            .then(() => {
+                prodprov.remove();
+                let response = {
+                    message: "Producto proveedor eliminado",
+                    data: prodprov
+                };
+                res.status(200).send(response);
+            });
         }
         else{
-            let response = {
-                message: "El producto del proveedor fue eliminado correctamente",
-                id: prodprov._id
-            };
-            res.status(200).send(response);
+            res.status(500).send(err);
         }
+
     });
 });
 
