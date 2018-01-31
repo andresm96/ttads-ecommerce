@@ -14,7 +14,7 @@ import { ProductService } from './product.service';
 import { OrderService } from './order.service';
 
 import { ProductSearchComponent } from './product-search/product-search.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -42,6 +42,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './guard-services/authentication.service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { TokenInterceptor } from './guard-services/token.interceptor';
 
 
 @NgModule({
@@ -89,6 +90,11 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
       deps: [StorageService, ProdProvService],
       provide: ShoppingCartService,
       useClass: ShoppingCartService
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
     }
   
   ],

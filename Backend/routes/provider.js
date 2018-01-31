@@ -3,13 +3,13 @@ var router=require('express').Router();
 var Provider = mongoose.model('Provider');
 var ProdProvSchema = mongoose.model('ProdProv');
 var ProductSchema = mongoose.model('Product');
-
+var auth = require('../middlewares/authenticate'); //import middleware to protect some routes
 
 var ObjectId = mongoose.Types.ObjectId;
 
 
 //Get all
-router.get('/', (req, res, next) => {
+router.get('/', auth, (req, res, next) => {
     Provider.find({}).populate('products').then(provider => {
         if(!provider) {return res.sendStatus(401);}
         return res.json(provider)
@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 })
 
 //Get one
-router.get('/:id', (req, res, next) => {
+router.get('/:id', auth, (req, res, next) => {
     Provider.findById(req.params.id).populate('products')
     .then(provider => {
         if(!provider){
@@ -31,7 +31,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 //Create
-router.post('/new', (req, res, err) => {
+router.post('/new', auth, (req, res, err) => {
     let cuit = req.body.cuit;
     let company = req.body.company;
     let adress = req.body.adress;
@@ -57,7 +57,7 @@ router.post('/new', (req, res, err) => {
     
 });
 
-router.delete('/delete/:id', (req, res, next) =>{
+router.delete('/delete/:id', auth, (req, res, next) =>{
     let id = req.params.id;
     let idProdProvs = [];
 
@@ -97,7 +97,7 @@ router.delete('/delete/:id', (req, res, next) =>{
     });
 });
 
-router.put('/update/:id', (req, res, next) =>{
+router.put('/update/:id', auth, (req, res, next) =>{
     let query = {"_id": req.params.id};
     Provider.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, provider){
         if(err){

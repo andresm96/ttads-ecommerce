@@ -6,6 +6,7 @@ var ProdProv = mongoose.model('ProdProv');
 var ProviderSchema = mongoose.model('Provider');
 var ObjectId = mongoose.Types.ObjectId;
 var async = require('async');
+var auth = require('../middlewares/authenticate'); //import middleware to protect some routes
 
 //Get all con solo el precio vigente
 //No está funcionando
@@ -61,7 +62,7 @@ router.get('/:id', (req, res, next) => {
 
 
 //Create
-router.post('/new', (req, res, err) => {
+router.post('/new', auth, (req, res, err) => {
     let name = req.body.name;
     let description = req.body.description;
     let subcategory = req.body.subcategory;
@@ -93,7 +94,7 @@ router.post('/new', (req, res, err) => {
 });
 
 
-router.delete('/delete/:id', (req, res, next) =>{
+router.delete('/delete/:id', auth, (req, res, next) =>{
     let id = req.params.id;
     var idProdProvs = [];
     Product.findById(id, (err, prod) => {
@@ -132,7 +133,7 @@ router.delete('/delete/:id', (req, res, next) =>{
 });
 
 
-router.put('/update/:id', (req, res, next) =>{
+router.put('/update/:id', auth, (req, res, next) =>{
     let query = {"_id": req.params.id};
 
     Product.findOne(query, (err, prod) => {

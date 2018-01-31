@@ -2,12 +2,13 @@ var mongoose = require('mongoose');
 var router=require('express').Router();
 var Order = mongoose.model('Order');
 var OrderDetail = mongoose.model('OrderDetail');
+var auth = require('../middlewares/authenticate'); //import middleware to protect some routes
 
 var async = require('async');
 var ObjectId = mongoose.Types.ObjectId;
 
 //Get all
-router.get('/', (req, res, next) => {
+router.get('/', auth, (req, res, next) => {
     Order.find({}).populate('idCustomer').populate('order').then(order => {
         if(!order) {return res.sendStatus(401);}
         return res.json(order)
