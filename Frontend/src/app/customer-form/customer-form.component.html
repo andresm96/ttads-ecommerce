@@ -4,7 +4,7 @@
                 <h1>Crear nuevo usuario</h1>
                 <div class="row">
                   <div class="col-md-6">
-                    <form (ngSubmit)="saveCustomer()" name="saveCustomer" action="#" >
+                    <form (ngSubmit)="saveCustomer()" name="saveCustomer" action="#" ngNativeValidate>
                       <div class="form-group">
                         <label for="user">Usuario:</label>
                         <input type="text" class="form-control" [(ngModel)]="newcustomer.user" name="user" required>
@@ -76,7 +76,7 @@
 </div>
 <div *ngIf="typeForm === 2">
         <div class="container">
-            <div *ngIf ="uploadCustomer === 0;else successmessage">                
+            <div *ngIf ="uploadCustomer === 0;else successmessage" ngNativeValidate>                
                 <h1>Modificar usuario</h1>
                 <div class="row">
                   <div class="col-md-6">
@@ -152,7 +152,7 @@
                 <h1>Eliminar usuario</h1>
                 <div class="row">
                   <div class="col-md-6">
-                    <form (ngSubmit)="deleteCustomer()" >
+                    <form (ngSubmit)="deleteCustomer()" ngNativeValidate>
                       <div class="form-group">
                         <label for="user">Usuario:</label>
                         <input type="text" class="form-control" value="{{customer.user}}" name="user" disabled="true" required>

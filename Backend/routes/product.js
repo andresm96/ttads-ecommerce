@@ -3,6 +3,7 @@ var router=require('express').Router();
 var Product = mongoose.model('Product');
 var Subcategory = mongoose.model('SubCategory');
 var ProdProv = mongoose.model('ProdProv');
+var Provider = mongoose.model('ProdProv');
 var ObjectId = mongoose.Types.ObjectId;
 
 
@@ -94,12 +95,16 @@ router.post('/new', (req, res, err) => {
 
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
+    let idProdProvs = [];
+    let idSubcat;
 
-    Product.findOne({"_id": id}, (err, prod) => {
+    Product.findById(id, (err, prod) => {
         if(err){
             res.status(500).send(err);
         }
         else{
+            idProdProvs = prod.prodprovs;
+            idSubcat = prod.subcategory;
             prod.remove();
             let response = {
                 message: "Product eliminado correctamente",
@@ -107,9 +112,66 @@ router.delete('/delete/:id', (req, res, next) =>{
             };
             res.status(200).send(response);
         }
-    })
+    }).then(() => { removeProdProvs(id) })
+        .then(() =>{
+            deleteProviderReference(idProdProvs)
+                                .then(() => {
+                                    Subcategory.findOne({products: id}, (err, subcat) => {
+                                        indexProduct = subcat.products.indexOf(id);
+                                        subcat.products.splice(indexProduct, 1);
+                                        subcat.save();
+                                    })
+                                })
 
+        });
 });
+
+function removeProdProdvs (idProduct) {
+    return new Promise ( function (resolve, reject ) {
+        ProdProv.find({idProduct: idProduct}, (error, prodprovs) => {
+            if(error) { 
+                reject(); 
+            } else {
+                let cont = 0;
+                prodprovs.forEach((pp, index, array) => {
+                    pp.remove((err, doc) => {
+                        if(err) { reject(); }
+                        else { cont ++; }
+                    });
+                    if(index == cont){
+                        resolve();
+                    }
+                });
+            }
+
+        });
+    })
+}
+
+
+function deleteProviderReference(idProdProvs){
+    return new Promise( function (resolve, reject){
+        let cont = 0;
+        idProdProvs.forEach((idPP, index, array) => {
+            Provider.findOne({prodprovs: {$in: [idPP]}}, (error, prov) => {
+                if (error) {
+                    reject();
+                } else {
+                    let indexPP = prov.prodprovs.indexOf(idPP[index]);
+                    prov.prodprovs.splice(indexPP, 1);
+                    prov.save((err, doc) => {
+                        if(err) { reject(); }
+                        else { cont ++; }
+                    });
+                    
+                }
+            });
+            if(index == cont){
+                resolve();
+            }
+        });
+    })
+}
 
 router.put('/update/:id', (req, res, next) =>{
     let query = {"_id": req.params.id};

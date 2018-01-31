@@ -3,7 +3,6 @@ var router=require('express').Router();
 var Provider = mongoose.model('Provider');
 var ProdProvSchema = mongoose.model('ProdProv');
 var ProductSchema = mongoose.model('Product');
-var async = require('async');
 
 
 var ObjectId = mongoose.Types.ObjectId;
