@@ -79,14 +79,16 @@ router.delete('/delete/:id', (req, res, next) =>{
                         Product.findById(idP, (err, prod)=>{
                             if(prod != null){
                                 var idProdProvs = prod.prodprovs;
-                                deleteProdProvs(idProdProvs)
-                                .then((idsProvider) => {
-                                    deleteReferenceProviders(idsProvider, idProdProvs)
-                                    .then(() => {
-                                        prod.remove();
-                                        next();
+                                if(idProdProvs != null){
+                                    deleteProdProvs(idProdProvs)
+                                    .then((idsProvider) => {
+                                        deleteReferenceProviders(idsProvider, idProdProvs)
+                                        .then(() => {
+                                            prod.remove();
+                                            next();
+                                        })
                                     })
-                                })
+                                }
                             }
                         })
                     })

@@ -116,12 +116,14 @@ router.delete('/delete/:id', (req, res, next) =>{
                 res.status(200).send(response);
             })
             .then(() => {
-                deleteProdProvs(idProdProvs)
-                               .then((idProviders) => {
-                                   deleteReferenceProviders(idProviders, idProdProvs)
-                                                           .then(() => {
-                                                           })
-                               })
+                if(idProdProvs != null){
+                    deleteProdProvs(idProdProvs)
+                    .then((idProviders) => {
+                        deleteReferenceProviders(idProviders, idProdProvs)
+                                                .then(() => {
+                                                })
+                    })
+                }
             })
         }
     })

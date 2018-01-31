@@ -77,20 +77,23 @@ router.delete('/delete/:id', (req, res, next) =>{
         }
     })
     .then(() => {
-        deleteProdProvs(idProdProvs)
-                        .then((idProds) => {
-                            var index = 0;
-                            async.eachSeries(idProds, function(id, next) {
-                                ProductSchema.findById(id, (err, prod) => {
-                                    indexPP = prod.prodprovs.indexOf(idProdProvs[index]);
-                                    prod.prodprovs.splice(indexPP, 1);
-                                    prod.save((err, doc) => {
-                                        index++;
-                                        next();
-                                    });
-                                })
-                            })
-                        })
+        if(idProdProvs != null){
+            deleteProdProvs(idProdProvs)
+            .then((idProds) => {
+                var index = 0;
+                async.eachSeries(idProds, function(id, next) {
+                    ProductSchema.findById(id, (err, prod) => {
+                        indexPP = prod.prodprovs.indexOf(idProdProvs[index]);
+                        prod.prodprovs.splice(indexPP, 1);
+                        prod.save((err, doc) => {
+                            index++;
+                            next();
+                        });
+                    })
+                })
+            })
+        }
+
     });
 });
 
