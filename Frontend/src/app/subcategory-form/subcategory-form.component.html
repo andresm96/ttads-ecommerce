@@ -4,7 +4,7 @@
     <h1>Crear nueva Subcategoria</h1>
     <div class="row">
         <div class="col-md-6">
-        <form (ngSubmit)="saveSubcategory()" name="saveSubcategory" action="#" >
+        <form (ngSubmit)="saveSubcategory()" name="saveSubcategory" action="#" ngNativeValidate>
           <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" required>
@@ -42,14 +42,14 @@
       <h1>Modificar Subcategoria</h1>
       <div class="row">
           <div class="col-md-6">
-          <form (ngSubmit)="updateSubcategory()" name="saveSubcategory" action="#" >
+          <form (ngSubmit)="updateSubcategory()" name="saveSubcategory" action="#" ngNativeValidate>
               <div class="form-group">
                 <label for="user">Nombre:</label>
                 <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" required>
               </div> 
               <div class="form-group">
                 <label for="category">Categoria:</label>
-                <select [(ngModel)]="newsubcategory.category" class="form-control" placeholder="Categoria" name="category">
+                <select [(ngModel)]="newsubcategory.category._id" class="form-control" placeholder="Categoria" name="category">
                     <option *ngFor="let cat of categories" [value]="cat._id" [selected]="cat._id === subcategory.category._id" >
                     {{ cat.name }}
                     </option>
@@ -80,14 +80,14 @@
         <h1>Eliminar Subcategoria</h1>
         <div class="row">
             <div class="col-md-6">
-            <form (ngSubmit)="deleteSubcategory()" name="deleteSubcategory" action="#" >
+            <form (ngSubmit)="deleteSubcategory()" name="deleteSubcategory" action="#" ngNativeValidate>
                 <div class="form-group">
                   <label for="name">Nombre:</label>
                   <input type="text" class="form-control" [(ngModel)]="newsubcategory.name" name="name" disabled="true" required>
                 </div> 
               <div class="form-group">
                 <label for="category">Categoria:</label>
-                <select [(ngModel)]="newsubcategory.category" class="form-control" placeholder="Categoria" name="category" disabled="true">
+                <select [(ngModel)]="newsubcategory.category._id" class="form-control" placeholder="Categoria" name="category" disabled="true">
                     <option *ngFor="let cat of categories" [value]="cat._id" [selected]="cat._id === subcategory.category._id">
                         {{ cat.name }}
                     </option>

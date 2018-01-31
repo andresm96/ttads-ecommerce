@@ -81,7 +81,6 @@ router.delete('/delete/:id', (req, res, next) =>{
                         .then((idProds) => {
                             var index = 0;
                             async.eachSeries(idProds, function(id, next) {
-                                console.log("index "+index);
                                 ProductSchema.findById(id, (err, prod) => {
                                     indexPP = prod.prodprovs.indexOf(idProdProvs[index]);
                                     prod.prodprovs.splice(indexPP, 1);
@@ -94,6 +93,18 @@ router.delete('/delete/:id', (req, res, next) =>{
                         })
     });
 });
+
+router.put('/update/:id', (req, res, next) =>{
+    let query = {"_id": req.params.id};
+    Provider.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, provider){
+        if(err){
+            res.send("got an error");
+        }
+        else{
+            res.send(provider);                
+        }
+    });
+})
 
 function deleteProdProvs(arrayProdProv){
     return new Promise( function (resolve, reject){
@@ -112,17 +123,5 @@ function deleteProdProvs(arrayProdProv){
         });
     })
 }
-
-router.put('/update/:id', (req, res, next) =>{
-    let query = {"_id": req.params.id};
-    Provider.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, provider){
-        if(err){
-            res.send("got an error");
-        }
-        else{
-            res.send(provider);                
-        }
-    });
-})
 
 module.exports=router;
