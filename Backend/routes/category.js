@@ -3,8 +3,10 @@ var router=require('express').Router();
 var Category = mongoose.model('Category');
 var Subcategory = mongoose.model('SubCategory');
 var Product = mongoose.model('Product');
+var ProviderSchema = mongoose.model('Provider');
 var ProdProv = mongoose.model('ProdProv');
 
+var async = require('async');
 
 var ObjectId = mongoose.Types.ObjectId;
 
@@ -50,41 +52,56 @@ router.post('/new', (req, res, err) => {
      });
     
 });
-/*
-router.delete('/delete/:id', (req, res, next) =>{
-    let id = req.params.id;
-
-    Category.findByIdAndRemove(id, (err, category)=>{
-        if(err){
-            res.status(500).send(err);
-        }
-        else{
-            let response = {
-                message: "Categoria eliminada correctamente",
-                id: category._id
-            };
-            res.status(200).send(response);
-        }
-    });
-});*/
 
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;    
-    Category.findOne({_id: id}, (err, category)=>{
+    let idSubcategories = [];
+    Category.findById(id, (err, cat) => {
         if(err){
             res.status(500).send(err);
         }
         else{
-            category.remove();
+            idSubcategories = cat.subcategory;
+            cat.remove();
             let response = {
                 message: "Categoria eliminada correctamente",
-                id: category._id
+                data: cat
             };
             res.status(200).send(response);
         }
-    });
-
-    
+    })
+    .then(() => {
+        if(idSubcategories != null){
+            async.eachSeries(idSubcategories, function(idSubcat, next){
+                var idProds =[];
+                Subcategory.findById(idSubcat, (err, subcat) => {
+                    idProds = subcat.products;
+                    subcat.remove();
+                })
+                .then(() => {
+                    if(idProds != null){
+                        async.eachSeries(idProds, function(idPr, next2){
+                            Product.findById(idPr, (err, prod) => {
+                                if(prod.prodprovs != null){
+                                    var idProdProvs = prod.prodprovs;
+                                    deleteProdProvs(idProdProvs)
+                                                   .then((idsProviders) => {
+                                                       deleteReferenceProviders(idsProviders, idProdProvs)
+                                                                               .then(() => {
+                                                                                   prod.remove();
+                                                                                   next2();
+                                                                               });
+                                                   });
+                                }
+                            });
+                        }, function(err){
+                            next();
+                        })
+                    }
+                })
+            })
+        }
+    })
 });
 
 router.put('/update/:id', (req, res, next) =>{
@@ -98,6 +115,43 @@ router.put('/update/:id', (req, res, next) =>{
         }
     });
 })
+
+
+function deleteReferenceProviders(idsProvider, idsProdProvs){
+    return new Promise(function (resolve, reject){
+        var indexEach = 0;
+        async.eachSeries(idsProvider, function(idProv, next) {
+            ProviderSchema.findById(idProv, (err, prov) => {
+                indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
+                prov.prodprovs.splice(indexPR, 1);
+                prov.save((err, doc) => {
+                    if(indexEach === (idsProvider.length - 1)){
+                        resolve();
+                    }
+                    indexEach++;                  
+                    next();
+                })
+            })
+        })
+    })
+}
+
+
+function deleteProdProvs(arrIds){
+    return new Promise(function (resolve, reject) {
+        var idProviders = [];
+        async.eachSeries(arrIds, function(id, next){
+            ProdProv.findById(id, (err, prodprov) => {
+                idProviders.push(prodprov.idProvider);
+                prodprov.remove();
+                if(idProviders.length === arrIds.length){
+                    resolve(idProviders);
+                }
+                next();
+            })
+        })
+    })
+}
 
 
 module.exports=router;

@@ -3,8 +3,9 @@ var router=require('express').Router();
 var Product = mongoose.model('Product');
 var Subcategory = mongoose.model('SubCategory');
 var ProdProv = mongoose.model('ProdProv');
+var ProviderSchema = mongoose.model('Provider');
 var ObjectId = mongoose.Types.ObjectId;
-
+var async = require('async');
 
 //Get all con solo el precio vigente
 //No está funcionando
@@ -94,20 +95,42 @@ router.post('/new', (req, res, err) => {
 
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
-
-    Product.findByIdAndRemove(id, (err, product)=>{
+    var idProdProvs = [];
+    Product.findById(id, (err, prod) => {
         if(err){
             res.status(500).send(err);
         }
         else{
-            let response = {
-                message: "Producto eliminado correctamente",
-                id: product._id
-            };
-            res.status(200).send(response);
+            idProdProvs = prod.prodprovs;
+            Subcategory.findById(prod.subcategory, (err, subcat) => {
+                index = subcat.products.indexOf(id);
+                subcat.products.splice(index, 1);
+                subcat.save();
+            })
+            .then(() => {
+                prod.remove();
+                let response = {
+                    message: "Producto eliminado correctamente",
+                    data: prod
+                };
+                res.status(200).send(response);
+            })
+            .then(() => {
+                if(idProdProvs != null){
+                    deleteProdProvs(idProdProvs)
+                    .then((idProviders) => {
+                        deleteReferenceProviders(idProviders, idProdProvs)
+                                                .then(() => {
+                                                })
+                    })
+                }
+            })
         }
-    });
+    })
+
+  
 });
+
 
 router.put('/update/:id', (req, res, next) =>{
     let query = {"_id": req.params.id};
@@ -168,6 +191,43 @@ router.put('/update/:id', (req, res, next) =>{
     })
 
 })
+
+function deleteReferenceProviders(idsProvider, idsProdProvs){
+    return new Promise(function (resolve, reject){
+        var indexEach = 0;
+        async.eachSeries(idsProvider, function(idProv, next) {
+            ProviderSchema.findById(idProv, (err, prov) => {
+                indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
+                prov.prodprovs.splice(indexPR, 1);
+                prov.save((err, doc) => {
+                    if(indexEach === (idsProvider.length - 1)){
+                        resolve();
+                    }
+                    indexEach++;                  
+                    next();
+                })
+            })
+        })
+    })
+}
+
+
+function deleteProdProvs(arrIds){
+    return new Promise(function (resolve, reject) {
+        var idProviders = [];
+        async.eachSeries(arrIds, function(id, next){
+            ProdProv.findById(id, (err, prodprov) => {
+                console.log("Encontro este prodprov en la promise: "+prodprov);
+                idProviders.push(prodprov.idProvider);
+                prodprov.remove();
+                if(idProviders.length === arrIds.length){
+                    resolve(idProviders);
+                }
+                next();
+            })
+        })
+    })
+}
 
 
 module.exports=router;
