@@ -3,9 +3,9 @@ var router=require('express').Router();
 var Product = mongoose.model('Product');
 var Subcategory = mongoose.model('SubCategory');
 var ProdProv = mongoose.model('ProdProv');
-var Provider = mongoose.model('ProdProv');
+var ProviderSchema = mongoose.model('Provider');
 var ObjectId = mongoose.Types.ObjectId;
-
+var async = require('async');
 
 //Get all con solo el precio vigente
 //No está funcionando
@@ -95,83 +95,40 @@ router.post('/new', (req, res, err) => {
 
 router.delete('/delete/:id', (req, res, next) =>{
     let id = req.params.id;
-    let idProdProvs = [];
-    let idSubcat;
-
+    var idProdProvs = [];
     Product.findById(id, (err, prod) => {
         if(err){
             res.status(500).send(err);
         }
         else{
             idProdProvs = prod.prodprovs;
-            idSubcat = prod.subcategory;
-            prod.remove();
-            let response = {
-                message: "Product eliminado correctamente",
-                data: prod
-            };
-            res.status(200).send(response);
+            Subcategory.findById(prod.subcategory, (err, subcat) => {
+                index = subcat.products.indexOf(id);
+                subcat.products.splice(index, 1);
+                subcat.save();
+            })
+            .then(() => {
+                prod.remove();
+                let response = {
+                    message: "Producto eliminado correctamente",
+                    data: prod
+                };
+                res.status(200).send(response);
+            })
+            .then(() => {
+                deleteProdProvs(idProdProvs)
+                               .then((idProviders) => {
+                                   deleteReferenceProviders(idProviders, idProdProvs)
+                                                           .then(() => {
+                                                           })
+                               })
+            })
         }
-    }).then(() => { removeProdProvs(id) })
-        .then(() =>{
-            deleteProviderReference(idProdProvs)
-                                .then(() => {
-                                    Subcategory.findOne({products: id}, (err, subcat) => {
-                                        indexProduct = subcat.products.indexOf(id);
-                                        subcat.products.splice(indexProduct, 1);
-                                        subcat.save();
-                                    })
-                                })
+    })
 
-        });
+  
 });
 
-function removeProdProdvs (idProduct) {
-    return new Promise ( function (resolve, reject ) {
-        ProdProv.find({idProduct: idProduct}, (error, prodprovs) => {
-            if(error) { 
-                reject(); 
-            } else {
-                let cont = 0;
-                prodprovs.forEach((pp, index, array) => {
-                    pp.remove((err, doc) => {
-                        if(err) { reject(); }
-                        else { cont ++; }
-                    });
-                    if(index == cont){
-                        resolve();
-                    }
-                });
-            }
-
-        });
-    })
-}
-
-
-function deleteProviderReference(idProdProvs){
-    return new Promise( function (resolve, reject){
-        let cont = 0;
-        idProdProvs.forEach((idPP, index, array) => {
-            Provider.findOne({prodprovs: {$in: [idPP]}}, (error, prov) => {
-                if (error) {
-                    reject();
-                } else {
-                    let indexPP = prov.prodprovs.indexOf(idPP[index]);
-                    prov.prodprovs.splice(indexPP, 1);
-                    prov.save((err, doc) => {
-                        if(err) { reject(); }
-                        else { cont ++; }
-                    });
-                    
-                }
-            });
-            if(index == cont){
-                resolve();
-            }
-        });
-    })
-}
 
 router.put('/update/:id', (req, res, next) =>{
     let query = {"_id": req.params.id};
@@ -232,6 +189,43 @@ router.put('/update/:id', (req, res, next) =>{
     })
 
 })
+
+function deleteReferenceProviders(idsProvider, idsProdProvs){
+    return new Promise(function (resolve, reject){
+        var indexEach = 0;
+        async.eachSeries(idsProvider, function(idProv, next) {
+            ProviderSchema.findById(idProv, (err, prov) => {
+                indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
+                prov.prodprovs.splice(indexPR, 1);
+                prov.save((err, doc) => {
+                    if(indexEach === (idsProvider.length - 1)){
+                        resolve();
+                    }
+                    indexEach++;                  
+                    next();
+                })
+            })
+        })
+    })
+}
+
+
+function deleteProdProvs(arrIds){
+    return new Promise(function (resolve, reject) {
+        var idProviders = [];
+        async.eachSeries(arrIds, function(id, next){
+            ProdProv.findById(id, (err, prodprov) => {
+                console.log("Encontro este prodprov en la promise: "+prodprov);
+                idProviders.push(prodprov.idProvider);
+                prodprov.remove();
+                if(idProviders.length === arrIds.length){
+                    resolve(idProviders);
+                }
+                next();
+            })
+        })
+    })
+}
 
 
 module.exports=router;
