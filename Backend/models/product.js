@@ -12,9 +12,5 @@ var schema = new Schema({
     provider: [{type: Schema.Types.ObjectId, ref: 'Provider'}]
 });
 
-schema.post('remove', function(next){
-    ProdProv.remove({ product: this._id }).exec();
-})
-
 
 module.exports = mongoose.model('Product', schema);

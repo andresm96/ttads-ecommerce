@@ -7,10 +7,5 @@ var schema = new Schema({
     subcategory: [{type: Schema.Types.ObjectId, ref: 'SubCategory'}]
 });
 
-schema.post('remove', function(next){
-    Subcategory.remove({ category: this._id }).exec();
-})
-
-
 module.exports = mongoose.model('Category', schema);
 
