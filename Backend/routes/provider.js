@@ -3,6 +3,7 @@ var router=require('express').Router();
 var Provider = mongoose.model('Provider');
 var ProdProvSchema = mongoose.model('ProdProv');
 var ProductSchema = mongoose.model('Product');
+var async = require('async');
 
 
 var ObjectId = mongoose.Types.ObjectId;
@@ -77,24 +78,42 @@ router.delete('/delete/:id', (req, res, next) =>{
         }
     })
     .then(() => {
-        var idProds = [];
-        idProdProvs.forEach(idPP => {
-            ProdProvSchema.findById(idPP, (err, prodprov) => {
-                idProd = prodprov.idProduct;
-                prodprov.remove();
-            })
-            .then(() => {
-                ProductSchema.findById(idProd, (err, prod) => {
-                        index = prod.prodprovs.indexOf(idPP);
-                        prod.prodprovs.splice(index, 1);
-                        prod.save((err, doc) => {
-                            console.log(doc);
-                    })
-                })
-            });
-        });
+        deleteProdProvs(idProdProvs)
+                        .then((idProds) => {
+                            var index = 0;
+                            async.eachSeries(idProds, function(id, next) {
+                                console.log("index "+index);
+                                ProductSchema.findById(id, (err, prod) => {
+                                    indexPP = prod.prodprovs.indexOf(idProdProvs[index]);
+                                    prod.prodprovs.splice(indexPP, 1);
+                                    prod.save((err, doc) => {
+                                        index++;
+                                        next();
+                                    });
+                                })
+                            })
+                        })
     });
 });
+
+
+function deleteProdProvs(arrayProdProv){
+    return new Promise( function (resolve, reject){
+        let idProds = [];
+        arrayProdProv.forEach((idPP, index, array) => {
+            ProdProvSchema.findById(idPP, (err, prodprov) => {
+                idProds.push(prodprov.idProduct);
+                prodprov.remove();
+                console.log(idProds);
+                if(idProds.length === (array.length)){
+                    resolve(idProds);
+                }
+            });
+
+            
+        });
+    })
+}
 
 router.put('/update/:id', (req, res, next) =>{
     let query = {"_id": req.params.id};
