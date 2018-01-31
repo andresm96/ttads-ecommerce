@@ -7,6 +7,7 @@ var ObjectId = mongoose.Types.ObjectId;
 var Grid = require('gridfs-stream');
 var mongodb = mongoose.connection;
 var fs = require('fs');
+var auth = require('../middlewares/authenticate'); //import middleware to protect some routes
 
 
 //Get all
@@ -56,7 +57,7 @@ router.get('/subcategory/:id', (req, res, next) =>{
 
 //Create and update ProdProv in product
 //Ver misma duda que en subcategory
-router.post('/new', (req, res, err) => {
+router.post('/new', auth, (req, res, err) => {
     let name = req.body.name;
     let price = req.body.price;
     let description = req.body.description;
@@ -91,7 +92,7 @@ router.post('/new', (req, res, err) => {
 
 
 //add image to prodprov
-router.post('/new/:idProdProv/image', (request, response) =>{
+router.post('/new/:idProdProv/image', auth, (request, response) =>{
     var gfs = Grid(mongodb.db, mongoose.mongo);
 
     var idProdProv = request.params.idProdProv;
@@ -132,7 +133,7 @@ router.get('/:idProdProv/image', function(request, response){
 });
 
 //Delete prod-prov
-router.delete('/delete/:id', (req, res, next) =>{
+router.delete('/delete/:id', auth, (req, res, next) =>{
     let id = req.params.id;
 
 
@@ -167,7 +168,7 @@ router.delete('/delete/:id', (req, res, next) =>{
 });
 
 //Update prod-prov
-router.put('/update/:id', (req, res, next) =>{
+router.put('/update/:id', auth, (req, res, next) =>{
     let query = {"_id": req.params.id};
     let resSend = false;
 

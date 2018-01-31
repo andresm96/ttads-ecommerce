@@ -10,7 +10,7 @@ var secret = config.secret;
 var ObjectId = mongoose.Types.ObjectId;
 
 //Get all <--- hay que ponerle el middleware, lo sacamos para hacer el abm
-router.get('/', (req, res, next) => {
+router.get('/', auth, (req, res, next) => {
     Customer.find({}).populate('order').then(customer => {
         if(!customer) {return res.sendStatus(401);}
         return res.json(customer)
@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
 })
 
 //Create
-router.post('/new', (req, res, err) => {
+router.post('/new', auth, (req, res, err) => {
     let user = req.body.user;
     let password = req.body.password;
     let admin = req.body.admin;
@@ -61,7 +61,7 @@ router.post('/new', (req, res, err) => {
     
 });
 
-router.delete('/delete/:id', (req, res, next) =>{
+router.delete('/delete/:id', auth, (req, res, next) =>{
     let id = req.params.id;
 
     Customer.findByIdAndRemove(id, (err, customer)=>{
@@ -78,7 +78,7 @@ router.delete('/delete/:id', (req, res, next) =>{
     });
 });
 
-router.put('/update/:id', (req, res, next) =>{
+router.put('/update/:id', auth, (req, res, next) =>{
     let query = {"_id": req.params.id};
     Customer.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, customer){
         if(err){

@@ -6,7 +6,7 @@ var Category = mongoose.model('Category');
 var ProdProv = mongoose.model('ProdProv');
 var Product = mongoose.model('Product');
 var ProviderSchema = mongoose.model('Provider');
-
+var auth = require('../middlewares/authenticate'); //import middleware to protect some routes
 
 var ObjectId = mongoose.Types.ObjectId;
 var async = require('async');
@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 
 
 //Create and update category with the reference
-router.post('/new', (req, res, err) => {
+router.post('/new', auth, (req, res, err) => {
     let name = req.body.name;
     let category = req.body.category;
     let products = req.body.products;
@@ -51,7 +51,7 @@ router.post('/new', (req, res, err) => {
        }));
 });
 
-router.delete('/delete/:id', (req, res, next) =>{
+router.delete('/delete/:id', auth, (req, res, next) =>{
     var id = req.params.id;
     var idProds = [];
     SubCategory.findById(id, (err, subcat) => {
@@ -98,7 +98,7 @@ router.delete('/delete/:id', (req, res, next) =>{
     })
 });
 
-router.put('/update/:id', (req, res, next) =>{
+router.put('/update/:id', auth, (req, res, next) =>{
     let query = {"_id": req.params.id};
 
     SubCategory.findOne(query, (err, subcat) => {

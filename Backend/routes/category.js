@@ -5,6 +5,7 @@ var Subcategory = mongoose.model('SubCategory');
 var Product = mongoose.model('Product');
 var ProviderSchema = mongoose.model('Provider');
 var ProdProv = mongoose.model('ProdProv');
+var auth = require('../middlewares/authenticate'); //import middleware to protect some routes
 
 var async = require('async');
 
@@ -33,7 +34,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 //Create
-router.post('/new', (req, res, err) => {
+router.post('/new', auth, (req, res, err) => {
     let name = req.body.name;
     let subcategory = req.body.subcategory;
 
@@ -53,7 +54,7 @@ router.post('/new', (req, res, err) => {
     
 });
 
-router.delete('/delete/:id', (req, res, next) =>{
+router.delete('/delete/:id', auth, (req, res, next) =>{
     let id = req.params.id;    
     let idSubcategories = [];
     Category.findById(id, (err, cat) => {
@@ -104,7 +105,7 @@ router.delete('/delete/:id', (req, res, next) =>{
     })
 });
 
-router.put('/update/:id', (req, res, next) =>{
+router.put('/update/:id', auth, (req, res, next) =>{
     let query = {"_id": req.params.id};
     Category.findOneAndUpdate(query, {$set: req.body},{new: true},function(err, category){
         if(err){
