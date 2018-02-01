@@ -11,5 +11,12 @@ var schema = new Schema({
     order: {type: Schema.Types.ObjectId, ref: 'Order'}
 });
 
+schema.post('save', function(doc){
+    var prod = ProdProv.findById(this.prodprov).exec().then((pp) => {
+        pp.quantitySold += this.quantity;
+        pp.save();
+    });
+  });
 
+  
 module.exports = mongoose.model('OrderDetail', schema);

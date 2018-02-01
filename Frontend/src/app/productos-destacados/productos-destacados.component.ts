@@ -21,6 +21,6 @@ export class ProductosDestacadosComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.prodprovService.getProducts().subscribe(products => this.products = products);
+    this.prodprovService.getHighlights().subscribe(products => this.products = products);
   }
 }
