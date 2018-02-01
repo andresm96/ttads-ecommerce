@@ -40,10 +40,9 @@ router.post('/new', (req, res, err) => {
   order.forEach( (item, index, array) => {
                 let nitems = array.length - 1;   
                 var newOrderDetail = new OrderDetail({
-                    idCustomer: item.idCustomer,
                     quantity: item.quantity,
                     subtotal: item.subtotal,
-                    prodprov: item.prodprov
+                    prodprov: item.idProdProv
                 });
                 
                 newOrderDetail.save((err, doc) => {

@@ -7,7 +7,8 @@ var schema = new Schema({
     price: {type: Float, required: true},
     idProvider: {type: Schema.Types.ObjectId, ref: 'Provider'},
     idProduct: {type: Schema.Types.ObjectId, ref: 'Product'},
-    description: {type: String}
+    description: {type: String},
+    quantitySold: {type: Number}
 });
 
 module.exports = mongoose.model('ProdProv', schema);
