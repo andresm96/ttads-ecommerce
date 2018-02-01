@@ -16,4 +16,10 @@ var schema = new Schema({
     order: [{type: Schema.Types.ObjectId, ref: 'Order'}]
 });
 
+schema.methods.toJSON = function() {
+    var obj = this.toObject();
+    delete obj.password;
+    return obj;
+   }
+
 module.exports = mongoose.model('Customer', schema);

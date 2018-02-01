@@ -11,6 +11,12 @@ import { AuthenticationService } from './guard-services/authentication.service';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+/*const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};*/
 
 @Injectable()
 export class CategoryService {
