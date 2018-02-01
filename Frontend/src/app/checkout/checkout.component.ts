@@ -12,6 +12,11 @@ import { ShoppingCartService } from "../shopping-cart-services/shopping-cart.ser
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../guard-services/authentication.service';
+import { Router } from '@angular/router';
+import { StorageService } from '../shopping-cart-services/storage.service';
+
+
 
 interface ICartItemWithProduct extends CartItem {
   prodprov: ProdProv;
@@ -48,6 +53,8 @@ export class CheckoutComponent implements OnInit {
   confirmPassword = '';
   coincidePasswords = true;
   customer = new Customer();
+  login: boolean = false;
+  localStorage: Storage;
 
   order: Order;
 
@@ -55,8 +62,13 @@ export class CheckoutComponent implements OnInit {
     private prodprovService: ProdProvService,
     private shoppingCartService: ShoppingCartService,
     private customerService: CustomerService,
-    private orderService: OrderService
-  ) { }
+    private orderService: OrderService,
+    private authenticationService: AuthenticationService,
+    private storageService: StorageService,
+    private router: Router
+  ) { 
+    this.localStorage = this.storageService.get();
+  }
 
   ngOnInit() {
     this.cart = this.shoppingCartService.get();
@@ -76,6 +88,17 @@ export class CheckoutComponent implements OnInit {
         });
       });
     });
+
+    if(this.localStorage.getItem('token')){
+      let idCusLogged = this.authenticationService.getUserId();
+        if(idCusLogged != ''){
+          this.customerService.getOne(idCusLogged).subscribe((cus) => this.customer = cus);
+        }
+    }
+    else{
+      this.login = false;
+    }
+
   }
 
   public ngOnDestroy(): void {
@@ -105,7 +128,7 @@ export class CheckoutComponent implements OnInit {
 
   //Falta implementar cuanto tengamos listo el registro
   isLogged(){
-    return false;
+    this.login;
   }
 
   onCheckChange(eve: any){

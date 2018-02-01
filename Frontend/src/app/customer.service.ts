@@ -34,6 +34,13 @@ export class CustomerService {
     );
   }
 
+  getOne(id): Observable<Customer> {
+    return this.http.get<Customer>(this.customersUrl+id)
+    .pipe(
+      catchError(this.handleError<Customer>(`getOne id=${id}`))
+    );
+  }
+
   //Add new customer
   addCustomer (customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(this.customersUrl + "new", customer, httpOptions).pipe(

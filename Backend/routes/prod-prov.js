@@ -69,7 +69,8 @@ router.post('/new', auth, (req, res, err) => {
         price: price,
         description: description,
         idProvider: idProvider,
-        idProduct: idProduct
+        idProduct: idProduct,
+        quantitySold: 0
     });
 
     prodprov.save(function(err, doc){

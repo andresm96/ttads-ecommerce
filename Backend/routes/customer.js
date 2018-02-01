@@ -18,6 +18,14 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+router.get('/:id', (req, res, next) => {
+    Customer.findOne({"_id": req.params.id}).populate('order').then(customer => {
+        if(!customer) {return res.sendStatus(401);}
+        return res.json(customer)
+    })
+    .catch(next);
+})
+
 //Create
 router.post('/new', (req, res, err) => {
     let user = req.body.user;

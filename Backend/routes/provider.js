@@ -117,7 +117,6 @@ function deleteProdProvs(arrayProdProv){
                 if(prodprov != null){
                     idProds.push(prodprov.idProduct);
                     prodprov.remove();
-                    console.log(idProds);
                     if(idProds.length === (array.length)){
                         resolve(idProds);
                     }
