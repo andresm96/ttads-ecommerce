@@ -11,7 +11,6 @@ export class TokenInterceptor implements HttpInterceptor {
     // Get the authService with injector because if we inject auth we get a cyclic dependency!
     const auth = this.injector.get(AuthenticationService);
     // Get the token from service (localStorage)
-    console.log(req.url);
     const token = auth.retrieve();
     let authReq = req;
     if(token){
