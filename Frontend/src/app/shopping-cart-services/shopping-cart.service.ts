@@ -35,6 +35,10 @@ export class ShoppingCartService {
     return this.subscriptionObservable;
   }
 
+  public updateProdProvs(){
+    this.prodprovService.getProducts().subscribe((products) => this.prodprovs = products);
+  }
+
   public addItem(prodprov: ProdProv, quantity: number): void {
     const cart = this.retrieve();
     let item = cart.items.find((p) => p.prodprovId === prodprov._id);
@@ -74,6 +78,7 @@ export class ShoppingCartService {
 
 
   private calculateCart(cart: ShoppingCart): void {
+
     cart.itemsTotal = cart.items
                           .map((item) => item.quantity * this.prodprovs.find((p) => p._id === item.prodprovId).price)
                           .reduce((previous, current) => previous + current, 0);

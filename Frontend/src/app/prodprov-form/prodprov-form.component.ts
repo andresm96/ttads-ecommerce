@@ -5,11 +5,13 @@ import { Product } from '../models/product';
 import { ProviderService } from '../provider.service';
 import { ProdProvService } from '../prodprov.service';
 import { ProductService } from '../product.service';
+import { ShoppingCartService } from "../shopping-cart-services/shopping-cart.service";
 import { ActivatedRoute } from '@angular/router';
 import { FileUploader, FileUploaderOptions } from 'ng2-file-upload'; 
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../guard-services/authentication.service';
 import { Headers } from '@angular/http/src/headers';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Component({
   selector: 'app-prodprov-form',
@@ -34,6 +36,7 @@ export class ProdprovFormComponent implements OnInit {
               private prodprovService: ProdProvService,
               private productService: ProductService,
               private authService: AuthenticationService,
+              private shoppingCartService: ShoppingCartService,
               private route: ActivatedRoute,
               private router: Router) {}
 
@@ -58,6 +61,7 @@ export class ProdprovFormComponent implements OnInit {
                this.uploadSuccess = 0;
                alert(data);
                this.uploadProdProv = 1;
+               this.shoppingCartService.updateProdProvs();
       },
       error => alert(error)
     );
