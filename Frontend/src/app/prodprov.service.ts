@@ -36,6 +36,13 @@ export class ProdProvService {
       );
   }
 
+  getHighlights(): Observable<ProdProv[]> {
+    return this.http.get<ProdProv[]>(this.productsUrl+"highlights")
+      .pipe(
+        catchError(this.handleError('getProducts', []))
+      );
+  }
+
   /** GET hero by id. Will 404 if id not found */
   getProduct(id: string): Observable<ProdProv> {
     const url = `${this.productsUrl}${id}`;
