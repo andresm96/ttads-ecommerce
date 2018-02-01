@@ -140,15 +140,19 @@ router.delete('/delete/:id', auth, (req, res, next) =>{
     ProdProv.findById(id, (err, prodprov) => {
         if(!err){
             ProviderSchema.findById(prodprov.idProvider, (err, provider) => {
-                index = provider.prodprovs.indexOf(id);
-                provider.prodprovs.splice(index, 1);
-                provider.save();
+                if(provider != null){
+                    index = provider.prodprovs.indexOf(id);
+                    provider.prodprovs.splice(index, 1);
+                    provider.save();
+                }
             })
             .then(() => {
                 ProductSchema.findById(prodprov.idProduct, (err, product) => {
-                    index = product.prodprovs.indexOf(id);
-                    product.prodprovs.splice(index, 1);
-                    product.save();
+                    if(product != null){
+                        index = product.prodprovs.indexOf(id);
+                        product.prodprovs.splice(index, 1);
+                        product.save();
+                    }
                 })
             })
             .then(() => {
