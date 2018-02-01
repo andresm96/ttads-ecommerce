@@ -10,7 +10,7 @@ var secret = config.secret;
 var ObjectId = mongoose.Types.ObjectId;
 
 //Get all <--- hay que ponerle el middleware, lo sacamos para hacer el abm
-router.get('/', auth, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Customer.find({}).populate('order').then(customer => {
         if(!customer) {return res.sendStatus(401);}
         return res.json(customer)
@@ -19,7 +19,7 @@ router.get('/', auth, (req, res, next) => {
 })
 
 //Create
-router.post('/new', auth, (req, res, err) => {
+router.post('/new', (req, res, err) => {
     let user = req.body.user;
     let password = req.body.password;
     let admin = req.body.admin;

@@ -38,7 +38,7 @@ import { AuthGuardService } from '../guard-services/auth-guard.service';
     FormsModule,
     DashboardRoutingModule,
     FileUploadModule,
-    HttpClientModule,
+    //HttpClientModule,
     HttpModule
   ],
   declarations: [
