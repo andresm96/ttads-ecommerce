@@ -104,9 +104,11 @@ router.delete('/delete/:id', auth, (req, res, next) =>{
         else{
             idProdProvs = prod.prodprovs;
             Subcategory.findById(prod.subcategory, (err, subcat) => {
-                index = subcat.products.indexOf(id);
-                subcat.products.splice(index, 1);
-                subcat.save();
+                if(subcat != null) {
+                    index = subcat.products.indexOf(id);
+                    subcat.products.splice(index, 1);
+                    subcat.save();
+                }
             })
             .then(() => {
                 prod.remove();
@@ -198,15 +200,17 @@ function deleteReferenceProviders(idsProvider, idsProdProvs){
         var indexEach = 0;
         async.eachSeries(idsProvider, function(idProv, next) {
             ProviderSchema.findById(idProv, (err, prov) => {
-                indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
-                prov.prodprovs.splice(indexPR, 1);
-                prov.save((err, doc) => {
-                    if(indexEach === (idsProvider.length - 1)){
-                        resolve();
-                    }
-                    indexEach++;                  
-                    next();
-                })
+                if(prov != null){
+                    indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
+                    prov.prodprovs.splice(indexPR, 1);
+                    prov.save((err, doc) => {
+                        if(indexEach === (idsProvider.length - 1)){
+                            resolve();
+                        }
+                        indexEach++;                  
+                        next();
+                    })
+                }
             })
         })
     })
@@ -218,13 +222,14 @@ function deleteProdProvs(arrIds){
         var idProviders = [];
         async.eachSeries(arrIds, function(id, next){
             ProdProv.findById(id, (err, prodprov) => {
-                console.log("Encontro este prodprov en la promise: "+prodprov);
-                idProviders.push(prodprov.idProvider);
-                prodprov.remove();
-                if(idProviders.length === arrIds.length){
-                    resolve(idProviders);
+                if(prodprov != null){
+                    idProviders.push(prodprov.idProvider);
+                    prodprov.remove();
+                    if(idProviders.length === arrIds.length){
+                        resolve(idProviders);
+                    }
+                    next();
                 }
-                next();
             })
         })
     })

@@ -59,41 +59,46 @@ router.delete('/delete/:id', auth, (req, res, next) =>{
             res.status(500).send(err);
         }
         else{
-            Category.findById(subcat.category, (err, cat) => {
-                index = cat.subcategory.indexOf(id);
-                cat.subcategory.splice(index, 1);
-                cat.save();
-            })
-            .then(() => {
-                idProds = subcat.products;
-                subcat.remove();
-                let response = {
-                    message: "Subcategoria eliminada correctamente",
-                    data: subcat
-                };
-                res.status(200).send(response);
-            })
-            .then(() => {
-                if(idProds != null){
-                    async.eachSeries(idProds, function(idP, next) {    
-                        Product.findById(idP, (err, prod)=>{
-                            if(prod != null){
-                                var idProdProvs = prod.prodprovs;
-                                if(idProdProvs != null){
-                                    deleteProdProvs(idProdProvs)
-                                    .then((idsProvider) => {
-                                        deleteReferenceProviders(idsProvider, idProdProvs)
-                                        .then(() => {
-                                            prod.remove();
-                                            next();
-                                        })
-                                    })
-                                }
-                            }
-                        })
-                    })
+            if(subcat.category !== null){
+                Category.findById(subcat.category, (err, cat) => {
+                if(cat !== null){
+                    index = cat.subcategory.indexOf(id);
+                    cat.subcategory.splice(index, 1);
+                    cat.save();
                 }
-            })
+                })
+                .then(() => {
+                    idProds = subcat.products;
+                    subcat.remove();
+                    let response = {
+                        message: "Subcategoria eliminada correctamente",
+                        data: subcat
+                    };
+                    res.status(200).send(response);
+                })
+                .then(() => {
+                    if(idProds != null){
+                        async.eachSeries(idProds, function(idP, next) {    
+                            Product.findById(idP, (err, prod)=>{                               
+                                if(prod != null){
+                                    var idProdProvs = prod.prodprovs;
+                                    if(idProdProvs != null){
+                                        deleteProdProvs(idProdProvs)
+                                        .then((idsProvider) => {
+                                            deleteReferenceProviders(idsProvider, idProdProvs)
+                                            .then(() => {
+                                                prod.remove();
+                                                next();
+                                            })
+                                        })
+                                    }
+                                }
+                            })
+                        })
+                    }
+                })
+            }
+
         }
     })
 });
@@ -161,15 +166,18 @@ function deleteReferenceProviders(idsProvider, idsProdProvs){
         var indexEach = 0;
         async.eachSeries(idsProvider, function(idProv, next) {
             ProviderSchema.findById(idProv, (err, prov) => {
-                indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
-                prov.prodprovs.splice(indexPR, 1);
-                prov.save((err, doc) => {
-                    if(indexEach === (idsProvider.length - 1)){
-                        resolve();
-                    }
-                    indexEach++;                  
-                    next();
-                })
+                if(prov != null){
+                    indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
+                    prov.prodprovs.splice(indexPR, 1);             
+                         prov.save((err, doc) => {
+                           if(indexEach === (idsProvider.length - 1)){
+                              resolve();
+                           }
+                            indexEach++;                  
+                             next();
+                     })
+                }
+
             })
         })
     })
@@ -181,12 +189,14 @@ function deleteProdProvs(arrIds){
         var idProviders = [];
         async.eachSeries(arrIds, function(id, next){
             ProdProv.findById(id, (err, prodprov) => {
-                idProviders.push(prodprov.idProvider);
-                prodprov.remove();
-                if(idProviders.length === arrIds.length){
-                    resolve(idProviders);
+                if(prodprov != null){
+                    idProviders.push(prodprov.idProvider);
+                    prodprov.remove();
+                    if(idProviders.length === arrIds.length){
+                        resolve(idProviders);
+                    }
+                    next();
                 }
-                next();
             })
         })
     })

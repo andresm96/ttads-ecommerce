@@ -72,18 +72,18 @@ router.delete('/delete/:id', auth, (req, res, next) =>{
         }
     })
     .then(() => {
-        if(idSubcategories != null){
             async.eachSeries(idSubcategories, function(idSubcat, next){
                 var idProds =[];
                 Subcategory.findById(idSubcat, (err, subcat) => {
-                    idProds = subcat.products;
-                    subcat.remove();
+                    if(subcat != null){
+                        idProds = subcat.products;
+                        subcat.remove();
+                    }
                 })
                 .then(() => {
-                    if(idProds != null){
                         async.eachSeries(idProds, function(idPr, next2){
                             Product.findById(idPr, (err, prod) => {
-                                if(prod.prodprovs != null){
+                                if(prod != null){
                                     var idProdProvs = prod.prodprovs;
                                     deleteProdProvs(idProdProvs)
                                                    .then((idsProviders) => {
@@ -98,10 +98,9 @@ router.delete('/delete/:id', auth, (req, res, next) =>{
                         }, function(err){
                             next();
                         })
-                    }
                 })
             })
-        }
+
     })
 });
 
@@ -123,15 +122,17 @@ function deleteReferenceProviders(idsProvider, idsProdProvs){
         var indexEach = 0;
         async.eachSeries(idsProvider, function(idProv, next) {
             ProviderSchema.findById(idProv, (err, prov) => {
-                indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
-                prov.prodprovs.splice(indexPR, 1);
-                prov.save((err, doc) => {
-                    if(indexEach === (idsProvider.length - 1)){
-                        resolve();
-                    }
-                    indexEach++;                  
-                    next();
-                })
+                if(prov != null){
+                    indexPR = prov.prodprovs.indexOf(idsProdProvs[indexEach]);
+                    prov.prodprovs.splice(indexPR, 1);
+                    prov.save((err, doc) => {
+                        if(indexEach === (idsProvider.length - 1)){
+                            resolve();
+                        }
+                        indexEach++;                  
+                        next();
+                    })
+                }
             })
         })
     })
@@ -143,12 +144,14 @@ function deleteProdProvs(arrIds){
         var idProviders = [];
         async.eachSeries(arrIds, function(id, next){
             ProdProv.findById(id, (err, prodprov) => {
-                idProviders.push(prodprov.idProvider);
-                prodprov.remove();
-                if(idProviders.length === arrIds.length){
-                    resolve(idProviders);
+                if(prodprov != null){
+                    idProviders.push(prodprov.idProvider);
+                    prodprov.remove();
+                    if(idProviders.length === arrIds.length){
+                        resolve(idProviders);
+                    }
+                    next();
                 }
-                next();
             })
         })
     })
