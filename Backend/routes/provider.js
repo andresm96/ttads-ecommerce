@@ -114,15 +114,15 @@ function deleteProdProvs(arrayProdProv){
         let idProds = [];
         arrayProdProv.forEach((idPP, index, array) => {
             ProdProvSchema.findById(idPP, (err, prodprov) => {
-                idProds.push(prodprov.idProduct);
-                prodprov.remove();
-                console.log(idProds);
-                if(idProds.length === (array.length)){
-                    resolve(idProds);
+                if(prodprov != null){
+                    idProds.push(prodprov.idProduct);
+                    prodprov.remove();
+                    console.log(idProds);
+                    if(idProds.length === (array.length)){
+                        resolve(idProds);
+                    }
                 }
             });
-
-            
         });
     })
 }
