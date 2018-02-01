@@ -105,5 +105,15 @@ export class AuthenticationService {
       }
     }
   }
+
+  public getUserId(): string {
+    let token = this.retrieve();
+    if(token) {
+      const tokenPayload = decode(token);
+      return tokenPayload.id;
+    } else {
+      return '';
+    }
+  }
   
 }
