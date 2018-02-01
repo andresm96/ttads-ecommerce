@@ -22,3 +22,7 @@ input.shadow:hover{
 .dropdown:hover>.dropdown-menu {
     display: block;
 }
+
+/*.header {
+    background-image: url('/assets/bg-page-section.png');
+}*/

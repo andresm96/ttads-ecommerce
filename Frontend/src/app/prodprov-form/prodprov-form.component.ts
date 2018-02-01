@@ -8,6 +8,7 @@ import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload'; 
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../guard-services/authentication.service';
 
 @Component({
   selector: 'app-prodprov-form',
@@ -31,6 +32,7 @@ export class ProdprovFormComponent implements OnInit {
   constructor(private providerService: ProviderService,
               private prodprovService: ProdProvService,
               private productService: ProductService,
+              private authService: AuthenticationService,
               private route: ActivatedRoute,
               private router: Router) {}
 
@@ -61,8 +63,10 @@ export class ProdprovFormComponent implements OnInit {
   }
 
   setImageUrl(_id:any){
+    this.uploader.options.headers['x-access-token'] = this.authService.retrieve();
     let URL = 'http://localhost:3000/api/prodprov/new/'+_id+"/image"
     this.uploader = new FileUploader({url: URL});
+
 
     this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
     
