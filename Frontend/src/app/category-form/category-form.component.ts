@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Category } from '../models/category';
 import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-category-form',
@@ -14,7 +15,7 @@ export class CategoryFormComponent implements OnInit {
   @Input() category: Category;
   newcategory = new Category();
   uploadCategory = 0;
-
+  location: Location;
   constructor(private categoryService: CategoryService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -28,7 +29,6 @@ export class CategoryFormComponent implements OnInit {
     this.categoryService.addCategory(this.newcategory as Category)
     .subscribe(
       data => {
-        alert(data);
         this.uploadCategory = 1;
       },
       error => alert(error)
@@ -40,7 +40,6 @@ export class CategoryFormComponent implements OnInit {
     this.categoryService.updateCategory(this.newcategory as Category)
     .subscribe(
       data => {
-        alert(data);
         this.uploadCategory = 1;
       },
       error => alert(error)
@@ -51,7 +50,6 @@ export class CategoryFormComponent implements OnInit {
     this.categoryService.deleteCategory(this.category)
     .subscribe(
       data => {
-        alert(data);
         this.uploadCategory = 1;
       },
       error => alert(error)

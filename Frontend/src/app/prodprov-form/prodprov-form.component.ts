@@ -59,7 +59,6 @@ export class ProdprovFormComponent implements OnInit {
       data => {this.setImageUrl(data.data._id);
                this.uploadImage = 1;
                this.uploadSuccess = 0;
-               alert(data);
                this.uploadProdProv = 1;
                this.shoppingCartService.updateProdProvs();
       },
@@ -87,7 +86,6 @@ export class ProdprovFormComponent implements OnInit {
           console.log("ImageUpload:uploaded", item, status, response);
           this.uploadSuccess = 1;
           this.uploadImage = 0;
-          alert(status);
     };
   }
 
@@ -100,7 +98,6 @@ export class ProdprovFormComponent implements OnInit {
                this.uploadImage = 1;
                this.uploadSuccess = 0;
                this.uploadProdProv = 1;
-               alert(data)
       },
       error => alert(error)     
     );
@@ -110,7 +107,6 @@ export class ProdprovFormComponent implements OnInit {
     this.prodprovService.deleteProduct(this.prodprov)
     .subscribe(
       data => {
-        alert(data);
         this.uploadSuccess = 1;
         this.uploadProdProv = 1;
       },
