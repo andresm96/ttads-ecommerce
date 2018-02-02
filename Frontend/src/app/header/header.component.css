@@ -22,3 +22,7 @@ input.shadow:hover{
 .dropdown:hover>.dropdown-menu {
     display: block;
 }
+
+.bg-black{
+    background-color: #000000;
+}
