@@ -38,7 +38,6 @@ export class ProductFormComponent implements OnInit {
     this.productService.addProduct(this.newproduct as Product)
     .subscribe(
       data => {
-        alert(data);
         this.uploadProduct = 1;
         },
       error => alert(error)
@@ -50,7 +49,6 @@ export class ProductFormComponent implements OnInit {
     this.productService.updateProduct(this.newproduct as Product)
     .subscribe(
       data => {
-        alert(data);
         this.uploadProduct = 1;
         },
       error => alert(error)
@@ -61,7 +59,6 @@ export class ProductFormComponent implements OnInit {
     this.productService.deleteProduct(this.product)
     .subscribe(
       data => {
-        alert(data);
         this.uploadProduct = 1;
         },
       error => alert(error)
