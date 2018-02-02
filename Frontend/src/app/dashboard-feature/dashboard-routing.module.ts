@@ -20,6 +20,7 @@ const dashboardRoutes: Routes = [
       expectedRole: 'admin'
     } ,
     children: [
+      { path: '', redirectTo: 'products', pathMatch: 'full'},
       { path: 'products', component: AbmProductListComponent },
       { path: 'prodprovs', component: AbmProdprovListComponent },
       { path: 'providers', component: AbmProviderListComponent },
