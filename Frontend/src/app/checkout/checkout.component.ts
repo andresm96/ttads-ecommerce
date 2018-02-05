@@ -93,6 +93,7 @@ export class CheckoutComponent implements OnInit {
       let idCusLogged = this.authenticationService.getUserId();
         if(idCusLogged != ''){
           this.customerService.getOne(idCusLogged).subscribe((cus) => this.customer = cus);
+          this.login = true;
         }
     }
     else{
@@ -127,12 +128,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   isLogged(){
-    this.login;
+    return this.login;
   }
 
   onCheckChange(eve: any){
     this.needRegister = eve.srcElement.checked;
-    console.log(this.successModal);
   }
 
 
@@ -144,7 +144,6 @@ export class CheckoutComponent implements OnInit {
       else{
         this.coincidePasswords = true;
         this.saveCustomer(); 
-        this.emptyCart();       
         this.closeModal();
       }
     }
@@ -167,12 +166,13 @@ export class CheckoutComponent implements OnInit {
 
   generateOrder(){
     this.order = new Order();
+    console.log("GENERATE ORDER, ITEMS: "+ this.cartItems);
     this.cartItems.forEach((item) => {
       let od = new OrderDetail();
       od.idProdProv = item.prodprovId;
       od.quantity = item.quantity;
       od.subtotal = item.subtotal;
-
+      console.log("Entro aca");
       this.order.order.push(od);
     })
 
@@ -181,10 +181,14 @@ export class CheckoutComponent implements OnInit {
   }
 
   saveOrder(){
+    console.log("SAVE ORDER");
     this.generateOrder();
     console.log(this.order);
     this.orderService.addOrder(this.order)
-    .subscribe(data => alert(data),
+    .subscribe(data => {
+                        alert(data);
+                        this.emptyCart();       
+                      },
                 err => alert(err)
     );
   }
