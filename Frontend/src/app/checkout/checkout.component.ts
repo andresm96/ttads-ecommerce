@@ -177,7 +177,7 @@ export class CheckoutComponent implements OnInit {
       this.order.order.push(od);
     })
 
-    this.order.idCustomer = this.customer._id;
+    this.order.idCustomer._id = this.customer._id;
     this.cart.subscribe((c) => this.order.total = c.itemsTotal);
   }
 

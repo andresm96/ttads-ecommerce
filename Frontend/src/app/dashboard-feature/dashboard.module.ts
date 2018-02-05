@@ -31,6 +31,7 @@ import { AuthenticationService } from '../guard-services/authentication.service'
 import { RoleGuardService } from '../guard-services/role-guard.service';
 import { AuthGuardService } from '../guard-services/auth-guard.service';
 import { RolePipe } from '../pipes/role.pipe';
+import { AbmOrderListComponent } from './../abm-order-list/abm-order-list.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,7 @@ import { RolePipe } from '../pipes/role.pipe';
     FormsModule,
     DashboardRoutingModule,
     FileUploadModule,
-    //HttpClientModule,
+    HttpClientModule,
     HttpModule
   ],
   declarations: [
@@ -55,7 +56,8 @@ import { RolePipe } from '../pipes/role.pipe';
     SubcategoryFormComponent,
     AbmCustomerListComponent,
     CustomerFormComponent,
-    RolePipe
+    RolePipe,
+    AbmOrderListComponent
   ],
   providers: [
     ProdProvService, 

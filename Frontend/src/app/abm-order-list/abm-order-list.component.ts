@@ -4,6 +4,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import { Order } from '../models/order';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-abm-order-list',
@@ -23,7 +24,7 @@ export class AbmOrderListComponent implements OnInit {
 
   orders: Order[] = [];
 
-  constructor(/*private customerService: CustomerService*/) { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -39,37 +40,32 @@ export class AbmOrderListComponent implements OnInit {
        // Use this attribute to enable the responsive extension
        responsive: true
     };
-    //this.getCustomers();
+    this.getOrders();
+    console.log(this.orders);
   }
 
-  /*getCustomers(): void {
-    this.customerService.getCustomers()
+  getOrders(): void {
+    this.orderService.getOrders()
     .map(result => {
       var array = [];
       result.forEach(item => {
-        var customer = new Customer();
-        customer.id = item._id;
-        customer.user = item.user;
-        customer.admin = item.admin;
-        customer.name = item.name;
-        customer.surname = item.surname;
-        customer.adress = item.adress;
-        customer.birthdate = item.birthdate;
-        customer.phone = item.phone;
-        customer.city = item.city;
-        customer.province = item.province;
-        customer.email = item.email;
-        array.push(customer);
+        var order = new Order();
+        order._id = item._id;
+        order.idCustomer = item.idCustomer;
+        order.shipped = item.shipped;
+        order.total = item.total;
+        order.order = item.order;
+        array.push(order);
       });
       return array;
     })
-    .subscribe(customers => {
-      this.customers= customers;
+    .subscribe(orders => {
+      this.orders= orders;
       this.dtTrigger.next();
     });
   }
 
-  newCustomer(){
+  /*newCustomer(){
     this.onFormActive = true;
     this.typeForm = 1;
   }

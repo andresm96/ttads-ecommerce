@@ -28,7 +28,7 @@ export class AuthenticationService {
 
   localStorage: Storage;
   token: string;
-  private customersUrl = baseURL + '/customer/';
+  private customersUrl = baseURL + '/customer';
 
   constructor(
     private http: HttpClient,

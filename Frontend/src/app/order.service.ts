@@ -25,7 +25,7 @@ export class OrderService {
 
   private orderUrl = baseURL + '/order/';
 
-  getOrders (): Observable<Order[]> {
+  getOrders (): Observable<any> {
     return this.http.get<Order[]>(this.orderUrl)
       .pipe(
         catchError(this.handleError('getOrder', []))
