@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Credential } from '../models/credential';
 import { Router } from '@angular/router';
 import { StorageService } from "./../shopping-cart-services/storage.service";
 import { AuthenticationService } from '../guard-services/authentication.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 
 @Component({
@@ -13,7 +15,6 @@ import { AuthenticationService } from '../guard-services/authentication.service'
 export class LoginComponent implements OnInit {
 
   credentials = new Credential();
-  success: boolean = true;
   message: string;
   status: number;
 
@@ -30,9 +31,10 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authService.login(this.credentials as Credential)
     .subscribe( res => {
-       alert(res);
        if(res){
          this.router.navigate(['/destacados']);
+       } else {
+        alert("Usuario o Contraseña incorrectos!");
        }
     });
   }

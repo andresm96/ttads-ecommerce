@@ -47,7 +47,7 @@ router.put('/update/:id', (req, res, next) => {
 //Create
 router.post('/new', (req, res, err) => {
     let total = req.body.total;
-    let idCustomer = req.body.idCustomer;
+    let idCustomer = req.body.idCustomer._id;
     let order = req.body.order;
 
     let ordersId =[];
