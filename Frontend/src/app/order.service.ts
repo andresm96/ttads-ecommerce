@@ -31,6 +31,15 @@ export class OrderService {
     );
   }
 
+  updateOrder (order: Order | number): Observable<Order> {
+    const id = typeof order === 'number' ? order : order._id;
+    const url = `${this.orderUrl+ "update"}/${id}`;
+
+    return this.http.put(url, order, httpOptions).pipe(
+      catchError(this.handleError<any>('updateOrder'))
+    );
+  }
+
    /**
    * Handle Http operation that failed.
    * Let the app continue.
