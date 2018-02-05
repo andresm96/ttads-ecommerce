@@ -43,6 +43,7 @@ import { AuthenticationService } from './guard-services/authentication.service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { TokenInterceptor } from './guard-services/token.interceptor';
+import { AbmOrderListComponent } from './abm-order-list/abm-order-list.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { TokenInterceptor } from './guard-services/token.interceptor';
     LoginComponent,
     UnauthorizedComponent,
     ForbiddenComponent,
+    AbmOrderListComponent,
 
   ],
   imports: [

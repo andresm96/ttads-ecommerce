@@ -30,6 +30,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AuthenticationService } from '../guard-services/authentication.service';
 import { RoleGuardService } from '../guard-services/role-guard.service';
 import { AuthGuardService } from '../guard-services/auth-guard.service';
+import { RolePipe } from '../pipes/role.pipe';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { AuthGuardService } from '../guard-services/auth-guard.service';
     AbmSubcategoryListComponent,
     SubcategoryFormComponent,
     AbmCustomerListComponent,
-    CustomerFormComponent
+    CustomerFormComponent,
+    RolePipe
   ],
   providers: [
     ProdProvService, 
