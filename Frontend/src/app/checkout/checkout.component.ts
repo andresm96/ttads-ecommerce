@@ -126,7 +126,6 @@ export class CheckoutComponent implements OnInit {
     this.shoppingCartService.deleteItem(prodprov, -1);
   }
 
-  //Falta implementar cuanto tengamos listo el registro
   isLogged(){
     this.login;
   }
@@ -177,7 +176,7 @@ export class CheckoutComponent implements OnInit {
       this.order.order.push(od);
     })
 
-    this.order.idCustomer._id = this.customer._id;
+    this.order.idCustomer = this.customer;
     this.cart.subscribe((c) => this.order.total = c.itemsTotal);
   }
 
