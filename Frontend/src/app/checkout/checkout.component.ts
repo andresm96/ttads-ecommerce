@@ -93,6 +93,7 @@ export class CheckoutComponent implements OnInit {
       let idCusLogged = this.authenticationService.getUserId();
         if(idCusLogged != ''){
           this.customerService.getOne(idCusLogged).subscribe((cus) => this.customer = cus);
+          this.login = true;
         }
     }
     else{
@@ -128,12 +129,11 @@ export class CheckoutComponent implements OnInit {
 
   //Falta implementar cuanto tengamos listo el registro
   isLogged(){
-    this.login;
+    return this.login;
   }
 
   onCheckChange(eve: any){
     this.needRegister = eve.srcElement.checked;
-    console.log(this.successModal);
   }
 
 
