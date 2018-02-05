@@ -29,6 +29,21 @@ router.get('/:id', (req, res, next) => {
     });   
 });
 
+//Update ship
+router.put('/update/:id', (req, res, next) => {
+    Order.findById(req.params.id).then((order) => {
+        order.shipped = req.body.shipped;
+        order.save((err, doc) => {
+            if(err){
+                res.status(500).send(err);
+            }
+            else{
+                res.status(200).send(doc)
+            }
+        });
+    });
+})
+
 //Create
 router.post('/new', (req, res, err) => {
     let total = req.body.total;
@@ -54,6 +69,7 @@ router.post('/new', (req, res, err) => {
                         
                         var neworder = new Order({   
                             total: total,
+                            shipped: false,
                             idCustomer: idCustomer,
                             order: ordersId
                         });
