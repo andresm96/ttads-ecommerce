@@ -125,7 +125,7 @@ router.post('/new/:idProdProv/image', auth, (request, response) =>{
 
     read_stream.on('close', function(file){
             fs.unlink(path, function(){
-                response.json(200, file);
+                response.status(200).json(file);
 
             })
         });

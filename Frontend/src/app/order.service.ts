@@ -25,9 +25,25 @@ export class OrderService {
 
   private orderUrl = baseURL + '/order/';
 
+  getOrders (): Observable<Order[]> {
+    return this.http.get<Order[]>(this.orderUrl)
+      .pipe(
+        catchError(this.handleError('getOrder', []))
+      );
+  }
+
   addOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(this.orderUrl + "new", order, httpOptions).pipe(
       catchError(this.handleError<Order>('addOrder'))
+    );
+  }
+
+  updateOrder (order: Order | number): Observable<Order> {
+    const id = typeof order === 'number' ? order : order._id;
+    const url = `${this.orderUrl+ "update"}/${id}`;
+
+    return this.http.put(url, order, httpOptions).pipe(
+      catchError(this.handleError<any>('updateOrder'))
     );
   }
 
