@@ -125,7 +125,7 @@ router.post('/login', function(req, res) {
             let key =  config.secret;
             // create a token
             var token = jwt.sign(playload, key, {
-                algorithm: 'HS256', expiresIn: 86400// expires in 24 hours
+                algorithm: 'HS256', expiresIn: "30 minutes"// expires in 20 minutes
             });
   
             // return the information including token as JSON

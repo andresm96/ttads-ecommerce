@@ -5,11 +5,13 @@ import { Product } from '../models/product';
 import { ProviderService } from '../provider.service';
 import { ProdProvService } from '../prodprov.service';
 import { ProductService } from '../product.service';
+import { ShoppingCartService } from "../shopping-cart-services/shopping-cart.service";
 import { ActivatedRoute } from '@angular/router';
 import { FileUploader, FileUploaderOptions } from 'ng2-file-upload'; 
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../guard-services/authentication.service';
 import { Headers } from '@angular/http/src/headers';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Component({
   selector: 'app-prodprov-form',
@@ -34,6 +36,7 @@ export class ProdprovFormComponent implements OnInit {
               private prodprovService: ProdProvService,
               private productService: ProductService,
               private authService: AuthenticationService,
+              private shoppingCartService: ShoppingCartService,
               private route: ActivatedRoute,
               private router: Router) {}
 
@@ -56,8 +59,8 @@ export class ProdprovFormComponent implements OnInit {
       data => {this.setImageUrl(data.data._id);
                this.uploadImage = 1;
                this.uploadSuccess = 0;
-               alert(data);
                this.uploadProdProv = 1;
+               this.shoppingCartService.updateProdProvs();
       },
       error => alert(error)
     );
@@ -83,7 +86,6 @@ export class ProdprovFormComponent implements OnInit {
           console.log("ImageUpload:uploaded", item, status, response);
           this.uploadSuccess = 1;
           this.uploadImage = 0;
-          alert(status);
     };
   }
 
@@ -96,7 +98,6 @@ export class ProdprovFormComponent implements OnInit {
                this.uploadImage = 1;
                this.uploadSuccess = 0;
                this.uploadProdProv = 1;
-               alert(data)
       },
       error => alert(error)     
     );
@@ -106,7 +107,6 @@ export class ProdprovFormComponent implements OnInit {
     this.prodprovService.deleteProduct(this.prodprov)
     .subscribe(
       data => {
-        alert(data);
         this.uploadSuccess = 1;
         this.uploadProdProv = 1;
       },

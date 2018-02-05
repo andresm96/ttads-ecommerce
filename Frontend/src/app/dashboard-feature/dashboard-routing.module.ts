@@ -11,6 +11,7 @@ import { AbmCustomerListComponent } from './../abm-customer-list/abm-customer-li
 
 import { AuthGuardService as AuthGuard } from './../guard-services/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './../guard-services/role-guard.service';
+import { AbmOrderListComponent } from '../abm-order-list/abm-order-list.component';
 
 const dashboardRoutes: Routes = [
   {
@@ -20,12 +21,14 @@ const dashboardRoutes: Routes = [
       expectedRole: 'admin'
     } ,
     children: [
+      { path: '', redirectTo: 'products', pathMatch: 'full'},
       { path: 'products', component: AbmProductListComponent },
       { path: 'prodprovs', component: AbmProdprovListComponent },
       { path: 'providers', component: AbmProviderListComponent },
       { path: 'categories', component: AbmCategoryListComponent },
       { path: 'subcategories', component: AbmSubcategoryListComponent },
-      { path: 'users', component: AbmCustomerListComponent }
+      { path: 'users', component: AbmCustomerListComponent },
+      { path: 'orders', component: AbmOrderListComponent }
     ]
   }
 ];

@@ -1,3 +1,10 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 page-section ">
+      <h1 class="section-header display-4">Categorias<hr></h1>
+    </div>
+  </div>
+</div>
 <div class="container-fluid my-4">
   <div class="row">
     <nav class="col-sm-3 col-md-2">
@@ -27,13 +34,17 @@
     
     </nav>
       
-    <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-          <h1>Dashboard
-            <small>Section title</small>
-          </h1>
-          <hr>
-          <app-product [products]="products"></app-product>
-      </main>
+    <!--<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+      <app-product [products]="products"></app-product>
+    </main>-->
+    <div class="col-md-10 col-sm-9">
+        <div class="album py-4 bg-light">
+            <div class="container">
+              <app-product [products]="products"></app-product>
+          </div>
+          </div>
+    </div>
+    
     
   </div>
 </div>

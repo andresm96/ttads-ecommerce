@@ -19,6 +19,21 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+router.get('/highlights', (req, res, next) => {
+    ProdProv.find({},[],{
+        skip: 0,
+        limit: 6,
+        sort:{
+            quantitySold: -1
+        }
+    }).populate('idProvider').populate('idProduct').then(ProdProv => {
+        if(!ProdProv) {return res.sendStatus(401);}
+        return res.json(ProdProv)
+    })
+    .catch(next);
+})
+
+
 //Get one
 router.get('/:id', (req, res, next) => {
     ProdProv.findById(req.params.id).populate('idProvider').populate('idProduct')
@@ -110,7 +125,7 @@ router.post('/new/:idProdProv/image', auth, (request, response) =>{
 
     read_stream.on('close', function(file){
             fs.unlink(path, function(){
-                response.json(200, file);
+                response.status(200).json(file);
 
             })
         });

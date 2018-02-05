@@ -17,3 +17,25 @@
 .no-data-available {
     text-align: center;
 }
+
+hr {
+    background-color: #ffffff;
+    border-width: 2px;
+    width: 2em;
+  }
+  
+  .page-section {
+    display: table;
+    width: 100%;
+    height: 10em;
+    color: #ffffff;
+    background: -webkit-linear-gradient(-18deg, #2657eb 0%, #46ed91 100%);
+    background-image: url('/assets/bg-page-section.png');
+    background-image: url('/assets/bg-page-section.png'), -webkit-linear-gradient(-18deg, #2657eb 0%, #46ed91 100%);
+  }
+  
+  .section-header {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }

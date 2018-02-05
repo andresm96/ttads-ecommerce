@@ -27,7 +27,6 @@ export class ProviderFormComponent implements OnInit {
     this.providerService.addProvider(this.newprovider as Provider)
     .subscribe(
       data => {
-        alert(data);
         this.uploadProvider = 1;
         },
       error => alert(error)
@@ -39,7 +38,6 @@ export class ProviderFormComponent implements OnInit {
     this.providerService.updateProvider(this.newprovider as Provider)
     .subscribe(
       data => {
-        alert(data);
         this.uploadProvider = 1;
         },
       error => alert(error)
@@ -50,7 +48,6 @@ export class ProviderFormComponent implements OnInit {
     this.providerService.deleteProvider(this.provider)
     .subscribe(
       data => {
-        alert(data);
         this.uploadProvider = 1;
         },
       error => alert(error)

@@ -1,0 +1,26 @@
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover responsive">
+  <thead>
+      <tr class="thead-light">
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Envio</th>           
+          <th class="all">Accion</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let order of orders">
+          <td>{{ order.idCustomer.name || "-" }}</td>
+          <td>{{ order.total || "-" }}</td>
+          <td>{{ order.shipped || "-" }}</td>
+          
+          <td class="text-center">
+              <button type="button" (click)="updateCustomer(order)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
+              <button type="button" class="btn btn-danger btn-sm"
+               (click)="deleteCustomer(order)" title="delete customer"><i class="far fa-trash-alt"></i></button>
+          </td>       
+      </tr>
+      <tr *ngIf="products?.length == 0">
+          <td colspan="3" class="no-data-available">No data!</td>
+      </tr>
+  </tbody>
+  </table>

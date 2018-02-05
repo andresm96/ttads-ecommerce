@@ -36,7 +36,6 @@ export class SubcategoryFormComponent implements OnInit {
     this.subcategoryService.addSubcategory(this.newsubcategory as Subcategory)
     .subscribe(
       data => {
-        alert(data);
         this.uploadSubcategory = 1;
         },
       error => alert(error)
@@ -48,7 +47,6 @@ export class SubcategoryFormComponent implements OnInit {
     this.subcategoryService.updateSubcategory(this.newsubcategory as Subcategory)
     .subscribe(
       data => {
-        alert(data);
         this.uploadSubcategory = 1;
         },
       error => alert(error)
@@ -59,7 +57,6 @@ export class SubcategoryFormComponent implements OnInit {
     this.subcategoryService.deleteSubcategory(this.subcategory)
     .subscribe(
       data => {
-        alert(data);
         this.uploadSubcategory = 1;
         },
       error => alert(error)

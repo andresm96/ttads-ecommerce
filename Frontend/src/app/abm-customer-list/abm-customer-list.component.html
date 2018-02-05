@@ -14,7 +14,7 @@
             <th class="none">Provincia</th>
             <th class="none">Telefono</th>
             <th class="none">Fecha de nacimiento</th>
-            <th>Admin</th>            
+            <th>Rol</th>            
             <th class="all">Accion</th>
         </tr>
     </thead>
@@ -29,7 +29,7 @@
             <td>{{ customer.province || "-" }}</td>
             <td>{{ customer.phone || "-" }}</td>
             <td>{{ customer.birthdate | date: 'dd/MM/yyyy' || "-" }}</td>
-            <td>{{ customer.admin || "-" }}</td>
+            <td>{{ customer.admin | role }}</td>
             
             <td class="text-center">
                 <button type="button" (click)="updateCustomer(customer)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>

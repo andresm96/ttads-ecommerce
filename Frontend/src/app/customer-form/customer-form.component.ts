@@ -40,7 +40,6 @@ export class CustomerFormComponent implements OnInit {
     this.customerService.addCustomer(this.newcustomer as Customer)
     .subscribe(
       data => {
-        alert(data);
         this.uploadCustomer = 1;
       },
       error => alert(error)
@@ -53,7 +52,6 @@ export class CustomerFormComponent implements OnInit {
     this.customerService.updateCustomer(this.newcustomer as Customer)
     .subscribe(
       data => {
-        alert(data);
         this.uploadCustomer = 1;
       },
       error => alert(error)
@@ -64,7 +62,6 @@ export class CustomerFormComponent implements OnInit {
     this.customerService.deleteCustomer(this.customer)
     .subscribe(
       data => {
-        alert(data);
         this.uploadCustomer = 1;
       },
       error => alert(error)

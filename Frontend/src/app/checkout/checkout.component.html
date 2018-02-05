@@ -1,10 +1,19 @@
   <!-- Shopping cart template-->
 
-<div *ngIf="!successCheckout; else messageSuccess">  
-  <div class="container my-3">
-      <h1 class="display-4 small">Mi Carrito <small><span class="badge badge-pill badge-secondary">{{cartItems.length}}</span></small></h1>
-      
-      <hr>
+<div *ngIf="!successCheckout; else messageSuccess">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 page-section ">
+        <h1 class="section-header display-4">Mi Carrito
+          <hr>
+        </h1>
+      </div>
+    </div>
+  </div>
+    
+
+  <div class="container my-5">
+
     <div class="row" *ngIf="cartItems.length > 0; else empty">
       <div class="col-md-8">
         <div class="card mb-4" *ngFor="let item of cartItems">
@@ -38,8 +47,12 @@
       <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-              <ul class="list-group my-2">
-                <li class="d-flex justify-content-between">
+              <ul class="list-group my-1">
+                <li class="d-flex justify-content-between my-1">
+                    <h4>Items</h4>
+                    <h5><span class="badge badge-pill badge-secondary">{{cartItems.length}}</span></h5>
+                </li>
+                <li class="d-flex justify-content-between my-1">
                     <h4>Total</h4>
                     <h4>${{(cart | async).itemsTotal }}</h4>
                 </li>

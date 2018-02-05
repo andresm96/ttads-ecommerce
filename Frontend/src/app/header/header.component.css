@@ -23,6 +23,6 @@ input.shadow:hover{
     display: block;
 }
 
-/*.header {
-    background-image: url('/assets/bg-page-section.png');
-}*/
+.bg-black{
+    background-color: #000000;
+}

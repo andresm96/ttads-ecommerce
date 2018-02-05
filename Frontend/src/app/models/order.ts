@@ -1,7 +1,10 @@
 import { OrderDetail } from './order-detail';
+import { Customer } from '../models/customer';
 
 export class Order {
-    idCustomer: string;
+    _id: string;
+    idCustomer: Customer;
+    shipped: boolean;
     total: number;
     order: OrderDetail[] = new Array<OrderDetail>();
 }
