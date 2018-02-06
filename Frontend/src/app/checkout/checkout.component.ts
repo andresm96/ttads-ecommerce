@@ -139,24 +139,27 @@ export class CheckoutComponent implements OnInit {
 
   submitForm(){
     if(this.needRegister){
-      if(this.customer.password != this.confirmPassword){
-        this.coincidePasswords = false;
-      }
-      else{
-        this.coincidePasswords = true;
-        this.customerService.findUserName(this.customer.user)
-        .subscribe(cus => {
-          console.log(cus);
-          if(cus === null){
-            this.usernameExists = false;
+      this.customerService.findUserName(this.customer.user)
+      .subscribe(cus => {
+        if(cus === null){
+          this.usernameExists = false;
+          if(this.customer.password != this.confirmPassword){
+            this.coincidePasswords = false;
+          }
+          else{
+            this.coincidePasswords = true;
             this.saveCustomer(); 
             this.closeModal();
           }
-          else{
-            this.usernameExists = true;
-          }
-        })
-      }
+        }
+        else{
+          this.usernameExists = true;
+        }
+      })
+      
+      
+      
+
     }
     else{
       this.saveOrder();
