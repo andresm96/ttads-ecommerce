@@ -26,6 +26,13 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 })
 
+//Find Customer by user for validate new customer
+router.get('/user/:user', (req, res, next) => {
+    Customer.findOne({"user": req.params.user}).then(cust => {
+        return res.status(200).send(cust);
+    })
+})
+
 //Create
 router.post('/new', (req, res, err) => {
     let user = req.body.user;

@@ -184,9 +184,14 @@
                          </div>
                          <div *ngIf="!coincidePasswords">
                            <div class="alert alert-danger">
-                             Las contraseñas no coinciden
+                             Las contraseñas no coinciden.
                            </div>
                          </div>
+                         <div *ngIf="usernameExists">
+                          <div class="alert alert-danger">
+                            El nombre de usuario ya existe.
+                          </div>
+                        </div>
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeBtn>Cancelar</button>

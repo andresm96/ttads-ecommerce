@@ -74,7 +74,6 @@ router.post('/new', (req, res, err) => {
                 .then((doc) => {  
                     ordersId.push(doc._id);
                     if(ordersId.length === array.length){
-                        console.log(ordersId);               
                         
                         var neworder = new Order({   
                             total: total,
