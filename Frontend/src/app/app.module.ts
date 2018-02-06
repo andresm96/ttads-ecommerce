@@ -43,6 +43,7 @@ import { AuthenticationService } from './guard-services/authentication.service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { TokenInterceptor } from './guard-services/token.interceptor';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 
 

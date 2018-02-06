@@ -9,7 +9,7 @@ export class RolePipe implements PipeTransform {
     if (value) {
       return 'Admin';
     } else {
-      return 'Default';
+      return 'Cliente';
     }
   }
 

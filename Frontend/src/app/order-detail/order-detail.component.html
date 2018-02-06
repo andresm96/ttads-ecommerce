@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let od of details.order">
+      <td>{{od.prodprov.name}}</td>
+      <td>{{od.quantity}}</td>
+      <td>$ {{od.subtotal}}</td>
+    </tr>
+    <tr class="table-success font-weight-bold">
+      <td>Total</td>
+      <td></td>
+      <td>$ {{details.total}}</td>
+    </tr>
+  </tbody>
+</table>

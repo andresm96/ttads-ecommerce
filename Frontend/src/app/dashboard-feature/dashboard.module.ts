@@ -32,6 +32,8 @@ import { RoleGuardService } from '../guard-services/role-guard.service';
 import { AuthGuardService } from '../guard-services/auth-guard.service';
 import { RolePipe } from '../pipes/role.pipe';
 import { AbmOrderListComponent } from './../abm-order-list/abm-order-list.component';
+import { OrderDetailComponent } from '../order-detail/order-detail.component';
+import { ShipPipe } from '../pipes/ship.pipe';
 
 @NgModule({
   imports: [
@@ -57,7 +59,9 @@ import { AbmOrderListComponent } from './../abm-order-list/abm-order-list.compon
     AbmCustomerListComponent,
     CustomerFormComponent,
     RolePipe,
-    AbmOrderListComponent
+    AbmOrderListComponent,
+    OrderDetailComponent,
+    ShipPipe
   ],
   providers: [
     ProdProvService, 
