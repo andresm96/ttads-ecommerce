@@ -21,8 +21,10 @@ export class AbmOrderListComponent implements OnInit {
   onFormActive = false;
   typeForm = 0;
   orderSelected : Order;
-
+  shipped: string = '3';
+  
   orders: Order[] = [];
+ 
 
   constructor(private orderService: OrderService) { }
 
@@ -34,14 +36,14 @@ export class AbmOrderListComponent implements OnInit {
         { 
         orderable: false, 
         searchable: false,
-        targets: [7],
+        targets: [5],
       }
     ],
        // Use this attribute to enable the responsive extension
        responsive: true
+    
     };
     this.getOrders();
-    console.log(this.orders);
   }
 
   getOrders(): void {
@@ -65,22 +67,19 @@ export class AbmOrderListComponent implements OnInit {
     });
   }
 
-  /*newCustomer(){
-    this.onFormActive = true;
-    this.typeForm = 1;
+  selectOrder(order: Order): void {
+    this.orderSelected = order;
   }
 
-  updateCustomer(customer: Customer){
-    this.customerSelected = customer;
-    this.onFormActive = true;
-    this.typeForm = 2;
+  updateOrder(order: Order): void{
+    order.shipped = true;
+    this.orderService.updateOrder(order as Order).subscribe(
+      data => {
+      },
+      error => alert(error)
+    )
+    location.reload();
   }
-
-  deleteCustomer(customer: Customer){
-    this.customerSelected = customer;
-    this.onFormActive = true;
-    this.typeForm = 3;
-  }*/
 
 }
 

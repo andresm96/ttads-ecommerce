@@ -3,24 +3,78 @@
       <tr class="thead-light">
           <th>Cliente</th>
           <th>Total</th>
-          <th>Envio</th>           
+          <th>Direccion</th>
+          <th>Provincia</th>
+          <th>Envio</th>          
           <th class="all">Accion</th>
       </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let order of orders">
-          <td>{{ order.idCustomer.name || "-" }}</td>
-          <td>{{ order.total || "-" }}</td>
-          <td>{{ order.shipped || "-" }}</td>
+    <tr *ngFor="let order of orders">
+        <td>{{ order.idCustomer.user || "-" }}</td>
+        <td>$ {{ order.total || "-" }}</td>
+        <td>{{ order.idCustomer.adress || "-" }}</td>
+        <td>{{ order.idCustomer.province || "-" }}</td>
+        <td>
+        <ng-container *ngIf="order.shipped; else pendiente">
+            <span class="badge badge-success">{{ order.shipped | ship }}</span>
+        </ng-container>
+        <ng-template #pendiente>
+            <span class="badge badge-warning text-white">{{ order.shipped | ship }}</span>
+        </ng-template>
+        </td>
           
-          <td class="text-center">
-              <button type="button" (click)="updateCustomer(order)" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-              <button type="button" class="btn btn-danger btn-sm"
-               (click)="deleteCustomer(order)" title="delete customer"><i class="far fa-trash-alt"></i></button>
-          </td>       
+        <td class="text-center">
+          <button type="button" (click)="selectOrder(order)" class="btn btn-white btn-sm" data-toggle="modal" data-target="#viewOrderModal">
+            <i class="fas fa-search"></i></button>
+          <ng-container *ngIf="!order.shipped">
+              <button type="button" (click)="selectOrder(order)"class="btn btn-primary btn-sm" data-toggle="modal" data-target="#dialogBox">
+                <i class="fas fa-truck"></i></button>
+
+                <!-- Modal Dialog Box -->
+                <div class="modal fade" id="dialogBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Confirmar envio</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Esta seguro que desea marcar esta orden como enviada?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary" (click)="updateOrder(order)">Aceptar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+          </ng-container>
+          
+        </td>       
       </tr>
-      <tr *ngIf="products?.length == 0">
+      <tr *ngIf="orders?.length == 0">
           <td colspan="3" class="no-data-available">No data!</td>
       </tr>
   </tbody>
   </table>
+
+  <!-- Modal View Order-->
+<div class="modal fade" id="viewOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Detalle de Orden</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-order-detail [details]="orderSelected"></app-order-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
