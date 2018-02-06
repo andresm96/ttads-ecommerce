@@ -55,7 +55,7 @@ export class CheckoutComponent implements OnInit {
   customer = new Customer();
   login: boolean = false;
   localStorage: Storage;
-
+  usernameExists = false;
   order: Order;
 
   constructor(
@@ -72,6 +72,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.cart = this.shoppingCartService.get();
+    
     this.cartSubscription = this.cart.subscribe((cart) => {
     this.itemCount = cart.items.map((x) => x.quantity).reduce((p, n) => p + n, 0);
     this.prodprovService.getProducts().subscribe((prodprov) => {
@@ -143,8 +144,18 @@ export class CheckoutComponent implements OnInit {
       }
       else{
         this.coincidePasswords = true;
-        this.saveCustomer(); 
-        this.closeModal();
+        this.customerService.findUserName(this.customer.user)
+        .subscribe(cus => {
+          console.log(cus);
+          if(cus === null){
+            this.usernameExists = false;
+            this.saveCustomer(); 
+            this.closeModal();
+          }
+          else{
+            this.usernameExists = true;
+          }
+        })
       }
     }
     else{
@@ -166,13 +177,11 @@ export class CheckoutComponent implements OnInit {
 
   generateOrder(){
     this.order = new Order();
-    console.log("GENERATE ORDER, ITEMS: "+ this.cartItems);
     this.cartItems.forEach((item) => {
       let od = new OrderDetail();
       od.idProdProv = item.prodprovId;
       od.quantity = item.quantity;
       od.subtotal = item.subtotal;
-      console.log("Entro aca");
       this.order.order.push(od);
     })
 
@@ -181,7 +190,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   saveOrder(){
-    console.log("SAVE ORDER");
     this.generateOrder();
     console.log(this.order);
     this.orderService.addOrder(this.order)
@@ -191,6 +199,23 @@ export class CheckoutComponent implements OnInit {
                       },
                 err => alert(err)
     );
+  }
+
+  validateUsername(user){
+    this.customerService.findUserName(user)
+      .subscribe(cus => {
+        console.log(cus);
+        if(cus === null){
+          this.usernameExists = false;
+          console.log("Entro como si customer sea nulo");
+          return false;
+        }
+        else{
+          console.log("Entro como si customer no fuese nulo");
+          this.usernameExists = true;
+          return true;
+        }
+      })
   }
 
   private closeModal(){
