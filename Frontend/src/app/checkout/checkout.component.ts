@@ -207,14 +207,11 @@ export class CheckoutComponent implements OnInit {
   validateUsername(user){
     this.customerService.findUserName(user)
       .subscribe(cus => {
-        console.log(cus);
         if(cus === null){
           this.usernameExists = false;
-          console.log("Entro como si customer sea nulo");
           return false;
         }
         else{
-          console.log("Entro como si customer no fuese nulo");
           this.usernameExists = true;
           return true;
         }

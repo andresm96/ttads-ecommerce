@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4 fixed" *ngFor="let prodprov of products">
-    <div class="card mb-4 box-shadow">
+    <div class="card card-fixed mb-4 box-shadow">
       <a routerLink="/prodprov/{{prodprov._id}}">
       <img class="card-img-top responsive" [src]="sanitize(prodprov._id)" alt="Card image cap">
       <div class="card-body text-center">
